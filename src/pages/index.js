@@ -31,7 +31,7 @@ export default function Home() {
 				<meta name="theme-color" content="#6875f5" />
 			</Head>
 
-			<div className="font-sans text-black antialiased leading-tight bg-gray-200">
+			<div className="font-screen text-black antialiased leading-tight bg-gray-200">
 				<ConfirmationModal />
 				<div className="relative bg-white overflow-x-hidden">
 					<div role="presentation" className="h-8 bg-top bg-repeat bg-top-pattern" />

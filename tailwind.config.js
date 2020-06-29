@@ -15,7 +15,7 @@ module.exports = {
 				'6xl': '4.5rem',
 			},
 			fontFamily: {
-				sans: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
+				screen: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
 			},
 			rotate: {
 				'-2': '-2deg',
