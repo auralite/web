@@ -12,6 +12,17 @@ class Client {
 			},
 		})
 	}
+
+	login({ email, password }) {
+		return this.client.post('/oauth/token', {
+			grant_type: 'password',
+			client_id: this.clientId,
+			client_secret: this.clientSecret,
+			username: email,
+			password,
+			scope: '*',
+		})
+	}
 }
 
 export default new Client()
