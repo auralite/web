@@ -4,7 +4,7 @@ module.exports = {
   "semi": false,
   "trailingComma": "es5",
   "singleQuote": true,
-  "printWidth": 100,
+  "printWidth": 1000,
   "tabWidth": 4,
   "useTabs": true
 }

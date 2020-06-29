@@ -2,30 +2,24 @@ module.exports = {
 	root: true,
 	env: {
 		browser: true,
-		es2020: true
+		es2020: true,
 	},
-	extends: [
-		'eslint:recommended',
-		'plugin:react/recommended',
-		'plugin:jsx-a11y/recommended',
-		'plugin:prettier/recommended'
-	],
+	extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended', 'plugin:prettier/recommended'],
 	parserOptions: {
 		ecmaFeatures: {
-			jsx: true
+			jsx: true,
 		},
 		ecmaVersion: 11,
-		sourceType: 'module'
+		sourceType: 'module',
 	},
-	plugins: [
-		'react'
-	],
+	plugins: ['react'],
 	rules: {
 		indent: ['error', 'tab'],
 		'linebreak-style': ['error', 'unix'],
-		quotes: ['error', 'single'],
 		semi: ['error', 'never'],
+		'arrow-parens': ['warning', 'as-needed'],
 		'react/react-in-jsx-scope': 'off',
-		'prettier/prettier': ["error", {}, { "usePrettierrc": true }],
-	}
+		'react/no-unescaped-entities': 'off',
+		'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+	},
 }
