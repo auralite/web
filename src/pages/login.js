@@ -3,8 +3,10 @@ import Logo from '../components/Global/Logo'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const Login = () => {
+	const router = useRouter()
 	const [error, setError] = useState(null)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -14,6 +16,18 @@ const Login = () => {
 
 		setError(null)
 
+		axios
+			.post('/api/auth/login', { email, password })
+			.then((response) => {
+				Cookies.set('auralite_token', response.data.access_token)
+
+				router.reload()
+			})
+			.catch((error) => {
+				if (error.response.data.error !== 'invalid_grant') return alert('Something went wrong! Please try again or contact us if the problem persists.')
+
+				setError('These credentials do not match our records.')
+			})
 	}
 
 	useEffect(() => setError(null), [email, password])
