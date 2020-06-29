@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 import Transition from '../Global/Transition'
 import useClickOutside from '../../hooks/click-outside'
 
 const ConfirmationModal = () => {
-    const [visible, setVisible] = useState(false)
+	const [visible, setVisible] = useState(false)
 
-    const hideOnClickOutside = useClickOutside(() => setVisible(false))
+	const hideOnClickOutside = useClickOutside(() => setVisible(false))
 
-    useEffect(() => {
-        setVisible(!!window.location.search.match(/confirmed/))
-    }, [])
+	useEffect(() => {
+		setVisible(!!window.location.search.match(/confirmed/))
+	}, [])
 
-    return (
+	return (
 		<Transition show={visible}>
-			<div class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center z-20">
+			<div className="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center z-20">
 				<Transition enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
-					<div class="fixed inset-0 transition-opacity">
-						<div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+					<div className="fixed inset-0 transition-opacity">
+						<div className="absolute inset-0 bg-gray-500 opacity-75" />
 					</div>
 				</Transition>
 				<Transition enter="ease-out duration-300" enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enterTo="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0 sm:scale-100" leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-					<div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" ref={hideOnClickOutside}>
+					<div className="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" ref={hideOnClickOutside}>
 						<div>
-							<div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 text-2xl">
-								<svg class="block h-8 w-8 mx-auto" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-									<g fill="none" fill-rule="evenodd">
+							<div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 text-2xl">
+								<svg className="block h-8 w-8 mx-auto" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+									<g fill="none" fillRule="evenodd">
 										<path d="M11.87 63.903l16.264-40.305c1.886-5.656 8.957-2.356 21.213 9.9 12.255 12.255 15.555 19.326 9.9 21.213L18.94 70.974c-1.885.943-3.771.472-5.657-1.414-1.885-1.886-2.357-3.771-1.414-5.657zM41.569 15.82l2.828-2.829 2.828 2.829-2.828 2.828zm-16.264-3.536l2.829-2.828 2.828 2.828-2.828 2.829z" fill="#C3CAEA" />
 										<path fill="#7282C6" d="M22.477 20.77l2.828-2.829 2.829 2.829-2.829 2.828zm41.037 28.259l3.464-2 2 3.464-3.464 2z" />
 										<path fill="#98A7E7" d="M58.564 17.21l3.464-2 2 3.463-3.464 2z" />
@@ -39,20 +39,20 @@ const ConfirmationModal = () => {
 									</g>
 								</svg>
 							</div>
-							<div class="mt-3 text-center sm:mt-5">
-								<h3 class="text-xl leading-6 font-bold text-gray-900" id="modal-headline">
+							<div className="mt-3 text-center sm:mt-5">
+								<h3 className="text-xl leading-6 font-bold text-gray-900" id="modal-headline">
 									Social networks are better with friends
 								</h3>
-								<div class="mt-2">
-									<p class="leading-6 text-gray-500">The more users who join Auralite, the better it'll be. We've even written something for you if you're in a rush. Thank you for helping us get the word out!</p>
+								<div className="mt-2">
+									<p className="leading-6 text-gray-500">The more users who join Auralite, the better it'll be. We've even written something for you if you're in a rush. Thank you for helping us get the word out!</p>
 								</div>
 							</div>
 						</div>
-						<div class="mt-5 sm:mt-6">
-							<span class="flex w-full rounded-md shadow-sm">
-								<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fauralite.io&text=I%20just%20joined%20the%20Auralite%20early-access%20list%2C%20a%20new%20social%20network%20by%20@m1guelpf" class="inline-flex items-center justify-center py-2 px-6 border border-transparent text-sm font-bold rounded-md text-white bg-indigo-500 transition duration-150 ease-in-out hover:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-500 w-full" target="_blank">
-									<svg class="mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+						<div className="mt-5 sm:mt-6">
+							<span className="flex w-full rounded-md shadow-sm">
+								<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fauralite.io&text=I%20just%20joined%20the%20Auralite%20early-access%20list%2C%20a%20new%20social%20network%20by%20@m1guelpf" className="inline-flex items-center justify-center py-2 px-6 border border-transparent text-sm font-bold rounded-md text-white bg-indigo-500 transition duration-150 ease-in-out hover:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-500 w-full" target="_blank">
+									<svg className="mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
 									</svg>
 									<div>Help us out with a Tweet</div>
 								</a>
