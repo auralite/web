@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import useSWR, { mutate } from 'swr'
-import Client from '../utils/Client'
-import useFormat from '../hooks/format'
-import PageLayout from '../components/App/PageLayout'
-import Avatar from '../components/App/Avatar'
-import Post from '../components/App/Post'
+import Client from '../../utils/Client'
+import useFormat from '../../hooks/format'
+import PageLayout from '../../components/App/PageLayout'
+import Avatar from '../../components/App/Avatar'
+import Post from '../../components/App/Post'
 
 const Profile = ({ handle }) => {
 	const { data: profile } = useSWR(
