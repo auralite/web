@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
-// import 'react-circular-progressbar/dist/styles.css'
 import { indigo } from '@tailwindcss/ui/colors'
 import Client from '../../utils/Client'
 
