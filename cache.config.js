@@ -81,7 +81,7 @@ module.exports = [
 		},
 	},
 	{
-		urlPattern: /^https:\/\/beta\.auralite)\.io\/api\/.*/i,
+		urlPattern: /^https:\/\/beta\.auralite\.io\/api\/.*/i,
 		handler: 'NetworkFirst',
 		method: 'GET',
 		options: {
