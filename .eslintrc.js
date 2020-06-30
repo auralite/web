@@ -34,7 +34,6 @@ module.exports = {
 		'jsx-a11y/label-has-for': 0,
 		'jsx-a11y/anchor-is-valid': 0,
 		'react/react-in-jsx-scope': 0,
-		indent: ['error', 'tab'],
 		'linebreak-style': ['error', 'unix'],
 		semi: ['error', 'never'],
 		'prettier/prettier': ['error', {}, { usePrettierrc: true }],
