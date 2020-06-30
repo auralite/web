@@ -5,6 +5,12 @@ import * as Fathom from 'fathom-client'
 import cookies from 'next-cookies'
 import App from 'next/app'
 import redirectTo from '../../src/utils/redirectTo'
+import * as Sentry from '@sentry/browser'
+
+Sentry.init({
+	enabled: process.env.NODE_ENV === 'production',
+	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+})
 
 const AuthPaths = ['/login']
 
