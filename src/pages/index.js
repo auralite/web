@@ -19,7 +19,6 @@ export default function Home() {
 				<meta name="twitter:description" content="A social network for the future." />
 				<meta name="twitter:image" content="https://auralite.io/img/card.jpg" />
 				<meta name="twitter:creator" content="@m1guelpf" />
-				<link rel="stylesheet" href="/css/app.css" />
 				<link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png" />
 				<link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png" />
