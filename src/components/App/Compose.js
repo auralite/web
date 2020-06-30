@@ -3,7 +3,9 @@ import { mutate } from 'swr'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 
-const Compose = ({ replyTo }) => {
+const Compose = ({ replyTo, onPost }) => {
+	if (!onPost) onPost = (post) => mutate('/api/timeline', (posts) => [post, ...posts])
+
 	const [error, setError] = useState(null)
 	const [post, setPost] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -19,9 +21,9 @@ const Compose = ({ replyTo }) => {
 
 		setLoading(true)
 
-		Client.post({ post, reply_to: replyTo?.id })
+		Client.createPost({ post, reply_to: replyTo?.id })
 			.then((post) => {
-				mutate('/api/timeline', (posts) => [post, ...posts])
+				onPost(post)
 				setLoading(false)
 				setError(null)
 				setPost('')

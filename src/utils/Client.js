@@ -49,7 +49,11 @@ class Client {
 		return this.client.get('/api/notifications').then((res) => res.data)
 	}
 
-	post({ post, reply_to }) {
+	post({ postId }) {
+		return this.client.get(`/api/posts/${postId}`).then((res) => res.data)
+	}
+
+	createPost({ post, reply_to }) {
 		return this.client.post('/api/posts', { content: post, reply_to }).then((res) => res.data)
 	}
 
