@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import useSWR, { mutate } from 'swr'
-import { useRouter } from 'next/router'
 import Client from '../utils/Client'
 import useFormat from '../hooks/format'
 import PageLayout from '../components/App/PageLayout'
 import Avatar from '../components/App/Avatar'
 import Post from '../components/App/Post'
 
-const Profile = () => {
-	const router = useRouter()
-	const { profile: handle } = router.query
+const Profile = ({ handle }) => {
 	const { data: profile } = useSWR(
 		() => `/api/users/${handle}`,
 		() => Client.profile({ handle })
@@ -27,17 +24,22 @@ const Profile = () => {
 	}, [profile])
 
 	const saveChanges = () => {
-		Client.updateProfile({ bio, avatar }).then((profile) => {
-			setIsUpdating(false)
-			setAvatar(null)
+		Client.updateProfile({ bio, avatar })
+			.then((profile) => {
+				setIsUpdating(false)
+				setAvatar(null)
+				setError(null)
 
-			mutate('/api/user', (user) => {
-				user.profile = profile
+				mutate('/api/user', (user) => {
+					user.profile = profile
 
-				return user
+					return user
+				})
+				mutate(`/api/users/${profile.handle}`, profile)
 			})
-			mutate(`/api/users/${profile.handle}`, profile)
-		})
+			.catch((error) => {
+				setError(error.response.data.errors.bio[0])
+			})
 	}
 
 	moment.updateLocale('en', {
@@ -102,6 +104,10 @@ const Profile = () => {
 			</div>
 		</PageLayout>
 	)
+}
+
+Profile.getInitialProps = async ({ query }) => {
+	return { handle: query.profile }
 }
 
 export default Profile
