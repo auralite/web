@@ -11,7 +11,7 @@ const Posts = () => {
 		<PageLayout>
 			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
 				<Compose />
-				{posts ? posts.map((post) => <Post key={post.id} post={post} />) : <span>Loading posts...</span>}
+				{posts ? posts.map((post) => <Post key={post.id} post={post} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
 				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 			</div>
 		</PageLayout>

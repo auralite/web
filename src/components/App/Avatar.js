@@ -2,11 +2,18 @@ import { useState, useEffect } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import { indigo } from '@tailwindcss/ui/colors'
 import Client from '../../utils/Client'
+import Skeleton from 'react-loading-skeleton'
+import useTailwind from '../../hooks/tailwind'
 
 const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	const [file, setFile] = useState(null)
 	const [progress, setProgress] = useState(0)
 	const [avatarUrl, setAvatarUrl] = useState(src)
+	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
+
+	useEffect(() => {
+		setAvatarUrl(src)
+	}, [src])
 
 	useEffect(() => {
 		if (!file) return
@@ -25,8 +32,8 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	}, [progress])
 
 	return (
-		<div className={`group ${sizeClasses} rounded-full relative ${className}`}>
-			<img src={avatarUrl} alt="" className={`${sizeClasses} rounded-full`} />
+		<div className={`group ${sizeClasses} rounded-full relative ${className ?? ''}`}>
+			{avatarUrl ? <img src={avatarUrl} alt="" className={`${sizeClasses} rounded-full`} /> : <Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />}
 			{isUpdating && (
 				<>
 					<div className={`absolute opacity-0 group-hover:opacity-100 inset-0 bg-indigo-300 bg-opacity-75 ${sizeClasses} rounded-full flex items-center justify-center transition-opacity duration-200 ease-in-out`}>

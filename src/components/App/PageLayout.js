@@ -8,6 +8,7 @@ import Transition from '../Global/Transition'
 import Notification from './Notification'
 import Head from 'next/head'
 import AlertManager from './AlertManager'
+import Avatar from './Avatar'
 
 const PageLayout = ({ children, title }) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
@@ -33,7 +34,6 @@ const PageLayout = ({ children, title }) => {
 				<meta name="twitter:description" content="A social network for the future." />
 				<meta name="twitter:image" content="https://auralite.io/img/card.jpg" />
 				<meta name="twitter:creator" content="@m1guelpf" />
-				<link rel="stylesheet" href="/css/app.css" />
 				<link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png" />
 				<link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png" />
@@ -63,34 +63,32 @@ const PageLayout = ({ children, title }) => {
 											{notifications && notifications.filter((notification) => notification.unread).length > 0 && <span className="mr-1 absolute top-0 right-0 text-sm">{notifications.filter((notification) => notification.unread).length}</span>}
 										</button>
 
-										{user && (
-											<div ref={profileRef} className="ml-3 relative">
-												<div>
-													<button onClick={() => setNavigationOpen((state) => !state)} className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-														<img className="h-8 w-8 rounded-full" src={user.profile.avatar} alt="" />
-													</button>
-												</div>
-												<Transition show={navigationOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
-													<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-10">
-														<div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-															<Link href="/[profile]" as={`/${user.profile.handle}`}>
-																<a className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-																	Your Profile
-																</a>
-															</Link>
-															<button onClick={() => alert('lol nope')} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-																Settings
-															</button>
-															<Link href="/logout">
-																<a className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-																	Sign out
-																</a>
-															</Link>
-														</div>
-													</div>
-												</Transition>
+										<div ref={profileRef} className="ml-3 relative">
+											<div>
+												<button onClick={() => setNavigationOpen((state) => !state)} className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+													<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
+												</button>
 											</div>
-										)}
+											<Transition show={user && navigationOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
+												<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-10">
+													<div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+														<Link href="/[profile]" as={`/${user?.profile?.handle}`}>
+															<a className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+																Your Profile
+															</a>
+														</Link>
+														<button onClick={() => alert('lol nope')} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+															Settings
+														</button>
+														<Link href="/logout">
+															<a className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+																Sign out
+															</a>
+														</Link>
+													</div>
+												</div>
+											</Transition>
+										</div>
 									</div>
 								</div>
 								<div className="flex md:hidden">
@@ -100,11 +98,9 @@ const PageLayout = ({ children, title }) => {
 										</svg>
 										{notifications && notifications.filter((notification) => notification.unread).length > 0 && <span className="mr-1 absolute top-0 right-0 text-sm">{notifications.filter((notification) => notification.unread).length}</span>}
 									</button>
-									{user && (
-										<button onClick={() => setNavigationOpen((state) => !state)} className="w-8 h-8 max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-											<img className="h-8 w-8 rounded-full" src={user.profile.avatar} alt="" />
-										</button>
-									)}
+									<button onClick={() => setNavigationOpen((state) => !state)} className="w-8 h-8 max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+										<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
+									</button>
 								</div>
 							</div>
 						</div>

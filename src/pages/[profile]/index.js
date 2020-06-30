@@ -6,6 +6,7 @@ import useFormat from '../../hooks/format'
 import PageLayout from '../../components/App/PageLayout'
 import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
+import Skeleton from 'react-loading-skeleton'
 
 const Profile = ({ handle }) => {
 	const { data: profile } = useSWR(
@@ -64,7 +65,7 @@ const Profile = ({ handle }) => {
 					<div className="border-b px-2 pt-2 pb-4 w-full">
 						<div>
 							<div className="flex items-center justify-between">
-								{profile && <Avatar src={profile.avatar} isUpdating={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />}
+								<Avatar src={profile?.avatar} isUpdating={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />
 								{profile && currentUser && profile.handle === currentUser.profile.handle && (
 									<>
 										{isUpdating ? (
@@ -79,8 +80,8 @@ const Profile = ({ handle }) => {
 									</>
 								)}
 							</div>
-							<p className="font-bold text-lg text-gray-800 mt-1">{profile && profile.name}</p>
-							<p className="text-gray-600 text-sm">@{profile && profile.handle}</p>
+							<p className="font-bold text-lg text-gray-800 mt-1">{profile?.name ? profile.name : <Skeleton width={200} />}</p>
+							<p className="text-gray-600 text-sm">{profile?.handle ? `@${profile.handle}` : <Skeleton width={100} />}</p>
 						</div>
 						{isUpdating ? (
 							<>
@@ -95,11 +96,11 @@ const Profile = ({ handle }) => {
 								{error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 							</>
 						) : (
-							<div className="mt-3 leading-normal">{userBio}</div>
+							<div className="mt-3 leading-normal">{userBio[0] ? userBio : <Skeleton count={2} />}</div>
 						)}
 					</div>
 				</div>
-				{profile ? profile.posts.map((post) => <Post key={post.id} post={post} />) : <span>Loading posts...</span>}
+				{profile ? profile.posts.map((post) => <Post key={post.id} post={post} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
 				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 			</div>
 		</PageLayout>

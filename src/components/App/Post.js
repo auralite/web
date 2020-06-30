@@ -1,15 +1,14 @@
 import moment from 'moment'
-import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
 import Avatar from './Avatar'
 import useFormat from '../../hooks/format'
-import { Fragment } from 'react'
+import LoadLink from './LoadLink'
 
 const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
-	let postContent = useFormat(post.content)
+	const postContent = useFormat(post?.content)
 
 	const Wrapper = shouldLink ? Link : 'div'
-	const ChildWrapper = shouldLink ? 'a' : Fragment
 
 	moment.updateLocale('en', {
 		relativeTime: {
@@ -28,9 +27,9 @@ const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
 
 	return (
 		<div className="flex">
-			<Wrapper href="/[profile]/posts/[post]" as={`/${post.author_handle}/posts/${post.id}`} {...(shouldLink ? {} : { className: 'border-b px-2 py-4 w-full' })}>
-				<ChildWrapper {...(shouldLink ? { className: 'border-b px-2 py-4 w-full cursor-pointer' } : {})}>
-					{post.reply_to && showReplyIndicator && (
+			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post.author_handle}/posts/${post.id}` } : {})}>
+				<div className={`text-left border-b px-2 py-4 w-full${shouldLink ? ' cursor-pointer' : ''}`}>
+					{post?.reply_to && showReplyIndicator && (
 						<Link href="/[profile]/posts/[post]" as={`/${post.parent.author_handle}/posts/${post.parent.id}`}>
 							<a className="flex items-center text-gray-400">
 								<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -41,25 +40,25 @@ const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
 						</Link>
 					)}
 					<div className="flex items-center">
-						<Link href="/[profile]" as={`/${post.author_handle}`}>
+						<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
 							<a>
-								<Avatar src={post.author.avatar} className="mr-2 mt-1" sizeClasses="h-10 w-10" />
+								<Avatar src={post?.author?.avatar} className="mr-2 mt-1" sizeClasses="h-10 w-10" />
 							</a>
-						</Link>
+						</LoadLink>
 						<div className="flex-1 flex items-center justify-between whitespace-no-wrap overflow-hidden mr-1">
 							<div>
-								<Link href="/[profile]" as={`/${post.author_handle}`}>
-									<a className="font-bold text-gray-800 mr-2">{post.author.name}</a>
-								</Link>
-								<Link href="/[profile]" as={`/${post.author_handle}`}>
-									<a className="text-gray-600">@{post.author_handle}</a>
-								</Link>
+								<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
+									<a className="font-bold text-gray-800 mr-2">{post?.author?.name || <Skeleton width={120} />}</a>
+								</LoadLink>
+								<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
+									<a className="text-gray-600">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</a>
+								</LoadLink>
 							</div>
-							<span className="text-gray-400">{moment.unix(post.created_at).fromNow(true)}</span>
+							<span className="text-gray-400">{post?.created_at ? moment.unix(post.created_at).fromNow(true) : <Skeleton width={25} />}</span>
 						</div>
 					</div>
-					<div className="mt-3 leading-normal text-lg">{postContent}</div>
-				</ChildWrapper>
+					<div className="mt-3 leading-normal text-lg">{postContent[0] ? postContent : <Skeleton count={3} />}</div>
+				</div>
 			</Wrapper>
 		</div>
 	)
