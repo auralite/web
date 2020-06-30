@@ -28,7 +28,7 @@ const PageLayout = ({ children }) => {
 					<nav className="bg-indigo-700">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between h-16">
-								<Link href={'/posts'}>
+								<Link href={'/home'}>
 									<a className="flex-shrink-0">
 										<Logo className="h-8 w-8" />
 									</a>

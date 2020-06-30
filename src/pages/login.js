@@ -11,6 +11,10 @@ const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
+	useEffect(() => {
+		router.prefetch('/home')
+	}, [])
+
 	const loginUser = (event) => {
 		event.preventDefault()
 
@@ -21,7 +25,7 @@ const Login = () => {
 			.then((response) => {
 				Cookies.set('auralite_token', response.data.access_token)
 
-				router.reload()
+				router.push('/home')
 			})
 			.catch((error) => {
 				if (error.response.data.error !== 'invalid_grant') return alert('Something went wrong! Please try again or contact us if the problem persists.')
