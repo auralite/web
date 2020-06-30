@@ -7,6 +7,7 @@ import PageLayout from '../../components/App/PageLayout'
 import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
+import useTitle from '../../hooks/title'
 
 const Profile = ({ handle }) => {
 	const { data: profile } = useSWR(
@@ -14,6 +15,7 @@ const Profile = ({ handle }) => {
 		() => Client.profile({ handle })
 	)
 	const { data: currentUser } = useSWR('/api/user', () => Client.user())
+	const setTitle = useTitle(profile && `${profile?.name} (@${profile.handle})`)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)
 	const [isUpdating, setIsUpdating] = useState(false)
@@ -59,7 +61,8 @@ const Profile = ({ handle }) => {
 	})
 
 	return (
-		<PageLayout>
+		<>
+			{setTitle}
 			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
 				<div className="flex">
 					<div className="border-b px-2 pt-2 pb-4 w-full">
@@ -103,7 +106,7 @@ const Profile = ({ handle }) => {
 				{profile ? profile.posts.map((post) => <Post key={post.id} post={post} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
 				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 			</div>
-		</PageLayout>
+		</>
 	)
 }
 
