@@ -60,7 +60,8 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 
 	if (['/', '/_error'].includes(ctx.pathname)) return { ...appProps }
 
-	if (cookie.auralite_token && AuthPaths.includes(ctx.pathname)) redirectTo('/posts', { res: ctx.res, status: 301 })
+	if (ctx.pathname === '/posts') return redirectTo('/home') //TODO: Remove this
+	if (cookie.auralite_token && AuthPaths.includes(ctx.pathname)) redirectTo('/home', { res: ctx.res, status: 301 })
 	if (!cookie.auralite_token && !AuthPaths.includes(ctx.pathname)) redirectTo('/login', { res: ctx.res, status: 301 })
 
 	return { ...appProps }
