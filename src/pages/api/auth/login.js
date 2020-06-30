@@ -6,6 +6,6 @@ export default (req, res) => {
 	const { email, password } = req.body
 
 	Client.login({ email, password })
-		.then((response) => res.status(200).json(response.data))
+		.then((data) => res.status(200).json(data))
 		.catch((error) => res.status(error.response.status).json(error.response.data))
 }
