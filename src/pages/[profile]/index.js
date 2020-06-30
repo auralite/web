@@ -3,7 +3,7 @@ import moment from 'moment'
 import useSWR, { mutate } from 'swr'
 import Client from '../../utils/Client'
 import useFormat from '../../hooks/format'
-import PageLayout from '../../components/App/PageLayout'
+import { usePageLayout } from '../../components/App/PageLayout'
 import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
@@ -109,6 +109,8 @@ const Profile = ({ handle }) => {
 		</>
 	)
 }
+
+Profile.getLayout = usePageLayout()
 
 Profile.getInitialProps = async ({ query }) => {
 	return { handle: query.profile }

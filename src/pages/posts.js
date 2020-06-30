@@ -1,4 +1,4 @@
-import PageLayout from '../components/App/PageLayout'
+import { usePageLayout } from '../components/App/PageLayout'
 import useSWR from 'swr'
 import Client from '../utils/Client'
 import Compose from '../components/App/Compose'
@@ -20,5 +20,7 @@ const Posts = () => {
 		</>
 	)
 }
+
+Posts.getLayout = usePageLayout()
 
 export default Posts

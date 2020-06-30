@@ -1,4 +1,4 @@
-import PageLayout from '../../../components/App/PageLayout'
+import { usePageLayout } from '../../../components/App/PageLayout'
 import Post from '../../../components/App/Post'
 import Compose from '../../../components/App/Compose'
 import Client from '../../../utils/Client'
@@ -36,6 +36,8 @@ const Show = ({ postId }) => {
 		</>
 	)
 }
+
+Show.getLayout = usePageLayout()
 
 Show.getInitialProps = async ({ query }) => {
 	return { postId: query.post }
