@@ -1,4 +1,5 @@
 import '../../src/scss/app.scss'
+import 'nprogress/nprogress.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import * as Fathom from 'fathom-client'
@@ -6,6 +7,7 @@ import cookies from 'next-cookies'
 import App from 'next/app'
 import redirectTo from '../../src/utils/redirectTo'
 import * as Sentry from '@sentry/browser'
+import NProgress from 'nprogress'
 
 Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',
@@ -23,9 +25,7 @@ const MyApp = ({ Component, pageProps }) => {
 			url: 'https://koi.auralite.io/script.js',
 		})
 
-		function onRouteChangeComplete() {
-			Fathom.trackPageview()
-		}
+		const onRouteChangeComplete = () => Fathom.trackPageview()
 
 		router.events.on('routeChangeComplete', onRouteChangeComplete)
 
@@ -33,6 +33,21 @@ const MyApp = ({ Component, pageProps }) => {
 			router.events.off('routeChangeComplete', onRouteChangeComplete)
 		}
 	}, [])
+
+	useEffect(() => {
+		const startProgress = () => NProgress.start()
+		const progressEnd = () => NProgress.done()
+
+		router.events.on('routeChangeStart', startProgress)
+		router.events.on('routeChangeComplete', progressEnd)
+		router.events.on('routeChangeError', progressEnd)
+
+		return () => {
+			router.events.off('routeChangeStart', startProgress)
+			router.events.off('routeChangeComplete', progressEnd)
+			router.events.off('routeChangeError', progressEnd)
+		}
+	})
 
 	const getLayout = Component.getLayout || ((page) => page)
 

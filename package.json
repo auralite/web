@@ -21,6 +21,7 @@
     "next": "9.4.4",
     "next-cookies": "^2.0.3",
     "next-pwa": "^3.0.1",
+    "nprogress": "^0.2.0",
     "postcss-flexbugs-fixes": "^4.2.1",
     "react": "16.13.1",
     "react-circular-progressbar": "^2.0.3",
