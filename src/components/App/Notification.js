@@ -18,11 +18,13 @@ const Notification = ({ type, ...notification }) => {
 
 const NotificationSkeleton = ({ post, read, children, id }) => {
 	const markRead = () => {
+		if (read) return
+
 		Client.markNotificationRead({ id })
 	}
 
 	return (
-		<Link onClick={markRead} href="/[profile]/[post]" as={`/${post.author_handle}/${post.id}`}>
+		<Link onClick={markRead} href="/[profile]/posts/[post]" as={`/${post.author_handle}/posts/${post.id}`}>
 			<a className={`flex items-center border-b py-2 px-4 ${read ? 'text-gray-400' : 'text-gray-800'}`}>{children}</a>
 		</Link>
 	)
