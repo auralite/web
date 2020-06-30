@@ -8,7 +8,7 @@ import Transition from '../Global/Transition'
 import Notification from './Notification'
 
 const PageLayout = ({ children }) => {
-	const { data: user } = useSWR('/api/user', () => Client.profile())
+	const { data: user } = useSWR('/api/user', () => Client.user())
 	const { data: notifications } = useSWR('/api/notifications', () => Client.notifications())
 	const [notificationsOpen, setNotificationsOpen] = useState(false)
 	const [navigationOpen, setNavigationOpen] = useState(false)
