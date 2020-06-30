@@ -5,7 +5,7 @@ import useClickOutside from '../../hooks/click-outside'
 const ConfirmationModal = () => {
 	const [visible, setVisible] = useState(false)
 
-	const hideOnClickOutside = useClickOutside(() => setVisible(false))
+	const { ref: hideOnClickOutside } = useClickOutside(() => setVisible(false))
 
 	useEffect(() => {
 		setVisible(!!window.location.search.match(/confirmed/))

@@ -14,9 +14,11 @@ const PageLayout = ({ children, title }) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
 	const { data: notifications } = useSWR('/api/notifications', () => Client.notifications())
 	const [notificationsOpen, setNotificationsOpen] = useState(false)
-	const [navigationOpen, setNavigationOpen] = useState(false)
-	const profileRef = useClickOutside(() => setNavigationOpen(false))
-	const notificationRef = useClickOutside(() => setNotificationsOpen(false))
+	const [profileNavigationOpen, setProfileNavigationOpen] = useState(false)
+	const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false)
+	const { ref: mobileRef, excludeRef } = useClickOutside(() => setMobileNavigationOpen(false))
+	const { ref: profileRef } = useClickOutside(() => setProfileNavigationOpen(false))
+	const { ref: notificationRef } = useClickOutside(() => setNotificationsOpen(false))
 
 	return (
 		<>
@@ -65,11 +67,11 @@ const PageLayout = ({ children, title }) => {
 
 										<div ref={profileRef} className="ml-3 relative">
 											<div>
-												<button onClick={() => setNavigationOpen((state) => !state)} className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+												<button onClick={() => setProfileNavigationOpen((state) => !state)} className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
 													<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
 												</button>
 											</div>
-											<Transition show={user && navigationOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
+											<Transition show={user && profileNavigationOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
 												<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-10">
 													<div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 														<Link href="/[profile]" as={`/${user?.profile?.handle}`}>
@@ -98,7 +100,7 @@ const PageLayout = ({ children, title }) => {
 										</svg>
 										{notifications && notifications.filter((notification) => notification.unread).length > 0 && <span className="mr-1 absolute top-0 right-0 text-sm">{notifications.filter((notification) => notification.unread).length}</span>}
 									</button>
-									<button onClick={() => setNavigationOpen((state) => !state)} className="w-8 h-8 max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+									<button ref={excludeRef} onClick={() => setMobileNavigationOpen((state) => !state)} className="w-8 h-8 max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
 										<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
 									</button>
 								</div>
@@ -134,8 +136,8 @@ const PageLayout = ({ children, title }) => {
 							</div>
 						</div>
 
-						{navigationOpen && (
-							<div className="md:hidden">
+						{mobileNavigationOpen && (
+							<div ref={mobileRef} className="md:hidden">
 								<div className="pt-2 pb-3">
 									{user && (
 										<div className="flex items-center px-5">

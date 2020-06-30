@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react'
 
 const useClickOutside = (handleClick) => {
 	const ref = useRef(null)
+	const excludeRef = useRef(null)
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
-			if (!ref.current || ref.current.contains(event.target)) return
+			if (!ref.current || ref.current.contains(event.target) || (excludeRef.current && excludeRef.current.contains(event.target))) return
 
 			handleClick()
 		}
@@ -15,9 +16,9 @@ const useClickOutside = (handleClick) => {
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
-	}, [ref, handleClick])
+	}, [ref, excludeRef, handleClick])
 
-	return ref
+	return { ref, excludeRef }
 }
 
 export default useClickOutside
