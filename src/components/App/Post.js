@@ -27,7 +27,7 @@ const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
 
 	return (
 		<div className="flex">
-			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}` } : {})}>
+			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}` } : { className: 'w-full' })}>
 				<div className={`text-left border-b px-2 py-4 w-full${shouldLink ? ' cursor-pointer' : ''}`}>
 					{post?.reply_to && showReplyIndicator && (
 						<Link href="/[profile]/posts/[post]" as={`/${post.parent.author_handle}/posts/${post.parent.id}`}>
