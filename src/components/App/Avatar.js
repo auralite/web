@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
-import Vapor from 'laravel-vapor'
 // import 'react-circular-progressbar/dist/styles.css'
 import { indigo } from '@tailwindcss/ui/colors'
+import Client from '../../utils/Client'
 
 const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	const [file, setFile] = useState(null)
@@ -12,9 +12,7 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	useEffect(() => {
 		if (!file) return
 
-		Vapor.store(file, {
-			progress: (progress) => setProgress(Math.round(progress * 100)),
-		}).then((response) => onChange(`${response.key}.${response.extension}`))
+		Client.uploadFile({ file, progress: (progress) => setProgress(Math.round(progress * 100)) }).then((response) => onChange(`${response.key}.${response.extension}`))
 	}, [file])
 
 	useEffect(() => {

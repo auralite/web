@@ -29,8 +29,16 @@ class Client {
 			.then((res) => res.data)
 	}
 
-	profile() {
+	user() {
 		return this.client.get('/api/user').then((res) => res.data)
+	}
+
+	profile({ handle }) {
+		return this.client.get(`/api/profiles/${handle}`).then((res) => res.data)
+	}
+
+	updateProfile({ bio, avatar }) {
+		return this.client.post('/api/profile/update', { bio, avatar }).then((res) => res.data)
 	}
 
 	timeline() {
@@ -47,6 +55,25 @@ class Client {
 
 	markNotificationRead({ id }) {
 		return this.client.post(`/api/notifications/${id}/read`).then((res) => res.data)
+	}
+
+	async uploadFile({ file, progress = () => {} }) {
+		const { data: response } = await this.client.post('/api/asset-upload', { content_type: file.type })
+
+		let headers = response.headers
+
+		if ('Host' in headers) delete headers.Host
+
+		return axios
+			.put(response.url, file, {
+				headers,
+				onUploadProgress: (progressEvent) => progress(progressEvent.loaded / progressEvent.total),
+			})
+			.then(({ data: response }) => {
+				response.extension = file.name.split('.').pop()
+
+				return response
+			})
 	}
 }
 
