@@ -3,11 +3,12 @@ import { mutate } from 'swr'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 
-const Compose = ({ replyTo, onPost }) => {
+const Compose = ({ replyTo, onPost, isVisible, onClose = () => {} }) => {
 	if (!onPost) onPost = (post) => mutate('/api/timeline', (posts) => [post, ...posts])
 
 	const [error, setError] = useState(null)
 	const [post, setPost] = useState('')
+	const [privacy, setPrivacy] = useState('public')
 	const [loading, setLoading] = useState(false)
 
 	const updatePost = (content) => {
@@ -21,7 +22,7 @@ const Compose = ({ replyTo, onPost }) => {
 
 		setLoading(true)
 
-		Client.createPost({ post, reply_to: replyTo?.id })
+		Client.createPost({ post, privacy, reply_to: replyTo?.id })
 			.then((post) => {
 				onPost(post)
 				setLoading(false)
@@ -45,12 +46,20 @@ const Compose = ({ replyTo, onPost }) => {
 				</div>
 			</div>
 			{error && <p className="mb-2 text-sm text-red-600">{error}</p>}
-			<div className="text-right">
-				<span className="inline-flex rounded-md shadow-sm">
-					<LoadingButton loading={loading} type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-						Post
-					</LoadingButton>
-				</span>
+			<div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-end">
+				<div className="w-full sm:max-w-md mb-4 sm:mb-0">
+					<select value={privacy} onChange={(event) => setPrivacy(event.target.value)} id="privacy" className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+						<option value="public">Share with everyone</option>
+						<option value="users">Share with Auralite users</option>
+					</select>
+				</div>
+				<div className="w-full text-right">
+					<span className="w-full sm:w-auto inline-flex rounded-md shadow-sm">
+						<LoadingButton loading={loading} type="submit" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+							Post
+						</LoadingButton>
+					</span>
+				</div>
 			</div>
 		</form>
 	)
