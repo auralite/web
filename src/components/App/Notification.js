@@ -24,7 +24,7 @@ const Notification = ({ type, ...notification }) => {
 const LoadingNotification = () => (
 	<button>
 		<Post
-			showReplyIndicator={false}
+			showReply={false}
 			meta={
 				<div className="flex items-center text-gray-400">
 					<Skeleton width={250} />
@@ -45,7 +45,7 @@ const NotificationSkeleton = ({ post, read, children, id }) => {
 
 	return (
 		<button onClick={markRead}>
-			<Post post={post} showReplyIndicator={false} meta={meta} />
+			<Post post={post} showReply={false} meta={meta} />
 		</button>
 	)
 }
