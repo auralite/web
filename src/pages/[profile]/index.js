@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
-import useSWR, { mutate } from 'swr'
+import useSWR from 'swr'
 import Client from '../../utils/Client'
 import useFormat from '../../hooks/format'
 import { usePageLayout } from '../../components/App/PageLayout'
@@ -10,11 +10,11 @@ import Skeleton from 'react-loading-skeleton'
 import useTitle from '../../hooks/title'
 
 const Profile = ({ handle }) => {
-	const { data: profile } = useSWR(
+	const { data: profile, mutate: mutateProfile } = useSWR(
 		() => `/api/users/${handle}`,
 		() => Client.profile({ handle })
 	)
-	const { data: currentUser } = useSWR('/api/user', () => Client.user())
+	const { data: currentUser, mutate: mutateUser } = useSWR('/api/user', () => Client.user())
 	const setTitle = useTitle(profile && `${profile?.name} (@${profile.handle})`)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)
@@ -33,12 +33,12 @@ const Profile = ({ handle }) => {
 				setAvatar(null)
 				setError(null)
 
-				mutate('/api/user', (user) => {
+				mutateUser((user) => {
 					user.profile = profile
 
 					return user
 				})
-				mutate(`/api/users/${profile.handle}`, profile)
+				mutateProfile(profile)
 			})
 			.catch((error) => {
 				setError(error.response.data.errors.bio[0])
