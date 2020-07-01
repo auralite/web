@@ -9,6 +9,7 @@ import Notification from './Notification'
 import Head from '../Global/Head'
 import AlertManager from './AlertManager'
 import Avatar from './Avatar'
+import PostModal from './PostModal'
 
 const PageLayout = ({ children }) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
@@ -24,6 +25,7 @@ const PageLayout = ({ children }) => {
 		<>
 			<Head />
 			<AlertManager>
+				<PostModal />
 				<div>
 					<nav className="bg-indigo-700">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
