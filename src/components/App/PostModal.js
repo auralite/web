@@ -7,7 +7,7 @@ const Modal = ({ router }) => {
 	const { ref: hideOnClickOutside } = useClickOutside(() => router.push(router.pathname, router.pathname, { shallow: true }))
 
 	return (
-		<div className={`fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center z-20 ${router.query.postId ? '' : 'pointer-events-none'}`}>
+		<div className={`fixed px-2 sm:px-0 bottom-0 inset-0 p-0 flex items-center justify-center z-20 ${router.query.postId ? '' : 'pointer-events-none'}`}>
 			<Transition show={!!router.query.postId} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
 				<div className="fixed inset-0 transition-opacity">
 					<div className="absolute inset-0 bg-gray-500 opacity-75" />
