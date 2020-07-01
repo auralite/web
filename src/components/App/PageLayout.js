@@ -87,11 +87,11 @@ const PageLayout = ({ children }) => {
 						</div>
 
 						<div className="fixed inset-0 overflow-hidden pointer-events-none z-40">
-							<div ref={notificationRef} className="absolute inset-0 overflow-hidden">
+							<div className="absolute inset-0 overflow-hidden">
 								<Transition show={notificationsOpen} enter="ease-in-out duration-500" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in-out duration-500" leaveFrom="opacity-100" leaveTo="opacity-0">
-									<div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+									<div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer-events-auto" />
 								</Transition>
-								<section className="absolute inset-y-0 right-0 pl-10 max-w-full flex">
+								<section ref={notificationRef} className="absolute inset-y-0 right-0 pl-10 max-w-full flex">
 									<Transition show={notificationsOpen} enter="transform transition ease-in-out duration-500 sm:duration-700" enterFrom="translate-x-full" enterTo="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leaveFrom="translate-x-0" leaveTo="translate-x-full">
 										<div className="relative w-screen max-w-md pointer-events-auto">
 											<div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
