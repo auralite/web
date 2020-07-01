@@ -5,7 +5,7 @@ import Avatar from './Avatar'
 import useFormat from '../../hooks/format'
 import LoadLink from './LoadLink'
 
-const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
+const Post = ({ post, shouldLink = true, showReplyIndicator = true, meta }) => {
 	const postContent = useFormat(post?.content)
 
 	const Wrapper = shouldLink ? Link : 'div'
@@ -38,6 +38,7 @@ const Post = ({ post, shouldLink = true, showReplyIndicator = true }) => {
 						</a>
 					</Link>
 				)}
+				{meta}
 				<div className="flex items-center">
 					<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
 						<a>
