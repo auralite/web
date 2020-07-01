@@ -5,7 +5,6 @@ import useClickOutside from '../../hooks/click-outside'
 import Link from 'next/link'
 import Logo from '../Global/Logo'
 import Transition from '../Global/Transition'
-import Notification from './Notification'
 import Head from '../Global/Head'
 import AlertManager from './AlertManager'
 import Avatar from './Avatar'
@@ -22,11 +21,6 @@ const PageLayout = ({ children }) => {
 	const { data: notifications } = useSWR('/api/notifications', () => Client.notifications())
 	const [profileNavigationOpen, setProfileNavigationOpen] = useState(false)
 	const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false)
-	const { ref: mobileRef, excludeRef } = useClickOutside(() => {
-		if (!mobileNavigationOpen) return
-
-		setMobileNavigationOpen(false)
-	})
 	const { ref: profileRef } = useClickOutside(() => {
 		if (!profileNavigationOpen) return
 
@@ -47,11 +41,11 @@ const PageLayout = ({ children }) => {
 				<div className="fixed inset-0 flex z-40 pointer-events-none">
 					<Transition show={mobileNavigationOpen} enter="transition-opacity ease-linear duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity ease-linear duration-300" leaveFrom="opacity-100" leaveTo="opacity-0">
 						<div className="fixed inset-0 pointer-events-auto">
-							<div className="absolute inset-0 bg-gray-600 opacity-75" />
+							<div className="absolute inset-0 bg-gray-600 opacity-75" onClick={() => setMobileNavigationOpen(false)} />
 						</div>
 					</Transition>
 					<Transition show={mobileNavigationOpen} enter="transition ease-in-out duration-300 transform" enterFrom="-translate-x-full" enterTo="translate-x-0" leave="transition ease-in-out duration-300 transform" leaveFrom="translate-x-0" leaveTo="-translate-x-full">
-						<div ref={mobileRef} className="relative flex-1 flex flex-col max-w-xs w-full bg-indigo-800 pointer-events-auto">
+						<div className="relative flex-1 flex flex-col max-w-xs w-full bg-indigo-800 pointer-events-auto">
 							<div className="absolute top-0 right-0 -mr-14 p-1">
 								<button onClick={() => setMobileNavigationOpen(false)} className="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600" aria-label="Close sidebar">
 									<svg className="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -121,7 +115,7 @@ const PageLayout = ({ children }) => {
 					<nav className="bg-indigo-700">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between h-16">
-								<button ref={excludeRef} onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
+								<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
 									<a className="flex-shrink-0">
 										<Logo className="h-8 w-8" />
 									</a>
@@ -196,15 +190,6 @@ const PageLayout = ({ children }) => {
 								</div>
 							</a>
 						</LoadLink>
-						<div className="absolute top-0 inset-x-0 -mt-4 flex justify-center pointer-events-none">
-							<Link href="/home">
-								<a className="bg-indigo-700 p-0.5 rounded-full pointer-events-auto" aria-label="New Post">
-									<svg className="text-indigo-300 w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-										<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-									</svg>
-								</a>
-							</Link>
-						</div>
 					</div>
 				</div>
 			</AlertManager>
