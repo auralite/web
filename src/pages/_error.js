@@ -9,7 +9,11 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
 		Sentry.captureException(err)
 	}
 
-	return <NextErrorComponent statusCode={statusCode} />
+	return (
+		<div className="absolute inset-0 h-full z-30">
+			<NextErrorComponent statusCode={statusCode} />
+		</div>
+	)
 }
 
 MyError.getInitialProps = async ({ res, err, asPath }) => {

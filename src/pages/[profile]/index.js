@@ -8,9 +8,10 @@ import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
 import useTitle from '../../hooks/title'
+import Error from '../_error'
 
 const Profile = ({ handle }) => {
-	const { data: profile, mutate: mutateProfile } = useSWR(
+	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
 		() => `/api/users/${handle}`,
 		() => Client.profile({ handle })
 	)
@@ -59,6 +60,8 @@ const Profile = ({ handle }) => {
 			dd: '%dd',
 		},
 	})
+
+	if (profileError?.response) return <Error statusCode={profileError.response.status} />
 
 	return (
 		<>

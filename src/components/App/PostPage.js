@@ -3,9 +3,10 @@ import Client from '../../utils/Client'
 import useTitle from '../../hooks/title'
 import Post from './Post'
 import Compose from './Compose'
+import Error from '../../pages/_error'
 
 const PostPage = ({ postId }) => {
-	const { data: post, mutate } = useSWR(
+	const { data: post, mutate, error: postError } = useSWR(
 		() => `/api/posts/${postId}`,
 		() => Client.post({ postId })
 	)
@@ -19,6 +20,8 @@ const PostPage = ({ postId }) => {
 			return post
 		})
 	}
+
+	if (postError?.response) return <Error statusCode={postError.response.status} />
 
 	return (
 		<>
