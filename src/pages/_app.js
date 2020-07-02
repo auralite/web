@@ -1,7 +1,6 @@
 import '../../src/scss/app.scss'
 import 'nprogress/nprogress.css'
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Pipeline from 'pipeline-js'
 import * as Fathom from 'fathom-client'
 import App from 'next/app'
@@ -13,9 +12,7 @@ Sentry.init({
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 })
 
-const MyApp = ({ Component, pageProps }) => {
-	const router = useRouter()
-
+const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 	useEffect(() => {
 		Fathom.load('KXUEDJON', {
 			includedDomains: ['auralite.io'],
@@ -48,7 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
 
 	const getLayout = Component.getLayout || ((page) => page)
 
-	return getLayout(<Component {...pageProps} />)
+	return getLayout(<Component {...pageProps} {...serverProps} />, serverProps)
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
