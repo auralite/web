@@ -3,12 +3,12 @@ import { mutate } from 'swr'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 
-const Compose = ({ replyTo, onPost, isVisible, onClose = () => {} }) => {
+const Compose = ({ replyTo, onPost }) => {
 	if (!onPost) onPost = (post) => mutate('/api/timeline', (posts) => [post, ...posts])
 
 	const [error, setError] = useState(null)
 	const [post, setPost] = useState('')
-	const [privacy, setPrivacy] = useState('public')
+	const [privacy, setPrivacy] = useState(replyTo?.privacy ?? 'public')
 	const [loading, setLoading] = useState(false)
 
 	const updatePost = (content) => {
@@ -48,7 +48,7 @@ const Compose = ({ replyTo, onPost, isVisible, onClose = () => {} }) => {
 			{error && <p className="mb-2 text-sm text-red-600">{error}</p>}
 			<div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-end">
 				<div className="w-full sm:max-w-md mb-4 sm:mb-0">
-					<select value={privacy} onChange={(event) => setPrivacy(event.target.value)} id="privacy" className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+					<select value={privacy} onChange={(event) => setPrivacy(event.target.value)} id="privacy" className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" disabled={replyTo?.privacy !== 'public'}>
 						<option value="public">Share with everyone</option>
 						<option value="users">Share with Auralite users</option>
 					</select>
