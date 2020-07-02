@@ -77,7 +77,7 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, 
 									</svg>
 								</div>
 							)}
-							{showOptions && user?.profile?.handle === post?.author_handle && (
+							{showOptions && post?.author_handle && user?.profile?.handle === post?.author_handle && (
 								<div className="relative inline-block text-left">
 									<button ref={excludeRef} onClick={openDropdown} className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="Options" id="options-menu" aria-haspopup="true" aria-expanded="true">
 										<svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
