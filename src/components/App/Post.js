@@ -44,7 +44,16 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta }
 								<a className="text-gray-600">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</a>
 							</LoadLink>
 						</div>
-						<span className="text-gray-400">{post?.created_at ? moment.unix(post.created_at).fromNow(true) : <Skeleton width={25} />}</span>
+						<span className="flex items-center text-gray-400">
+							<span>{post?.created_at ? moment.unix(post.created_at).fromNow(true) : <Skeleton width={25} />}</span>
+							{post?.privacy === 'users' && (
+								<div title="Only Auralite users can see this post">
+									<svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+										<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+									</svg>
+								</div>
+							)}
+						</span>
 					</div>
 				</div>
 				<div className="mt-3 leading-normal text-lg">{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</div>
