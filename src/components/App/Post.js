@@ -47,7 +47,7 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta }
 						<span className="text-gray-400">{post?.created_at ? moment.unix(post.created_at).fromNow(true) : <Skeleton width={25} />}</span>
 					</div>
 				</div>
-				<div className="mt-3 leading-normal text-lg">{postContent[0] ? postContent : <Skeleton count={3} />}</div>
+				<div className="mt-3 leading-normal text-lg">{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</div>
 				{post?.parent && showReply && (
 					<div className="mt-1 border rounded-lg">
 						<Post post={post?.parent} small={true} showReply={false} />
