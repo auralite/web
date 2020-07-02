@@ -197,6 +197,6 @@ const PageLayout = ({ children }) => {
 	)
 }
 
-export const usePageLayout = () => (page) => <PageLayout>{page}</PageLayout>
+export const usePageLayout = () => (page, props = {}) => <PageLayout {...props}>{page}</PageLayout>
 
 export default PageLayout

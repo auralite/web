@@ -4,8 +4,9 @@ import Client from '../utils/Client'
 import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
 import useTitle from '../hooks/title'
+import withAuth from '../middleware/auth'
 
-const Posts = () => {
+const Home = () => {
 	const setTitle = useTitle('Home')
 	const { data: posts } = useSWR('/api/timeline', () => Client.timeline())
 
@@ -21,6 +22,7 @@ const Posts = () => {
 	)
 }
 
-Posts.getLayout = usePageLayout()
+Home.getLayout = usePageLayout()
+Home.middleware = withAuth()
 
-export default Posts
+export default Home

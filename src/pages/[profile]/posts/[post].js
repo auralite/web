@@ -1,12 +1,15 @@
 import { usePageLayout } from '../../../components/App/PageLayout'
 import PostPage from '../../../components/App/PostPage'
+import { withAuthInfo } from '../../../middleware/auth'
 
-const Show = PostPage
+const Post = PostPage
 
-Show.getLayout = (page) => usePageLayout()(page)
+Post.getLayout = (page) => usePageLayout()(page)
 
-Show.getInitialProps = async ({ query }) => {
+Post.getInitialProps = async ({ query }) => {
 	return { postId: query.post }
 }
 
-export default Show
+Post.middleware = withAuthInfo()
+
+export default Post

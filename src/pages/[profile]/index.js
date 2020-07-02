@@ -9,6 +9,7 @@ import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
 import useTitle from '../../hooks/title'
 import Error from '../_error'
+import { withAuthInfo } from '../../middleware/auth'
 
 const Profile = ({ handle }) => {
 	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
@@ -114,6 +115,7 @@ const Profile = ({ handle }) => {
 }
 
 Profile.getLayout = usePageLayout()
+Profile.middleware = withAuthInfo()
 
 Profile.getInitialProps = async ({ query }) => {
 	return { handle: query.profile }

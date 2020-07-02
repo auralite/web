@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { withGuest } from '../middleware/auth'
 
 const Login = () => {
 	const router = useRouter()
@@ -90,5 +91,7 @@ const Login = () => {
 		</div>
 	)
 }
+
+Login.middleware = withGuest()
 
 export default Login

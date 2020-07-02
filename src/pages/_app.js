@@ -2,10 +2,9 @@ import '../../src/scss/app.scss'
 import 'nprogress/nprogress.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Pipeline from 'pipeline-js'
 import * as Fathom from 'fathom-client'
-import cookies from 'next-cookies'
 import App from 'next/app'
-import redirectTo from '../../src/utils/redirectTo'
 import * as Sentry from '@sentry/browser'
 import NProgress from 'nprogress'
 
@@ -13,8 +12,6 @@ Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 })
-
-const AuthPaths = ['/login']
 
 const MyApp = ({ Component, pageProps }) => {
 	const router = useRouter()
@@ -55,16 +52,11 @@ const MyApp = ({ Component, pageProps }) => {
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
-	const appProps = await App.getInitialProps({ Component, ctx })
-	const cookie = cookies(ctx)
+	const props = await App.getInitialProps({ Component, ctx })
 
-	if (['/', '/_error'].includes(ctx.pathname)) return { ...appProps }
+	const middleware = new Pipeline(Component.middleware || [])
 
-	if (ctx.pathname === '/posts') return redirectTo('/home') //TODO: Remove this
-	if (cookie.auralite_token && AuthPaths.includes(ctx.pathname)) redirectTo('/home', { res: ctx.res, status: 301 })
-	if (!cookie.auralite_token && !AuthPaths.includes(ctx.pathname)) redirectTo('/login', { res: ctx.res, status: 301 })
-
-	return { ...appProps }
+	return middleware.process({ props, ctx }).props
 }
 
 export default MyApp

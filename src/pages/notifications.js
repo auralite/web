@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import Client from '../utils/Client'
 import Notification from '../components/App/Notification'
 import useTitle from '../hooks/title'
+import withAuth from '../middleware/auth'
 
 const Notifications = () => {
 	const setTitle = useTitle('Notifications')
@@ -18,6 +19,7 @@ const Notifications = () => {
 	)
 }
 
+Notifications.middleware = withAuth()
 Notifications.getLayout = usePageLayout()
 
 export default Notifications
