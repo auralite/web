@@ -123,7 +123,6 @@ const Profile = ({ handle, authCheck }) => {
 					</div>
 				</div>
 				{profile ? profile.posts.map((post) => <Post key={post.id} post={post} showOptions={authCheck} onDelete={removeFromProfile} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
-				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 			</div>
 		</>
 	)
