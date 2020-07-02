@@ -77,11 +77,7 @@ class Client {
 				headers,
 				onUploadProgress: (progressEvent) => progress(progressEvent.loaded / progressEvent.total),
 			})
-			.then(({ data: response }) => {
-				response.extension = file.name.split('.').pop()
-
-				return response
-			})
+			.then(({ data: response }) => ({ ...response, extension: file.name.split('.').pop() }))
 	}
 }
 
