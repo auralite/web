@@ -11,12 +11,12 @@ import useTitle from '../../hooks/title'
 import Error from '../_error'
 import { withAuthInfo } from '../../middleware/auth'
 
-const Profile = ({ handle }) => {
+const Profile = ({ handle, authCheck }) => {
 	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
 		() => `/api/users/${handle}`,
 		() => Client.profile({ handle })
 	)
-	const { data: currentUser, mutate: mutateUser } = useSWR('/api/user', () => Client.user())
+	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
 	const setTitle = useTitle(profile && `${profile?.name} (@${profile.handle})`)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)

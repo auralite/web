@@ -48,7 +48,7 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta }
 					</div>
 				</div>
 				<div className="mt-3 leading-normal text-lg">{postContent[0] ? postContent : <Skeleton count={3} />}</div>
-				{post?.reply_to && showReply && (
+				{post?.parent && showReply && (
 					<div className="mt-1 border rounded-lg">
 						<Post post={post?.parent} small={true} showReply={false} />
 					</div>

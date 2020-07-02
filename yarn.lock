@@ -5532,6 +5532,11 @@ pinkie@^2.0.0:
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
+pipeline-js@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/pipeline-js/-/pipeline-js-1.0.2.tgz#1a05c0687784ffd691f11ad2cbb883a31da9a2cc"
+  integrity sha1-GgXAaHeE/9aR8RrSy7iDox2posw=
+
 pkg-dir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-3.0.0.tgz#2749020f239ed990881b1f71210d51eb6523bea3"
