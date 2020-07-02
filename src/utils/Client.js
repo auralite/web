@@ -57,6 +57,10 @@ class Client {
 		return this.client.post('/api/posts', { content: post, reply_to, privacy }).then((res) => res.data)
 	}
 
+	deletePost({ postId }) {
+		return this.client.delete(`/api/posts/${postId}`).then((res) => res.data)
+	}
+
 	markNotificationRead({ id }) {
 		return this.client.post(`/api/notifications/${id}/read`).then((res) => res.data)
 	}
