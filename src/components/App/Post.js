@@ -50,7 +50,7 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, 
 	})
 
 	return (
-		<Wrapper {...(shouldLink ? { href: { query: { postId: post?.id } }, as: `/${post?.author_handle}/posts/${post?.id}`, shallow: true } : { className: 'w-full' })}>
+		<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, shallow: true } : { className: 'w-full' })}>
 			<div className={`text-left pt-4 ${small ? 'pb-2' : 'pb-4 border-t'} px-2 w-full${shouldLink ? ' cursor-pointer' : ''}`}>
 				{meta}
 				<div className="flex items-center">
