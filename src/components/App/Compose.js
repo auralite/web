@@ -36,7 +36,7 @@ const Compose = ({ replyTo, onPost }) => {
 	}
 
 	return (
-		<form onSubmit={submitForm} className="border-b px-2 py-4 w-full">
+		<form onSubmit={submitForm} className="px-2 py-4 w-full">
 			<div className="relative rounded-md shadow-sm">
 				<textarea rows="3" data-gramm="false" className={`form-textarea mb-2 block w-full transition duration-150 ease-in-out sm:text-sm z-10 sm:leading-5${error ? ' border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''}`} placeholder="What's on your mind?" onChange={(event) => updatePost(event.target.value)} value={post} required minLength="2" maxLength="300" />
 				<div className="absolute bottom-2 right-2 pointer-events-none">

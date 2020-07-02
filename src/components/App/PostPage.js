@@ -36,10 +36,9 @@ const PostPage = ({ postId, authCheck }) => {
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
+			<div className="max-w-md sm:max-w-full border-l border-r border-b rounded-b-lg relative z-0">
 				<Post post={post} shouldLink={false} onDelete={() => router.back()} />
 				{authCheck && <Compose replyTo={post} onPost={newPost} />}
-				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 				{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
 			</div>
 		</>
