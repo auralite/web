@@ -1,7 +1,6 @@
 import React from 'react'
 import Client from '../../utils/Client'
-import Link from 'next/link'
-import Avatar from './Avatar'
+import { mutate } from 'swr'
 import Skeleton from 'react-loading-skeleton'
 import Post from './Post'
 
@@ -39,6 +38,8 @@ const NotificationSkeleton = ({ post, read, children, id }) => {
 		if (read) return
 
 		Client.markNotificationRead({ id })
+
+		mutate('/api/notifications', (notifications) => notifications.filter((notification) => notification.id !== id))
 	}
 
 	const meta = <div className="flex items-center text-gray-400">{children}</div>
