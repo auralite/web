@@ -38,7 +38,7 @@ const PageLayout = ({ children, authCheck }) => {
 		<>
 			<Head />
 			<AlertManager>
-				<div className="fixed header inset-0 flex z-40 pointer-events-none">
+				<div className="fixed pt-safe-t inset-0 flex z-40 pointer-events-none">
 					<Transition show={mobileNavigationOpen} enter="transition-opacity ease-linear duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity ease-linear duration-300" leaveFrom="opacity-100" leaveTo="opacity-0">
 						<div className="fixed inset-0 pointer-events-auto">
 							<div className="absolute inset-0 bg-gray-600 opacity-75" onClick={() => setMobileNavigationOpen(false)} />
@@ -167,7 +167,7 @@ const PageLayout = ({ children, authCheck }) => {
 					</main>
 
 					{authCheck && (
-						<div className="bg-indigo-700 flex items-center justify-around fixed bottom-0 z-20 w-full footer">
+						<div className="bg-indigo-700 flex items-center justify-around fixed bottom-0 z-20 w-full pb-safe-b">
 							<Link href="/home">
 								<a className="p-4">
 									<svg className="w-6 h-6 text-indigo-300" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">

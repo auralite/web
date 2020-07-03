@@ -17,6 +17,10 @@ module.exports = {
 			fontFamily: {
 				screen: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
 			},
+			padding: {
+				'safe-t': 'env(safe-area-inset-top)',
+				'safe-b': 'env(safe-area-inset-bottom)',
+			},
 			rotate: {
 				'-2': '-2deg',
 			},
