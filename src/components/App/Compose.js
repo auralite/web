@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { mutate } from 'swr'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
@@ -8,7 +8,7 @@ const Compose = ({ replyTo, onPost }) => {
 
 	const [error, setError] = useState(null)
 	const [post, setPost] = useState('')
-	const [privacy, setPrivacy] = useState(replyTo?.privacy ?? 'public')
+	const [privacy, setPrivacy] = useState('public')
 	const [loading, setLoading] = useState(false)
 
 	const updatePost = (content) => {
@@ -16,6 +16,10 @@ const Compose = ({ replyTo, onPost }) => {
 
 		setError(null)
 	}
+
+	useEffect(() => {
+		setPrivacy(replyTo?.privacy ?? 'public')
+	}, [replyTo?.privacy])
 
 	const submitForm = (event) => {
 		event.preventDefault()
