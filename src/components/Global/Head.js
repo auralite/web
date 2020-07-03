@@ -26,6 +26,7 @@ const Head = ({ children }) => {
 			<meta name="msapplication-TileColor" content="#603cba" />
 			<meta name="msapplication-config" content="/img/icons/browserconfig.xml" />
 			<meta name="theme-color" content="#6875f5" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover"></meta>
 			{children}
 		</NextHead>
 	)

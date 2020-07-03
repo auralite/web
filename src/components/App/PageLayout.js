@@ -38,7 +38,7 @@ const PageLayout = ({ children, authCheck }) => {
 		<>
 			<Head />
 			<AlertManager>
-				<div className="fixed inset-0 flex z-40 pointer-events-none">
+				<div className="fixed header inset-0 flex z-40 pointer-events-none">
 					<Transition show={mobileNavigationOpen} enter="transition-opacity ease-linear duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity ease-linear duration-300" leaveFrom="opacity-100" leaveTo="opacity-0">
 						<div className="fixed inset-0 pointer-events-auto">
 							<div className="absolute inset-0 bg-gray-600 opacity-75" onClick={() => setMobileNavigationOpen(false)} />
@@ -112,7 +112,7 @@ const PageLayout = ({ children, authCheck }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-indigo-700">
+					<nav className="bg-indigo-700 fixed z-20 w-full">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between h-16">
 								<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
@@ -160,30 +160,30 @@ const PageLayout = ({ children, authCheck }) => {
 						</div>
 					</nav>
 
-					<main className="flex-1 overflow-y-scroll">
+					<main className="pt-16">
 						<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
 							<div>{children}</div>
 						</div>
 					</main>
 
 					{authCheck && (
-						<div className="bg-indigo-700 flex items-center justify-around relative">
+						<div className="bg-indigo-700 flex items-center justify-around fixed bottom-0 z-20 w-full footer">
 							<Link href="/home">
-								<a className="p-5">
+								<a className="p-4">
 									<svg className="w-6 h-6 text-indigo-300" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
 										<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
 									</svg>
 								</a>
 							</Link>
 							<Link href="/search">
-								<a className="p-5">
+								<a className="p-4">
 									<svg className="w-6 h-6 text-indigo-300" fill="currentColor" viewBox="0 0 20 20">
 										<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
 									</svg>
 								</a>
 							</Link>
 							<Link href="/notifications">
-								<a className="p-5 text-indigo-300 relative" aria-label="Notifications">
+								<a className="p-4 text-indigo-300 relative" aria-label="Notifications">
 									<svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
 									</svg>
@@ -191,7 +191,7 @@ const PageLayout = ({ children, authCheck }) => {
 								</a>
 							</Link>
 							<LoadLink deps={user?.profile} href="/[profile]" as={`/${user?.profile?.handle}`}>
-								<a className="group p-5 focus:outline-none">
+								<a className="group p-4 focus:outline-none">
 									<div className="w-6 h-6 rounded-full text-white group-focus:shadow-solid">
 										<Avatar sizeClasses="h-6 w-6" src={user?.profile?.avatar} />
 									</div>

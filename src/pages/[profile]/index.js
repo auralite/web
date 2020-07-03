@@ -84,7 +84,7 @@ const Profile = ({ handle, authCheck }) => {
 			{setTitle}
 			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
 				<div className="flex">
-					<div className="px-2 pt-2 pb-4 w-full">
+					<div className="p-6 pb-4 w-full">
 						<div>
 							<div className="flex items-center justify-between">
 								<Avatar src={profile?.avatar} isUpdating={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />
