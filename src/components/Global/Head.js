@@ -1,5 +1,4 @@
 import { default as NextHead } from 'next/head'
-import useTitle from '../../hooks/title'
 
 const Head = ({ children }) => {
 	return (
