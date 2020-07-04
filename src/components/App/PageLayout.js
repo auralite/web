@@ -38,7 +38,7 @@ const PageLayout = ({ children, authCheck }) => {
 		<>
 			<Head />
 			<AlertManager>
-				<div className="fixed pt-safe-t inset-0 flex z-40 pointer-events-none">
+				<div className="fixed inset-0 flex z-40 pointer-events-none">
 					<Transition show={mobileNavigationOpen} enter="transition-opacity ease-linear duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity ease-linear duration-300" leaveFrom="opacity-100" leaveTo="opacity-0">
 						<div className="fixed inset-0 pointer-events-auto">
 							<div className="absolute inset-0 bg-gray-600 opacity-75" onClick={() => setMobileNavigationOpen(false)} />
@@ -112,9 +112,9 @@ const PageLayout = ({ children, authCheck }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-indigo-700 fixed z-20 w-full">
+					<nav className="bg-indigo-700 fixed z-20 w-full pt-safe-t">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-							<div className="flex items-center justify-between h-16">
+							<div className="flex items-center justify-between pb-4">
 								<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
 									<a className="flex-shrink-0">
 										<Logo className="h-8 w-8" />
@@ -158,7 +158,7 @@ const PageLayout = ({ children, authCheck }) => {
 						</div>
 					</nav>
 
-					<main className="pt-16">
+					<main className="pt-header">
 						<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
 							<div>{children}</div>
 						</div>

@@ -20,6 +20,7 @@ module.exports = {
 			padding: {
 				'safe-t': 'env(safe-area-inset-top)',
 				'safe-b': 'env(safe-area-inset-bottom)',
+				header: 'calc(env(safe-area-inset-top) + 3rem)',
 			},
 			rotate: {
 				'-2': '-2deg',

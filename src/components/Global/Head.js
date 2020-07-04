@@ -26,6 +26,9 @@ const Head = ({ children }) => {
 			<meta name="msapplication-TileColor" content="#603cba" />
 			<meta name="msapplication-config" content="/img/icons/browserconfig.xml" />
 			<meta name="theme-color" content="#6875f5" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<meta name="mobile-web-app-capable" content="yes" />
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover" />
 			{children}
 		</NextHead>
