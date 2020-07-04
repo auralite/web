@@ -29,7 +29,7 @@ const PageLayout = ({ children, authCheck }) => {
 	})
 
 	const logout = () => {
-		Cookies.remove('auralite_token')
+		Cookies.remove('auralite_token', { expires: 2628000, sameSite: 'lax' })
 
 		router.push('/login')
 	}
@@ -140,11 +140,9 @@ const PageLayout = ({ children, authCheck }) => {
 															<button onClick={() => alert('lol nope')} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 																Settings
 															</button>
-															<Link href="/logout">
-																<a className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-																	Sign out
-																</a>
-															</Link>
+															<button onClick={logout} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+																Sign out
+															</button>
 														</div>
 													</div>
 												</Transition>

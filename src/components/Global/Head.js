@@ -22,11 +22,11 @@ const Head = ({ children }) => {
 			<link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png" />
 			<link rel="manifest" href="/img/icons/site.webmanifest" />
 			<link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#6875f5" />
-			<link rel="shortcut icon" href="/img/icons/favicon.ico" />
+			<link rel="shortcut icon" href="/favicon.ico" />
 			<meta name="msapplication-TileColor" content="#603cba" />
 			<meta name="msapplication-config" content="/img/icons/browserconfig.xml" />
 			<meta name="theme-color" content="#6875f5" />
-			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover"></meta>
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover" />
 			{children}
 		</NextHead>
 	)

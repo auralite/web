@@ -24,7 +24,7 @@ const Login = () => {
 		axios
 			.post('/api/auth/login', { email, password })
 			.then((response) => {
-				Cookies.set('auralite_token', response.data.access_token)
+				Cookies.set('auralite_token', response.data.access_token, { expires: 2628000, sameSite: 'lax' })
 
 				router.push('/home')
 			})
@@ -70,7 +70,7 @@ const Login = () => {
 						</div>
 
 						<div className="text-sm leading-5">
-							<button onClick={() => alert('nah')} className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+							<button type="button" onClick={() => alert('nah')} className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
 								Forgot your password?
 							</button>
 						</div>
