@@ -15,5 +15,6 @@
     ],
     "theme_color": "#6875f5",
     "background_color": "#6875f5",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "https://auralite.io/home"
 }
