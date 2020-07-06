@@ -8,11 +8,12 @@ import Error from '../../_error'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
 
-const PostPage = ({ postId, authCheck }) => {
+const PostPage = ({ postId, authCheck, initialData }) => {
 	const router = useRouter()
 	const { data: post, mutate, error: postError } = useSWR(
 		() => `/api/posts/${postId}`,
-		() => Client.post({ postId })
+		() => Client.post({ postId }),
+		{ initialData }
 	)
 
 	const setTitle = useTitle(post && `${post.author.name} (@${post.author_handle}) on Auralite: ${post.content}`)
@@ -50,7 +51,11 @@ const PostPage = ({ postId, authCheck }) => {
 PostPage.getLayout = usePageLayout()
 
 PostPage.getInitialProps = async ({ query }) => {
-	return { postId: query.post }
+	try {
+		return { postId: query.post, initialData: await Client.post({ postId: query.post }) }
+	} catch (error) {
+		return { error }
+	}
 }
 
 PostPage.middleware = withAuthInfo()

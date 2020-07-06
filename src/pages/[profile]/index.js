@@ -11,10 +11,11 @@ import useTitle from '../../hooks/title'
 import Error from '../_error'
 import { withAuthInfo } from '../../middleware/auth'
 
-const Profile = ({ handle, authCheck }) => {
+const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
 		() => `/api/users/${handle}`,
-		() => Client.profile({ handle })
+		() => Client.profile({ handle }),
+		{ initialData }
 	)
 	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
 	const setTitle = useTitle(profile && `${profile?.name} (@${profile.handle})`)
@@ -131,8 +132,12 @@ const Profile = ({ handle, authCheck }) => {
 Profile.getLayout = usePageLayout()
 Profile.middleware = withAuthInfo()
 
-Profile.getInitialProps = async ({ query }) => {
-	return { handle: query.profile }
+Profile.getInitialProps = async ({ query, pathname }) => {
+	try {
+		return { handle: query.profile, isReplies: pathname.includes('/replies'), initialData: await Client.profile({ handle: query.profile }) }
+	} catch (error) {
+		return { error }
+	}
 }
 
 export default Profile

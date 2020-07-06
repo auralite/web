@@ -6,6 +6,7 @@ import * as Fathom from 'fathom-client'
 import App from 'next/app'
 import * as Sentry from '@sentry/browser'
 import NProgress from 'nprogress'
+import Error from './_error'
 
 Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',
@@ -43,6 +44,8 @@ const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 		}
 	})
 
+	if (pageProps.isError) return <Error statusCode={pageProps.statusCode} />
+
 	const getLayout = Component.getLayout || ((page) => page)
 
 	return getLayout(<Component {...pageProps} {...serverProps} />, serverProps)
@@ -50,6 +53,12 @@ const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
 	const props = await App.getInitialProps({ Component, ctx })
+
+	if (props.pageProps.error) {
+		ctx.res.statusCode = props.pageProps.error.response.status
+
+		return { pageProps: { isError: true, statusCode: props.pageProps.error.response.status } }
+	}
 
 	const middleware = new Pipeline(Component.middleware || [])
 
