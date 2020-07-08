@@ -6,11 +6,12 @@ import Client from '../../../utils/Client'
 import useTitle from '../../../hooks/title'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 
 const PostPage = ({ postId, authCheck, initialData }) => {
 	const router = useRouter()
 	const [replyHeight, setReplyHeight] = useState(0)
+	const composeRef = useRef(null)
 	const { data: post, mutate } = useSWR(
 		() => `/api/posts/${postId}`,
 		() => Client.post({ postId }),
@@ -47,7 +48,7 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 			checkOrWait()
 		}).then(() => {
 			window.requestAnimationFrame(() => {
-				window.scroll({ top: replyHeight + 5, left: 0 })
+				window.scroll({ top: replyHeight + (composeRef.current?.offsetHeight ?? 0) + 5, left: 0 })
 			})
 		})
 
@@ -60,9 +61,7 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 	}, [])
 
 	useLayoutEffect(() => {
-		window.requestAnimationFrame(() => {
-			window.scroll({ top: replyHeight + 5, left: 0 })
-		})
+		scrollToReply()
 	}, [replyHeight])
 
 	return (
@@ -70,10 +69,11 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 			{setTitle}
 			<div className="max-w-md sm:max-w-3xl rounded-b-lg relative z-0 mt-4">
 				<div style={{ minHeight: `calc(100vh + 1rem + ${replyHeight}px)` }}>
-					<div className="bg-white sm:rounded-lg sm:shadow mb-8">
-						<Post post={post} shouldLink={false} featured={true} onDelete={() => router.back()} parentReply={(ref) => setReplyHeight(ref.current?.offsetHeight ?? 0)} />
-						{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
+					<div className="bg-white sm:rounded-lg sm:shadow sm:mb-4">
+						<Post post={post} shouldLink={false} featured={true} onDelete={() => router.back()} parentReply={(ref) => setReplyHeight(ref.current?.offsetHeight ?? 0)} withBorder={false} />
 					</div>
+					{authCheck && <Compose ref={composeRef} replyTo={post} onPost={newPost} />}
+					<div className="bg-white sm:rounded-lg sm:shadow mb-4">{post ? post.replies.map((reply, key) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} withBorder={key + 1 !== post.replies.length} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}</div>
 				</div>
 			</div>
 		</>
