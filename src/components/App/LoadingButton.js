@@ -1,5 +1,5 @@
-const LoadingButton = ({ loading, loadingClasses, activeClasses, wrapperClasses, children, className, onClick }, props) => (
-	<button onClick={loading ? (e) => e.preventDefault() : onClick} className={`relative ${className} ${loading ? loadingClasses : activeClasses}`} {...props}>
+const LoadingButton = ({ loading, disabled, loadingClasses, disabledClasses, activeClasses, wrapperClasses, children, className, onClick }, props) => (
+	<button onClick={loading || disabled ? (e) => e.preventDefault() : onClick} className={`relative ${className} ${loading ? loadingClasses : ''} ${disabled ? disabledClasses : ''} ${!loading && !disabled ? activeClasses : ''}`} {...props}>
 		{loading && (
 			<span className="absolute" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
 				<svg viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="mx-auto block" style={{ width: '32px' }}>
