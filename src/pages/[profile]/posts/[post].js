@@ -10,7 +10,8 @@ import Post from '../../../components/App/Post'
 
 const PostPage = ({ postId, authCheck, initialData }) => {
 	const router = useRouter()
-	const { data: post, mutate, error: postError } = useSWR(
+	const [replyHeight, setReplyHeight] = useState(0)
+	const { data: post, mutate } = useSWR(
 		() => `/api/posts/${postId}`,
 		() => Client.post({ postId }),
 		{ initialData }
@@ -34,15 +35,20 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 		})
 	}
 
-	if (postError?.response) return <Error statusCode={postError.response.status} />
+	useEffect(() => {
+		window.requestAnimationFrame(() => {
+			window.scroll({ top: replyHeight - 10, left: 0 })
+		})
+	}, [replyHeight])
 
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-full border-l border-r border-b rounded-b-lg relative z-0">
-				<Post post={post} shouldLink={false} onDelete={() => router.back()} />
-				{authCheck && <Compose replyTo={post} onPost={newPost} />}
-				{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
+			<div className="max-w-md sm:max-w-full sm:border-l sm:border-r rounded-b-lg relative z-0">
+				<div style={{ minHeight: `calc(100vh + ${replyHeight}px)` }}>
+					<Post post={post} shouldLink={false} featured={true} onDelete={() => router.back()} parentReply={(ref) => setReplyHeight(ref.current?.offsetHeight ?? 0)} />
+					{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
+				</div>
 			</div>
 		</>
 	)
