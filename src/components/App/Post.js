@@ -3,16 +3,19 @@ import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
 import Avatar from './Avatar'
 import useFormat from '../../hooks/format'
-import LoadLink from './LoadLink'
 import useSWR from 'swr'
 import Client from '../../utils/Client'
-import { useState } from 'react'
+import { useState, Fragment, useRef, forwardRef, useEffect } from 'react'
 import useClickOutside from '../../hooks/click-outside'
 import Transition from '../Global/Transition'
 
-const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, showOptions = true, onDelete = () => {} }) => {
+const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {} }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
+	const parentRef = useRef(null)
+	useEffect(() => {
+		parentReply(parentRef)
+	})
 	const { ref: optionsRef, excludeRef } = useClickOutside(() => {
 		if (!optionsOpen) return
 
@@ -21,6 +24,7 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, 
 	const { data: user } = useSWR(post && showOptions ? '/api/user' : null, () => Client.user())
 
 	const Wrapper = shouldLink ? Link : 'div'
+	const ChildWrapper = shouldLink ? 'div' : Fragment
 
 	const openDropdown = (event) => {
 		event.stopPropagation()
@@ -34,51 +38,31 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, 
 			.then(() => onDelete(post))
 	}
 
-	moment.updateLocale('en', {
-		relativeTime: {
-			future: 'in %s',
-			past: '%s ago',
-			s: '%ds',
-			ss: '%ds',
-			m: '%dm',
-			mm: '%dm',
-			h: '%dh',
-			hh: '%dh',
-			d: '%dd',
-			dd: '%dd',
-		},
-	})
+	const parentClasses = `px-4 ${isParent ? '' : 'border-b border-gray-200'} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 flex items-stretch w-full group`
 
 	return (
-		<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}` } : { className: 'w-full' })}>
-			<div className={`text-left pt-4 ${small ? 'pb-2' : 'pb-4 border-t'} px-6 w-full${shouldLink ? ' cursor-pointer' : ''}`}>
-				{meta}
-				<div className="flex items-center">
-					<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
-						<a>
-							<Avatar src={post?.author?.avatar} className="mr-2" sizeClasses={small ? 'h-6 w-6' : 'h-10 w-10'} />
-						</a>
-					</LoadLink>
-					<div className="flex-1 flex items-center justify-between mr-1">
-						<div>
-							<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
-								<a className="font-bold text-gray-800 mr-2">{post?.author?.name || <Skeleton width={120} />}</a>
-							</LoadLink>
-							<LoadLink deps={post?.author_handle} href="/[profile]" as={`/${post?.author_handle}`}>
-								<a className="text-gray-600">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</a>
-							</LoadLink>
-						</div>
-						<span className="flex items-center text-gray-400">
-							<span>{post?.created_at ? moment.unix(post.created_at).fromNow(true) : <Skeleton width={25} />}</span>
-							{post?.privacy === 'users' && (
-								<div title="Only Auralite users can see this post">
-									<svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-										<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-									</svg>
-								</div>
-							)}
+		<>
+			{showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} showReply={false} />}
+			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}` } : { className: parentClasses, ref })}>
+				<ChildWrapper {...(shouldLink ? { className: parentClasses, ref } : {})}>
+					<div className="flex-shrink-0 mr-4">
+						<Avatar src={post?.author?.avatar} sizeClasses="w-12 h-12" />
+						{isParent && <div className="w-0.5 bg-gray-200 mx-auto h-full" />}
+					</div>
+					<div className="flex-1 overflow-hidden flex flex-col">
+						<div className="flex items-center justify-between">
+							<p className="m-0 whitespace-no-wrap overflow-hidden inline-flex space-x-1">
+								<Link href="/[profile]" as={`/${post?.author_handle}`}>
+									<a className="inline overflow-ellipsis overflow-hidden min-w-0 space-x-1">
+										<span className="font-bold text-gray-900">{post?.author?.name ?? <Skeleton width={100} />}</span>
+										<span className="overflow-ellipsis text-gray-600 overflow-hidden min-w-0">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</span>
+									</a>
+								</Link>
+								<span className="text-gray-600">&middot;</span>
+								<span className="text-gray-600">{post?.created_at ? moment.unix(post.created_at).format('MMM D') : <Skeleton width={30} />}</span>
+							</p>
 							{showOptions && post?.author_handle && user?.profile?.handle === post?.author_handle && (
-								<div className="relative inline-block text-left">
+								<div className="relative hidden group-hover:block">
 									<button ref={excludeRef} onClick={openDropdown} className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="Options" id="options-menu" aria-haspopup="true" aria-expanded="true">
 										<svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
 											<path d="M19 9l-7 7-7-7" />
@@ -100,18 +84,15 @@ const Post = ({ post, shouldLink = true, showReply = true, small = false, meta, 
 									</Transition>
 								</div>
 							)}
-						</span>
+						</div>
+						<div className="mt-1">
+							<p className={`text-gray-800 text-left ${featured ? 'text-lg' : ''}`}>{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</p>
+						</div>
 					</div>
-				</div>
-				<div className="mt-3 leading-normal text-lg">{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</div>
-				{post?.parent && showReply && (
-					<div className="mt-1 border rounded-lg">
-						<Post post={post?.parent} small={true} showReply={false} showOptions={false} />
-					</div>
-				)}
-			</div>
-		</Wrapper>
+				</ChildWrapper>
+			</Wrapper>
+		</>
 	)
-}
+})
 
 export default Post
