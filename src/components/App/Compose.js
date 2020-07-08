@@ -17,6 +17,7 @@ const Compose = ({ replyTo, onPost }) => {
 	const [post, setPost] = useState('')
 	const remainingChars = 300 - post.length
 
+	const [images, setImages] = useState([])
 	const [privacy, setPrivacy] = useState('public')
 
 	const updatePost = (content) => {
@@ -25,12 +26,20 @@ const Compose = ({ replyTo, onPost }) => {
 		setError(null)
 	}
 
+	const addFile = (files) => {
+		if (images.length >= 4) return
+
+		setImages((images) => images.concat([...files].map((file) => [URL.createObjectURL(file), file])))
+	}
+
 	useEffect(() => {
 		setPrivacy(replyTo?.privacy ?? 'public')
 	}, [replyTo?.privacy])
 
 	const submitForm = (event) => {
 		event.preventDefault()
+
+		if (images.length > 0) return alert('Images are coming very soon!')
 
 		setLoading(true)
 
@@ -58,8 +67,15 @@ const Compose = ({ replyTo, onPost }) => {
 				<form onSubmit={submitForm} className="flex-1">
 					<textarea value={post} onChange={(event) => updatePost(event.target.value)} className={`form-textarea mb-2 focus:bg-white block w-full ${post.length != 0 || remainingChars <= 0 ? 'border border-red-500' : ''}`} rows="3" placeholder="What's on your mind?" />
 					{error && <p className="mb-2 text-sm text-red-600">{error}</p>}
+					{images.length > 0 && <ImageGrid images={images} onRemove={(image) => setImages((images) => images.filter((img) => img[0] !== image[0]))} />}
 					<div className="flex justify-between items-center">
 						<div className="flex items-center space-x-2">
+							<label htmlFor="image" type="button" className="-m-2 cursor-pointer inine-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-white hover:bg-gray-200 transition duration-200 ease-in-out">
+								<input id="image" multiple accept="image/*" className="hidden" type="file" onChange={(event) => addFile(event.target.files)} />
+								<svg className="h-6 w-6 text-gray-500" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+									<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+							</label>
 							<button type="button" title={privacy === 'public' ? 'Share with everyone' : 'Share with Auralite users'} onClick={() => setPrivacy((privacy) => (privacy === 'public' ? 'users' : 'public'))} className="-m-2 cursor-pointer inine-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-white hover:bg-gray-200 transition duration-200 ease-in-out">
 								{privacy === 'public' ? (
 									<svg className="h-6 w-6 text-gray-500" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
