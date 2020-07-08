@@ -33,7 +33,7 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 
 	return (
 		<div className={`group ${sizeClasses} rounded-full relative ${className ?? ''}`}>
-			{avatarUrl ? <img src={avatarUrl} alt="" className={`${sizeClasses} rounded-full`} /> : <Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />}
+			{avatarUrl ? <img loading="lazy" src={avatarUrl} alt="" className={`${sizeClasses} rounded-full`} /> : <Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />}
 			{isUpdating && (
 				<>
 					<div className={`absolute opacity-0 group-hover:opacity-100 inset-0 bg-indigo-300 bg-opacity-75 ${sizeClasses} rounded-full flex items-center justify-center transition-opacity duration-200 ease-in-out`}>
