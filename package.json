@@ -33,6 +33,7 @@
     "react-transition-group": "^4.4.1",
     "sass": "^1.26.9",
     "swr": "^0.2.3",
+    "swr-sync-storage": "^1.0.1",
     "tailwindcss": "^1.4.6"
   },
   "devDependencies": {
