@@ -28,6 +28,7 @@
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "16.13.1",
     "react-loading-skeleton": "^2.1.1",
+    "react-medium-image-zoom": "^4.3.1",
     "react-string-replace": "^0.4.4",
     "react-transition-group": "^4.4.1",
     "sass": "^1.26.9",
