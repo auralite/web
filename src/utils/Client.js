@@ -41,8 +41,8 @@ class Client {
 		return this.client.post('/api/profile/update', { bio, avatar }).then((res) => res.data)
 	}
 
-	timeline() {
-		return this.client.get('/api/timeline').then((res) => res.data)
+	timeline({ page }) {
+		return this.client.get(`/api/timeline?page=${page ?? 1}`).then((res) => res.data)
 	}
 
 	notifications() {
