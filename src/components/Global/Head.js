@@ -2,7 +2,7 @@ import { default as NextHead } from 'next/head'
 
 const Head = ({ children }) => {
 	return (
-		<NextHead>
+		<NextHead lang="en">
 			<title key="title">Auralite</title>
 			<link rel="preconnect" href="https://images.auralite.io" />
 			<meta name="description" content="A social network for the future" />
