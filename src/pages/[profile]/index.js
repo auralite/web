@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton'
 import useTitle from '../../hooks/title'
 import Error from '../_error'
 import { withAuthInfo } from '../../middleware/auth'
+import Link from 'next/link'
 
 const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
@@ -85,8 +86,8 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 			{setTitle}
 			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
 				<div className="flex">
-					<div className="p-6 pb-4 w-full">
-						<div>
+					<div className="pt-4 w-full">
+						<div className="px-6 ">
 							<div className="flex items-center justify-between">
 								<Avatar src={profile?.avatar} isUpdating={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />
 								{profile && currentUser && profile.handle === currentUser.profile.handle && (
@@ -108,7 +109,7 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 						</div>
 						{isUpdating ? (
 							<>
-								<div className="relative rounded-md shadow-sm">
+								<div className="relative rounded-md shadow-sm px-6">
 									<textarea data-gramm="false" id="about" rows="3" className={`form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5${error ? ' border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''}`} placeholder="18-year-old maker. Founder of Sitesauce, working on Auralite." onChange={(event) => setBio(event.target.value)} value={bio} required minLength="60" maxLength="160" />
 									<div className="absolute bottom-2 right-2 pointer-events-none">
 										<span className="text-sm text-gray-400">
@@ -116,14 +117,26 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 										</span>
 									</div>
 								</div>
-								{error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+								{error && <p className="mt-2 text-sm text-red-600 px-6">{error}</p>}
 							</>
 						) : (
-							<div className="mt-3 leading-normal">{userBio[0] ? userBio : <Skeleton count={2} />}</div>
+							<div className="mt-3 leading-normal px-6">{userBio[0] ? userBio : <Skeleton count={2} />}</div>
 						)}
+						<div className="pt-4 border-b border-gray-200">
+							<div className="px-6">
+								<nav className="-mb-px flex">
+									<Link href="/[profile]" as={`/${handle}`} shallow={true}>
+										<a className={`${isReplies ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' : 'border-indigo-500 text-indigo-600 focus:text-indigo-800 focus:border-indigo-700'} whitespace-no-wrap py-4 px-1 border-b-2 font-medium text-sm leading-5 focus:outline-none`}>Posts</a>
+									</Link>
+									<Link href="/[profile]/replies" as={`/${handle}/replies`} shallow={true}>
+										<a className={`${isReplies ? 'border-indigo-500 text-indigo-600 focus:text-indigo-800 focus:border-indigo-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} whitespace-no-wrap ml-8 py-4 px-1 border-b-2 font-medium text-sm leading-5 focus:outline-none`}>Replies</a>
+									</Link>
+								</nav>
+							</div>
+						</div>
 					</div>
 				</div>
-				{profile ? profile.posts.map((post) => <Post key={post.id} post={post} showOptions={authCheck} onDelete={removeFromProfile} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
+				<div>{profile ? profile.posts.filter((post) => (isReplies ? post.reply_to : !post.reply_to)).map((post) => <Post key={post.id} post={post} showOptions={authCheck} onDelete={removeFromProfile} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}</div>
 			</div>
 		</>
 	)
