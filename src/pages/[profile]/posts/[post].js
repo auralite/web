@@ -4,9 +4,9 @@ import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import Client from '../../../utils/Client'
 import useTitle from '../../../hooks/title'
-import Error from '../../_error'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
+import { useState, useEffect } from 'react'
 
 const PostPage = ({ postId, authCheck, initialData }) => {
 	const router = useRouter()
