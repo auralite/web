@@ -5,11 +5,19 @@ import Client from '../../utils/Client'
 import Skeleton from 'react-loading-skeleton'
 import useTailwind from '../../hooks/tailwind'
 
+const base64 = (str) => {
+	if (typeof window !== 'undefined') return btoa(str)
+
+	return Buffer.from(str).toString('base64')
+}
+
 const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
+	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
+	const isS3 = src?.startsWith('https://auralite.s3.eu-west-2.amazonaws.com/')
+	src = isS3 ? `https://images.auralite.io/avatars/fit/${parseFloat(width.split('rem')[0]) * 24}/${parseFloat(height.split('rem')[0]) * 24}/sm/0/${base64('s3://auralite/' + src.split('https://auralite.s3.eu-west-2.amazonaws.com/', 2)[1])}` : src
 	const [file, setFile] = useState(null)
 	const [progress, setProgress] = useState(0)
 	const [avatarUrl, setAvatarUrl] = useState(src)
-	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
 
 	useEffect(() => {
 		setAvatarUrl(src)
@@ -33,7 +41,21 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 
 	return (
 		<div className={`group ${sizeClasses} rounded-full relative ${className ?? ''}`}>
-			{avatarUrl ? <img loading="lazy" src={avatarUrl} alt="" className={`${sizeClasses} rounded-full`} /> : <Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />}
+			{avatarUrl ? (
+				isS3 ? (
+					<figure className={`${sizeClasses} rounded-full overflow-hidden`}>
+						<picture loading="lazy" className="w-full h-full">
+							<source type="image/webp" srcSet={`${avatarUrl}.webp`} />
+							<source type={`image/${avatarUrl.split('.').pop() === 'png' ? 'png' : 'jpeg'}`} srcSet={avatarUrl} />
+							<img loading="lazy" src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
+						</picture>
+					</figure>
+				) : (
+					<img loading="lazy" className={`${sizeClasses} rounded-full overflow-hidden`} src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
+				)
+			) : (
+				<Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />
+			)}
 			{isUpdating && (
 				<>
 					<div className={`absolute opacity-0 group-hover:opacity-100 inset-0 bg-indigo-300 bg-opacity-75 ${sizeClasses} rounded-full flex items-center justify-center transition-opacity duration-200 ease-in-out`}>
