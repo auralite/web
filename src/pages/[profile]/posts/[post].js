@@ -35,9 +35,33 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 		})
 	}
 
+	const scrollToReply = () =>
+		new Promise((resolve, reject) => {
+			const checkOrWait = () => {
+				if (post && post.reply_to === null) return reject()
+				if (replyHeight != 0) return resolve()
+
+				setTimeout(500, () => checkOrWait())
+			}
+
+			checkOrWait()
+		}).then(() => {
+			window.requestAnimationFrame(() => {
+				window.scroll({ top: replyHeight + 5, left: 0 })
+			})
+		})
+
 	useEffect(() => {
+		router.events.on('routeChangeComplete', () => scrollToReply())
+
+		return () => {
+			router.events.off('routeChangeComplete', () => scrollToReply())
+		}
+	}, [])
+
+	useLayoutEffect(() => {
 		window.requestAnimationFrame(() => {
-			window.scroll({ top: replyHeight - 10, left: 0 })
+			window.scroll({ top: replyHeight + 5, left: 0 })
 		})
 	}, [replyHeight])
 
