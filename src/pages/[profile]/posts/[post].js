@@ -44,10 +44,12 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-full sm:border-l sm:border-r rounded-b-lg relative z-0">
-				<div style={{ minHeight: `calc(100vh + ${replyHeight}px)` }}>
-					<Post post={post} shouldLink={false} featured={true} onDelete={() => router.back()} parentReply={(ref) => setReplyHeight(ref.current?.offsetHeight ?? 0)} />
-					{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
+			<div className="max-w-md sm:max-w-3xl rounded-b-lg relative z-0 mt-4">
+				<div style={{ minHeight: `calc(100vh + 1rem + ${replyHeight}px)` }}>
+					<div className="bg-white sm:rounded-lg sm:shadow mb-8">
+						<Post post={post} shouldLink={false} featured={true} onDelete={() => router.back()} parentReply={(ref) => setReplyHeight(ref.current?.offsetHeight ?? 0)} />
+						{post ? post.replies.map((reply) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}
+					</div>
 				</div>
 			</div>
 		</>

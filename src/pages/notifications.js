@@ -12,8 +12,8 @@ const Notifications = () => {
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
-				<div className="flex flex-col">{notifications ? notifications.map((notification, key) => <Notification key={key} {...notification} />) : [...Array(10).keys()].map((key) => <Notification key={key} />)}</div>
+			<div className="max-w-md sm:max-w-3xl relative z-0 sm:mt-4">
+				<div className="flex flex-col sm:rounded-lg sm:bg-white sm:shadow">{notifications ? notifications.map((notification, key) => <Notification key={key} {...notification} />) : [...Array(10).keys()].map((key) => <Notification key={key} />)}</div>
 			</div>
 		</>
 	)

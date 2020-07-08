@@ -17,9 +17,9 @@ const Home = () => {
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-full border-l border-r relative z-0">
+			<div className="max-w-md sm:max-w-3xl relative z-0 mt-4">
 				<Compose />
-				{posts ? posts.map((post) => <Post key={post.id} post={post} onDelete={removeFromTimeline} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}
+				<div className="bg-white sm:rounded-lg sm:shadow mb-8">{posts ? posts.map((post) => <Post key={post.id} post={post} onDelete={removeFromTimeline} />) : [...Array(10).keys()].map((key) => <Post key={key} />)}</div>
 				<div className="text-center py-4">You've reached the end of Auralite. Now close the tab and do something else.</div>
 			</div>
 		</>

@@ -46,7 +46,7 @@ const NotificationSkeleton = ({ post, read, children, id }) => {
 
 	return (
 		<button onClick={markRead}>
-			<Post post={post} showReply={false} meta={meta} />
+			<Post post={post} showReply={false} meta={meta} showOptions={false} />
 		</button>
 	)
 }

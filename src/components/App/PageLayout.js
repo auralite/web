@@ -158,7 +158,7 @@ const PageLayout = ({ children, authCheck }) => {
 						</div>
 					</nav>
 
-					<main className="pt-header sm:pt-16">
+					<main className="pt-header sm:pt-16 sm:bg-gray-50">
 						<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
 							<div>{children}</div>
 						</div>
