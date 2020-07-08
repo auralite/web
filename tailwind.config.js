@@ -21,6 +21,7 @@ module.exports = {
 				'safe-t': 'max(1rem, env(safe-area-inset-top))',
 				'safe-b': 'env(safe-area-inset-bottom)',
 				header: 'calc(max(1rem, env(safe-area-inset-top)) + 3rem)',
+				footer: 'calc(env(safe-area-inset-top) + 3.5rem)',
 			},
 			rotate: {
 				'-2': '-2deg',
