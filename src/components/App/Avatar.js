@@ -13,20 +13,20 @@ const base64 = (str) => {
 
 const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
-	const isS3 = src?.startsWith('https://auralite.s3.eu-west-2.amazonaws.com/')
-	src = isS3 ? `https://images.auralite.io/avatars/fit/${parseFloat(width.split('rem')[0]) * 24}/${parseFloat(height.split('rem')[0]) * 24}/sm/0/${base64('s3://auralite/' + src.split('https://auralite.s3.eu-west-2.amazonaws.com/', 2)[1])}` : src
 	const [file, setFile] = useState(null)
 	const [progress, setProgress] = useState(0)
 	const [avatarUrl, setAvatarUrl] = useState(src)
 
 	useEffect(() => {
-		setAvatarUrl(src)
+		setAvatarUrl(src?.startsWith('https://auralite.s3.eu-west-2.amazonaws.com/') ? `https://images.auralite.io/avatars/fit/${parseFloat(width.split('rem')[0]) * 24}/${parseFloat(height.split('rem')[0]) * 24}/sm/0/${base64('s3://auralite/' + src.split('https://auralite.s3.eu-west-2.amazonaws.com/', 2)[1])}` : src)
 	}, [src])
 
 	useEffect(() => {
 		if (!file) return
 
-		Client.uploadFile({ file, progress: (progress) => setProgress(Math.round(progress * 100)) }).then((response) => onChange(`${response.key}.${response.extension}`))
+		Client.uploadFile({ file, progress: (progress) => setProgress(Math.round(progress * 100)) })
+			.catch(() => alert('Something went wrong when uploading your profile pic'))
+			.then((response) => onChange(`${response.key}.${response.extension}`))
 	}, [file])
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	return (
 		<div className={`group ${sizeClasses} rounded-full relative ${className ?? ''}`}>
 			{avatarUrl ? (
-				isS3 ? (
+				avatarUrl?.startsWith('https://images.auralite.io/') ? (
 					<figure className={`${sizeClasses} rounded-full overflow-hidden`}>
 						<picture loading="lazy" className="w-full h-full">
 							<source type="image/webp" srcSet={`${avatarUrl}.webp`} />
