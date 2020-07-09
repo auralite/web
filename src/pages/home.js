@@ -53,7 +53,7 @@ const Home = () => {
 	)
 }
 
-Home.getLayout = usePageLayout()
+Home.getLayout = usePageLayout('Home')
 Home.middleware = withAuth()
 
 export default Home

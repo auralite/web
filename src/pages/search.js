@@ -5,7 +5,7 @@ const Search = () => {
 	return <span>soon!</span>
 }
 
-Search.getLayout = usePageLayout()
+Search.getLayout = usePageLayout('Search')
 Search.middleware = withAuth()
 
 export default Search

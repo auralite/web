@@ -20,6 +20,6 @@ const Notifications = () => {
 }
 
 Notifications.middleware = withAuth()
-Notifications.getLayout = usePageLayout()
+Notifications.getLayout = usePageLayout('Notifications')
 
 export default Notifications
