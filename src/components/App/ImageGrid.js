@@ -1,26 +1,25 @@
 import { Controlled as Zoom } from 'react-medium-image-zoom'
 import { useState, useMemo, useEffect } from 'react'
 import Client from '../../utils/Client'
+import { base64 } from '../../utils/encoding'
 
-const ImageGrid = ({ imageRows, onImageRemove, onUpload, imageCount, isUpload }) => {
-	return (
-		<div className="w-auto border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
-			<div className="overflow-hidden">
-				<div className="block w-full relative" style={{ paddingBottom: '56.25%' }}>
-					<div className="absolute top-0 left-0 w-full h-full">
-						<div className="h-full flex">
-							{imageRows.map((images, key) => (
-								<div key={key} className="flex flex-col justify-center">
-									{images.map((image, i) => (isUpload ? <ImageUpload key={image.id} image={image} onRemove={onImageRemove} imageCount={imageCount} onKey={(key) => onUpload(image.id, key)} /> : <Image key={i} image={image} imageCount={imageCount} />))}
-								</div>
-							))}
-						</div>
+const ImageGrid = ({ imageRows = [], onImageRemove, onUpload, imageCount, isUpload }) => (
+	<div className="w-auto border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
+		<div className="overflow-hidden">
+			<div className="block w-full relative" style={{ paddingBottom: '56.25%' }}>
+				<div className="absolute top-0 left-0 w-full h-full">
+					<div className="h-full flex">
+						{imageRows.map((images, key) => (
+							<div key={key} className="flex flex-col justify-center">
+								{images.map((image, i) => (isUpload ? <ImageUpload key={image.id} image={image} onRemove={onImageRemove} imageCount={imageCount} onKey={(key) => onUpload(image.id, key)} /> : <Image key={i} image={image} imageCount={imageCount} />))}
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
 		</div>
-	)
-}
+	</div>
+)
 
 const ImageUpload = ({ image, imageCount, onRemove, onKey }) => {
 	const [isZoomed, setIsZoomed] = useState(false)
