@@ -132,7 +132,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-white border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4">
+					<nav className="bg-transparent border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4" style={{ backdropFilter: 'saturate(180%) blur(20px)' }}>
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between">
 								<div className="flex items-stretch">
@@ -194,7 +194,8 @@ const PageLayout = ({ children, authCheck, title }) => {
 						</div>
 					</nav>
 
-					<main className="pt-header pb-footer sm:pt-16 sm:bg-gray-50">
+					<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50">
+						<div className="hidden sm:block w-full h-header bg-white" />
 						<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
 							<div>{children}</div>
 						</div>

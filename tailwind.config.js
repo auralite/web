@@ -4,6 +4,9 @@ module.exports = {
 	purge: ['./src/components/**/*.js', './src/pages/**/*.js'],
 	theme: {
 		extend: {
+			height: {
+				header: 'calc(max(1rem, env(safe-area-inset-top)) + 3rem)',
+			},
 			borderRadius: {
 				xl: '1rem',
 				'2xl': '2rem',
