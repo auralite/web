@@ -46,11 +46,13 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 			}
 
 			checkOrWait()
-		}).then(() => {
-			window.requestAnimationFrame(() => {
-				window.scroll({ top: replyHeight + (composeRef.current?.offsetHeight ?? 0) + 5, left: 0 })
-			})
 		})
+			.catch(() => {})
+			.then(() => {
+				window.requestAnimationFrame(() => {
+					window.scroll({ top: replyHeight + (composeRef.current?.offsetHeight ?? 0) + 5, left: 0 })
+				})
+			})
 
 	useEffect(() => {
 		router.events.on('routeChangeComplete', () => scrollToReply())
