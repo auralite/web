@@ -93,7 +93,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 								</div>
 								<div className="mt-1">
 									<p className={`text-gray-800 text-left break-words ${featured ? 'text-lg' : ''}`}>{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</p>
-									{post?.media && (
+									{post?.media?.lenght > 0 && (
 										<div className="mt-2">
 											<ImageGrid {...gridSettings} />
 										</div>
