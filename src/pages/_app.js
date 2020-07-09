@@ -65,7 +65,7 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
 
 	const middleware = new Pipeline(Component.middleware || [])
 
-	return middleware.process({ props, ctx }).props
+	return middleware.process({ props, ctx })?.props
 }
 
 export default MyApp
