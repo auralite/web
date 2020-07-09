@@ -41,7 +41,7 @@ const Home = () => {
 		<>
 			{setTitle}
 			<div className="max-w-md sm:max-w-3xl relative z-0 mt-4">
-				<Compose />
+				<Compose onPost={removeFromTimeline} />
 				<div className="bg-white sm:rounded-lg sm:shadow mb-4">
 					{pages}
 					{isLoadingMore && [...Array(10).keys()].map((key) => <Post key={key} />)}

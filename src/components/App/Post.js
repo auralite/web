@@ -38,7 +38,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 			.then(() => onDelete(post))
 	}
 
-	const parentClasses = `px-4 ${isParent ? '' : `${withBorder ? 'border-b border-gray-200' : 'border-b border-gray-200 sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
+	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
 
 	return (
 		<>

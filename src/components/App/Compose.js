@@ -6,9 +6,7 @@ import Avatar from './Avatar'
 import useSWR from 'swr'
 import ImageGrid from './ImageGrid'
 
-const Compose = ({ replyTo, onPost }) => {
-	if (!onPost) onPost = (post) => mutate('/api/timeline', (posts) => [post, ...posts])
-
+const Compose = ({ replyTo, onPost = () => {} }) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
 
 	const [loading, setLoading] = useState(false)
