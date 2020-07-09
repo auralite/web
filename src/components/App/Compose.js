@@ -21,7 +21,7 @@ const Compose = ({ replyTo, onPost }) => {
 	const [privacy, setPrivacy] = useState('public')
 
 	const updatePost = (content) => {
-		setPost(content.replace(/\n{3,}/m, '\n\n').trim())
+		setPost(content.replace(/\n{3,}/m, '\n\n'))
 
 		setError(null)
 	}
@@ -43,7 +43,7 @@ const Compose = ({ replyTo, onPost }) => {
 
 		setLoading(true)
 
-		Client.createPost({ post, privacy, reply_to: replyTo?.id })
+		Client.createPost({ post: post.trim(), privacy, reply_to: replyTo?.id })
 			.then((post) => {
 				onPost(post)
 				setLoading(false)
@@ -90,7 +90,7 @@ const Compose = ({ replyTo, onPost }) => {
 						</div>
 						<div className="flex items-center">
 							<span className={`mr-3 text-sm text-gray-600 ${remainingChars <= 20 && remainingChars > 10 ? 'text-yellow-600' : ''} ${remainingChars <= 10 ? 'text-red-600' : ''}`}>{remainingChars}</span>
-							<LoadingButton loading={loading} disabled={post.length < 2 || remainingChars <= 0} type="submit" disabledClasses="bg-indigo-300 cursor-not-allowed" loadingClasses="bg-indigo-600 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
+							<LoadingButton loading={loading} disabled={post.trim().length < 2 || remainingChars <= 0} type="submit" disabledClasses="bg-indigo-300 cursor-not-allowed" loadingClasses="bg-indigo-600 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
 								Post
 							</LoadingButton>
 						</div>
