@@ -132,7 +132,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-transparent border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4" style={{ backdropFilter: 'saturate(180%) blur(20px)' }}>
+					<nav className="bg-transparent border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4" style={{ backdropFilter: 'saturate(180%) blur(50px)' }}>
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between">
 								<div className="flex items-stretch">
