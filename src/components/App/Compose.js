@@ -49,6 +49,8 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 				setPost('')
 			})
 			.catch((error) => {
+				if (!error.response?.data?.errors) return alert('Something went wrong when creating your post.')
+
 				setError(error.response.data.errors.content[0])
 				setLoading(false)
 			})
