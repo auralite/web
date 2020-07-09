@@ -132,19 +132,32 @@ const PageLayout = ({ children, authCheck, title }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-white border-b border-gray-200 fixed z-20 w-full pt-safe-t pb-4 sm:pt-4">
+					<nav className="bg-white border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between">
-								<div className="flex items-center">
-									<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
-										<a className="flex-shrink-0">
-											<Logo className="h-8 w-8" />
-										</a>
-									</button>
-									{title && <p className="ml-2 text-gray-800 font-semibold text-xl">{title}</p>}
+								<div className="flex items-stretch">
+									<div className="pb-4 flex items-center">
+										<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
+											<a className="flex-shrink-0">
+												<Logo className="h-8 w-8" />
+											</a>
+										</button>
+										{title && <p className="sm:hidden ml-2 text-gray-800 font-semibold text-xl">{title}</p>}
+									</div>
+									<div className="hidden sm:-my-px sm:ml-6 sm:flex space-x-8">
+										<Link href="/home">
+											<a className={`${router.pathname === '/home' ? 'border-indigo-500 text-gray-900 focus:border-indigo-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} pb-4 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition duration-150 ease-in-out`}>Home</a>
+										</Link>
+										<Link href="/search">
+											<a className={`${router.pathname === '/search' ? 'border-indigo-500 text-gray-900 focus:border-indigo-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} pb-4 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition duration-150 ease-in-out`}>Search</a>
+										</Link>
+										<Link href="/notifications">
+											<a className={`${router.pathname === '/notifications' ? 'border-indigo-500 text-gray-900 focus:border-indigo-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} pb-4 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition duration-150 ease-in-out`}>Notifications</a>
+										</Link>
+									</div>
 								</div>
 								{authCheck ? (
-									<div className="hidden md:block">
+									<div className="hidden md:block pb-4">
 										<div className="ml-4 flex items-center md:ml-6">
 											<div ref={profileRef} className="ml-3 relative">
 												<div>
@@ -188,7 +201,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 					</main>
 
 					{authCheck && (
-						<div className="bg-white border-t border-gray-200 flex items-center justify-around fixed bottom-0 z-20 w-full pb-safe-b">
+						<div className="sm:hidden bg-white border-t border-gray-200 flex items-center justify-around fixed bottom-0 z-20 w-full pb-safe-b">
 							<Link href="/home">
 								<a className="p-4">
 									<svg className={`w-6 h-6 ${router.pathname === '/home' ? 'text-gray-600' : 'text-gray-400'}`} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
