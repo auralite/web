@@ -45,6 +45,8 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 				mutateProfile(profile)
 			})
 			.catch((error) => {
+				if (!error.response?.data?.errors) return alert('Something went wrong when updating your profile.')
+
 				setError(error.response.data.errors.bio[0])
 			})
 	}
