@@ -53,8 +53,8 @@ class Client {
 		return this.client.get(`/api/posts/${postId}`).then((res) => res.data)
 	}
 
-	createPost({ post, reply_to, privacy }) {
-		return this.client.post('/api/posts', { content: post, reply_to, privacy }).then((res) => res.data)
+	createPost({ post, reply_to, privacy, images }) {
+		return this.client.post('/api/posts', { content: post, reply_to, privacy, images }).then((res) => res.data)
 	}
 
 	deletePost({ postId }) {

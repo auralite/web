@@ -8,6 +8,7 @@ import Client from '../../utils/Client'
 import { useState, Fragment, useRef, forwardRef, useEffect } from 'react'
 import useClickOutside from '../../hooks/click-outside'
 import Transition from '../Global/Transition'
+import ImageGrid, { useImageGrid } from './ImageGrid'
 
 const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true }, ref) => {
 	const postContent = useFormat(post?.content)
@@ -37,6 +38,8 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 			.catch(() => alert('Something went wrong when deleting your post.'))
 			.then(() => onDelete(post))
 	}
+
+	const gridSettings = useImageGrid(post?.media, true)
 
 	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
 
@@ -90,6 +93,11 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 								</div>
 								<div className="mt-1">
 									<p className={`text-gray-800 text-left break-words ${featured ? 'text-lg' : ''}`}>{postContent[0] !== undefined ? postContent : <Skeleton count={3} />}</p>
+									{post?.media && (
+										<div className="mt-2">
+											<ImageGrid {...gridSettings} />
+										</div>
+									)}
 								</div>
 							</div>
 						</div>

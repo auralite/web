@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { mutate } from 'swr'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 import Avatar from './Avatar'
 import useSWR from 'swr'
-import ImageGrid from './ImageGrid'
+import ImageGrid, { useImageGrid } from './ImageGrid'
 
 const Compose = ({ replyTo, onPost = () => {} }) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
@@ -15,19 +14,13 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 	const [post, setPost] = useState('')
 	const remainingChars = 300 - post.length
 
-	const [images, setImages] = useState([])
+	const { uploaderSettings, gridSettings, showGrid, hasPendingImages, images } = useImageGrid()
 	const [privacy, setPrivacy] = useState('public')
 
 	const updatePost = (content) => {
 		setPost(content.replace(/\n{3,}/m, '\n\n'))
 
 		setError(null)
-	}
-
-	const addFile = (files) => {
-		if (images.length >= 4) return
-
-		setImages((images) => images.concat([...files].map((file) => [URL.createObjectURL(file), file])))
 	}
 
 	useEffect(() => {
@@ -37,11 +30,9 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 	const submitForm = (event) => {
 		event.preventDefault()
 
-		if (images.length > 0) return alert('Images are coming very soon!')
-
 		setLoading(true)
 
-		Client.createPost({ post: post.trim(), privacy, reply_to: replyTo?.id })
+		Client.createPost({ post: post.trim(), privacy, reply_to: replyTo?.id, images })
 			.then((post) => {
 				onPost(post)
 				setLoading(false)
@@ -65,13 +56,13 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 					</div>
 				</div>
 				<form onSubmit={submitForm} className="flex-1">
-					<textarea value={post} onChange={(event) => updatePost(event.target.value)} className={`form-textarea mb-2 focus:bg-white block w-full ${post.length != 0 || remainingChars <= 0 ? 'border border-red-500' : ''}`} rows="3" placeholder="What's on your mind?" />
+					<textarea value={post} onChange={(event) => updatePost(event.target.value)} className={`form-textarea mb-2 focus:bg-white block w-full ${remainingChars <= 0 ? 'border border-red-500' : ''}`} rows="3" placeholder="What's on your mind?" />
 					{error && <p className="mb-2 text-sm text-red-600">{error}</p>}
-					{images.length > 0 && <ImageGrid images={images} onRemove={(image) => setImages((images) => images.filter((img) => img[0] !== image[0]))} />}
+					{showGrid && <ImageGrid {...gridSettings} />}
 					<div className="flex justify-between items-center">
 						<div className="flex items-center space-x-2">
 							<label htmlFor="image" type="button" className="-m-2 cursor-pointer inine-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-white hover:bg-gray-200 transition duration-200 ease-in-out">
-								<input id="image" multiple accept="image/*" className="hidden" type="file" onChange={(event) => addFile(event.target.files)} />
+								<input id="image" multiple accept="image/*" className="hidden" type="file" {...uploaderSettings} />
 								<svg className="h-6 w-6 text-gray-500" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
 									<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
 								</svg>
@@ -90,7 +81,7 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 						</div>
 						<div className="flex items-center">
 							<span className={`mr-3 text-sm text-gray-600 ${remainingChars <= 20 && remainingChars > 10 ? 'text-yellow-600' : ''} ${remainingChars <= 10 ? 'text-red-600' : ''}`}>{remainingChars}</span>
-							<LoadingButton loading={loading} disabled={post.trim().length < 2 || remainingChars <= 0} type="submit" disabledClasses="bg-indigo-300 cursor-not-allowed" loadingClasses="bg-indigo-600 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
+							<LoadingButton loading={loading} disabled={post.trim().length < 2 || remainingChars <= 0 || hasPendingImages} type="submit" disabledClasses="bg-indigo-300 cursor-not-allowed" loadingClasses="bg-indigo-600 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
 								Post
 							</LoadingButton>
 						</div>
