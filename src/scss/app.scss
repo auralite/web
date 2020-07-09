@@ -19,3 +19,9 @@ strong {
 .overflow-ellipsis {
     text-overflow: ellipsis;
 }
+
+.bg-crystal {
+    @apply .bg-transparent;
+
+    backdrop-filter: saturate(180%) blur(50px);
+}
