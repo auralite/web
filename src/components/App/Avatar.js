@@ -4,12 +4,7 @@ import { indigo } from '@tailwindcss/ui/colors'
 import Client from '../../utils/Client'
 import Skeleton from 'react-loading-skeleton'
 import useTailwind from '../../hooks/tailwind'
-
-const base64 = (str) => {
-	if (typeof window !== 'undefined') return btoa(str)
-
-	return Buffer.from(str).toString('base64')
-}
+import { base64 } from '../../utils/encoding'
 
 const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
