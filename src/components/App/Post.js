@@ -41,7 +41,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 
 	const gridSettings = useImageGrid(post?.media, true)
 
-	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
+	const parentClasses = useMemo(() => `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`, [isParent, withBorder, showReply, post?.parent])
 
 	return (
 		<>
