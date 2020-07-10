@@ -20,8 +20,10 @@ module.exports = {
 			fontFamily: {
 				screen: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
 			},
-			padding: {
+			spacing: {
 				'safe-t': 'max(1rem, env(safe-area-inset-top))',
+			},
+			padding: {
 				'safe-b': 'env(safe-area-inset-bottom)',
 				header: 'calc(max(1rem, env(safe-area-inset-top)) + 3rem)',
 				footer: 'calc(env(safe-area-inset-top) + 3.5rem)',

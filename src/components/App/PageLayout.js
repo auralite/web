@@ -45,7 +45,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 						</div>
 					</Transition>
 					<Transition show={mobileNavigationOpen} enter="transition ease-in-out duration-300 transform" enterFrom="-translate-x-full" enterTo="translate-x-0" leave="transition ease-in-out duration-300 transform" leaveFrom="translate-x-0" leaveTo="-translate-x-full">
-						<div className="my-10 sm:my-0 relative flex-1 flex flex-col max-w-xs w-full bg-white pointer-events-auto rounded-r-2xl sm:rounded-none shadow-lg sm:shadow-none">
+						<div className="my-safe-t sm:my-0 relative flex-1 flex flex-col max-w-xs w-full bg-white pointer-events-auto rounded-r-2xl sm:rounded-none shadow-lg sm:shadow-none">
 							<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
 								<div className="flex-shrink-0 flex items-center px-4">
 									<Logo className="h-8 w-auto" />
