@@ -10,6 +10,9 @@ import { useRef, useEffect } from 'react'
 
 const Home = () => {
 	const setTitle = useTitle('Home')
+	// const pages = undefined
+	// const isLoadingMore = true
+	// const isReachingEnd = false
 	const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages(
 		'timeline',
 		({ offset, withSWR }) => {
@@ -40,7 +43,13 @@ const Home = () => {
 				<Compose onPost={removeFromTimeline} />
 				<div className="bg-white sm:rounded-lg sm:shadow mb-4">
 					{pages}
-					{isLoadingMore && [...Array(10).keys()].map((key) => <Post key={`loading-${key}`} isSkeleton={true} />)}
+					{isLoadingMore && (
+						<div>
+							{[...Array(10).keys()].map((key) => (
+								<Post key={`loading-${key}`} isSkeleton={true} />
+							))}
+						</div>
+					)}
 				</div>
 				{!isReachingEnd && <div ref={$timelineEnd} />}
 				{isReachingEnd && <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div>}

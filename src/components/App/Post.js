@@ -41,11 +41,13 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 
 	const gridSettings = useImageGrid(post?.media, true)
 
+	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
+
 	return (
-		<div className={`${isParent ? '' : `px-4 border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`}>
+		<>
 			{!isSkeleton && showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} showReply={false} />}
-			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { ref })}>
-				<ChildWrapper {...(shouldLink ? { className: 'cursor-pointer', ref } : {})}>
+			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { className: parentClasses, ref })}>
+				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
 						{meta && <div className="mb-2 -mt-2">{meta}</div>}
 						<div className="flex items-stretch">
@@ -102,7 +104,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 					</>
 				</ChildWrapper>
 			</Wrapper>
-		</div>
+		</>
 	)
 })
 
