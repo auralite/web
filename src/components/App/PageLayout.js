@@ -154,7 +154,10 @@ const PageLayout = ({ children, authCheck, title }) => {
 										<div className="ml-4 flex items-center md:ml-6">
 											<div ref={profileRef} className="ml-3 relative">
 												<div>
-													<button onClick={() => setProfileNavigationOpen((state) => !state)} className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+													<button onClick={() => setProfileNavigationOpen((state) => !state)} className="hidden max-w-xs md:flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
+														<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
+													</button>
+													<button onClick={() => setMobileNavigationOpen((state) => !state)} className="sm:hidden max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
 														<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
 													</button>
 												</div>
