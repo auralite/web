@@ -183,7 +183,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 									</div>
 								) : (
 									<Link href="/login">
-										<a className="inline-flex items-center px-4 py-2 border border-indigo-500 text-sm leading-5 font-medium rounded-md text-indigo-300 bg-transparent hover:bg-indigo-500 hover:text-indigo-50 focus:outline-none focus:bg-indigo-300 focus:text-indigo-50 focus:shadow-outline-indigo transition ease-in-out duration-150">Log In</a>
+										<a className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:border-gray-300 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150">Log In</a>
 									</Link>
 								)}
 							</div>
