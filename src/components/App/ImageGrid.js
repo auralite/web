@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Client from '../../utils/Client'
 import { base64 } from '../../utils/encoding'
 
-const ImageGrid = ({ imageRows = [], onImageRemove, onUpload, imageCount, isUpload }) => (
+const ImageGrid = ({ imageRows, onImageRemove, onUpload, imageCount, isUpload }) => (
 	<div className="w-auto border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
 		<div className="overflow-hidden">
 			<div className="block w-full relative" style={{ paddingBottom: '56.25%' }}>
@@ -59,11 +59,20 @@ const ImageUpload = ({ image, imageCount, onRemove, onKey }) => {
 
 const Image = ({ image, imageCount }) => {
 	const [isZoomed, setIsZoomed] = useState(false)
+	const src = useMemo(() => {
+		return image?.startsWith('https://auralite.s3.eu-west-2.amazonaws.com/') ? `https://images.auralite.io/media/${base64('s3://auralite/' + image.split('https://auralite.s3.eu-west-2.amazonaws.com/', 2)[1])}` : image
+	}, [image])
 
 	return (
 		<div className={`relative w-full ${imageCount > 1 ? 'h-1/2' : 'h-full'}`}>
 			<Zoom wrapStyle={{ height: '100%' }} isZoomed={isZoomed} onZoomChange={(zoomState) => setIsZoomed(zoomState)}>
-				<img className={`${isZoomed ? 'object-contain' : 'object-cover'} w-full h-full`} src={image} alt="" />
+				<figure className={`w-full h-full`}>
+					<picture loading="lazy" className={`${isZoomed ? 'object-contain' : 'object-cover'} w-full h-full`}>
+						<source type="image/webp" srcSet={`${src}.webp`} />
+						<source type={`image/${src.split('.').pop() === 'png' ? 'png' : 'jpeg'}`} srcSet={src} />
+						<img loading="lazy" src={src} alt="" className={`${isZoomed ? 'object-contain' : 'object-cover'} w-full h-full`} />
+					</picture>
+				</figure>
 			</Zoom>
 		</div>
 	)
