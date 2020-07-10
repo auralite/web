@@ -41,16 +41,14 @@ const Home = () => {
 			{setTitle}
 			<div className="max-w-md sm:max-w-3xl relative z-0 mt-4">
 				<Compose onPost={removeFromTimeline} />
-				<div className="bg-white sm:rounded-lg sm:shadow mb-4">
-					{pages}
-					{isLoadingMore && (
-						<div>
-							{[...Array(10).keys()].map((key) => (
-								<Post key={`loading-${key}`} isSkeleton={true} />
-							))}
-						</div>
-					)}
-				</div>
+				<div className="bg-white sm:rounded-lg sm:shadow mb-4">{pages}</div>
+				{isLoadingMore && (
+					<div className="bg-white sm:rounded-lg sm:shadow mb-4">
+						{[...Array(10).keys()].map((key) => (
+							<Post key={`loading-${key}`} isSkeleton={true} />
+						))}
+					</div>
+				)}
 				{!isReachingEnd && <div ref={$timelineEnd} />}
 				{isReachingEnd && <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div>}
 			</div>
