@@ -125,7 +125,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 					<div className="flex-shrink-0 w-14" />
 				</div>
 				<div className="flex flex-col h-screen">
-					<nav className="bg-crystal border-b border-gray-200 fixed z-20 w-full pt-safe-t sm:pt-4">
+					<nav className="bg-crystal fixed z-20 w-full pt-safe-t sm:pt-4" style={{ boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.1)' }}>
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 							<div className="flex items-center justify-between">
 								<div className="flex items-stretch">
@@ -198,7 +198,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 					</main>
 
 					{authCheck && (
-						<div className="sm:hidden bg-white border-t border-gray-200 flex items-center justify-around fixed bottom-0 z-20 w-full pb-safe-b">
+						<div className="sm:hidden bg-white flex items-center justify-around fixed bottom-0 z-20 w-full pb-safe-b" style={{ boxShadow: '0px -1px 5px rgba(0, 0, 0, 0.1)' }}>
 							<Link href="/home">
 								<a className="p-4">
 									<svg className={`w-6 h-6 ${router.pathname === '/home' ? 'text-gray-600' : 'text-gray-400'}`} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
