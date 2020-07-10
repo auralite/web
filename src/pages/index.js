@@ -77,7 +77,12 @@ const Landing = () => (
 						<p className="mb-6">
 							For{' '}
 							<a href="https://twitter.com/m1guelpf" target="_blank" rel="noreferrer" className="rounded-full pr-2 ml-2 w-7 text-white" style={{ background: 'linear-gradient(90deg, #f2709c, #ff9472)' }}>
-								<img src="/img/avatar.jpg" alt="Miguel Piedrafita" className="inline -mt-1 -ml-1 w-8 h-8 rounded-full shadow" /> me
+								<picture>
+									<source type="image/webp" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=.webp" />
+									<source type="image/jpeg" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" />
+									<img src="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" alt="Miguel Piedrafita" className="inline -mt-1 -ml-2 w-8 h-8 rounded-full shadow" />
+								</picture>{' '}
+								me
 							</a>
 							, they've enabled building an audience of people interested in my journey as a maker and helped me{' '}
 							<a href="https://twitter.com/mijustin/status/1155874456062943237" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
