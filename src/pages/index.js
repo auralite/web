@@ -5,7 +5,35 @@ import { withGuest } from '../middleware/auth'
 
 const Landing = () => (
 	<>
-		<Head />
+		<Head>
+			<script type="application/ld+json">
+				{JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'WebSite',
+					publisher: {
+						'@type': 'Organization',
+						name: 'Auralite',
+						url: 'https://auralite.io/',
+						logo: {
+							'@type': 'ImageObject',
+							url: 'https://auralite.io/img/icons/apple-touch-icon.png',
+						},
+					},
+					url: 'https://auralite.io/',
+					mainEntityOfPage: {
+						'@type': 'WebPage',
+						'@id': 'https://auralite.io/',
+					},
+					image: {
+						'@type': 'ImageObject',
+						url: 'https://auralite.io/img/card.jpg',
+						width: 1800,
+						height: 942,
+					},
+					description: 'A social network for the future.',
+				})}
+			</script>
+		</Head>
 
 		<div className="font-screen text-black antialiased leading-tight bg-gray-200">
 			<ConfirmationModal />
