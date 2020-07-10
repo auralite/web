@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forwardRef } from 'react'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 import Avatar from './Avatar'
 import useSWR from 'swr'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 
-const Compose = ({ replyTo, onPost = () => {} }) => {
+const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 	const { data: user } = useSWR('/api/user', () => Client.user())
 
 	const [loading, setLoading] = useState(false)
@@ -48,7 +48,7 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 	}
 
 	return (
-		<div className="bg-white sm:rounded-lg sm:shadow p-6 sm:mb-8 border-b sm:border-b-0 border-gray-200">
+		<div ref={ref} className="bg-white sm:rounded-lg sm:shadow p-6 sm:mb-8 border-b sm:border-b-0 border-gray-200">
 			<div className="flex w-full">
 				<div className="hidden sm:block flex-shrink-0 mr-5">
 					<div>
@@ -90,6 +90,6 @@ const Compose = ({ replyTo, onPost = () => {} }) => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default Compose
