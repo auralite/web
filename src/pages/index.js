@@ -179,7 +179,7 @@ const Landing = () => (
 								<dd className="mt-2 md:mt-0 md:col-span-7">
 									<p className="text-base leading-6 text-indigo-300 font-semibold">
 										We'll be using Stripe Identity to verify user's identities before they can start posting. Stripe Identity brings{' '}
-										<a href="https://stripe.com/docs/security/stripe" target="_blank" className="text-indigo-200 font-bold underline">
+										<a href="https://stripe.com/docs/security/stripe" target="_blank" rel="noreferrer" className="text-indigo-200 font-bold underline">
 											Stripe's security practices
 										</a>{' '}
 										to identity verification, ensuring we can verify you are a real person without accessing any personal information.
@@ -206,7 +206,7 @@ const Landing = () => (
 											👋
 										</span>{' '}
 										Hi! I'm Miguel Piedrafita, an 18-year-old maker. You can learn more about me{' '}
-										<a className="text-indigo-200 font-bold underline" href="https://miguelpiedrafita.com" target="_blank">
+										<a className="text-indigo-200 font-bold underline" href="https://miguelpiedrafita.com" target="_blank" rel="noopener">
 											on my website
 										</a>{' '}
 										or{' '}
