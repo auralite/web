@@ -4,11 +4,11 @@ import { useRef, useEffect, useContext, createContext } from 'react'
 const TransitionContext = createContext({ parent: {} })
 
 function useIsInitialRender() {
-    const isInitialRender = useRef(true)
+	const isInitialRender = useRef(true)
 
 	useEffect(() => {
 		isInitialRender.current = false
-    }, [])
+	}, [])
 
 	return isInitialRender.current
 }
