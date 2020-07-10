@@ -150,7 +150,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 									</div>
 								</div>
 								{authCheck ? (
-									<div className="hidden md:block pb-4">
+									<div className="pb-4">
 										<div className="ml-4 flex items-center md:ml-6">
 											<div ref={profileRef} className="ml-3 relative">
 												<div>
