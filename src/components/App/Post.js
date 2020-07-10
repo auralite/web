@@ -45,7 +45,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 
 	return (
 		<>
-			{showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} showReply={false} />}
+			{showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} showReply={false} />}
 			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
