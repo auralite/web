@@ -20,7 +20,7 @@ const ConfirmationModal = () => {
 					</div>
 				</Transition>
 				<Transition enter="ease-out duration-300" enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enterTo="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0 sm:scale-100" leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-					<div className="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" ref={hideOnClickOutside}>
+					<div className="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-label="Social Share Modal" ref={hideOnClickOutside}>
 						<div>
 							<div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 text-2xl">
 								<svg className="block h-8 w-8 mx-auto" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
@@ -40,9 +40,7 @@ const ConfirmationModal = () => {
 								</svg>
 							</div>
 							<div className="mt-3 text-center sm:mt-5">
-								<h3 className="text-xl leading-6 font-bold text-gray-900" id="modal-headline">
-									Social networks are better with friends
-								</h3>
+								<h3 className="text-xl leading-6 font-bold text-gray-900">Social networks are better with friends</h3>
 								<div className="mt-2">
 									<p className="leading-6 text-gray-500">The more users who join Auralite, the better it'll be. We've even written something for you if you're in a rush. Thank you for helping us get the word out!</p>
 								</div>
