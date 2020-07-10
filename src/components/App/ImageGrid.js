@@ -135,7 +135,12 @@ const useWithUploads = () => {
 		})
 	}
 
-	return { uploaderSettings: { onChange: (event) => onImageAdd(event.target.files) }, gridSettings: { imageRows: chunkImages(images), onImageRemove, onUpload, imageCount: images.length, isUpload: true }, showGrid: images.length > 0, hasPendingImages: images.length != Object.keys(uploadImages).length, images: Object.values(uploadImages) }
+	const cleanupImages = () => {
+		setUploadImages({})
+		setImages([])
+	}
+
+	return { uploaderSettings: { onChange: (event) => onImageAdd(event.target.files) }, gridSettings: { imageRows: chunkImages(images), onImageRemove, onUpload, imageCount: images.length, isUpload: true }, showGrid: images.length > 0, hasPendingImages: images.length != Object.keys(uploadImages).length, images: Object.values(uploadImages), cleanupImages }
 }
 
 export default ImageGrid

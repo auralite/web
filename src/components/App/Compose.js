@@ -14,7 +14,7 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 	const [post, setPost] = useState('')
 	const remainingChars = 300 - post.length
 
-	const { uploaderSettings, gridSettings, showGrid, hasPendingImages, images } = useImageGrid()
+	const { uploaderSettings, gridSettings, showGrid, hasPendingImages, images, cleanupImages } = useImageGrid()
 	const [privacy, setPrivacy] = useState('public')
 
 	const updatePost = (content) => {
@@ -38,6 +38,7 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 				setLoading(false)
 				setError(null)
 				setPost('')
+				cleanupImages()
 			})
 			.catch((error) => {
 				if (!error.response?.data?.errors) return alert('Something went wrong when creating your post.')
