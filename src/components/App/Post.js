@@ -10,7 +10,7 @@ import useClickOutside from '../../hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 
-const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true }, ref) => {
+const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
 	const parentRef = useRef(null)
@@ -45,7 +45,7 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 
 	return (
 		<div>
-			{showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} showReply={false} />}
+			{!isSkeleton && showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} showReply={false} />}
 			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
