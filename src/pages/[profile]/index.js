@@ -86,8 +86,8 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 	return (
 		<>
 			{setTitle}
-			<div className="max-w-md sm:max-w-3xl relative z-0 sm:mt-4">
-				<div className="flex sm:shadow sm:rounded-lg bg-white">
+			<div className="relative z-0 sm:mt-4 flex flex-col sm:flex-row sm:items-start sm:space-x-8">
+				<div className="flex sm:shadow sm:rounded-lg bg-white sm:sticky sm:top-card sm:max-w-lg w-full">
 					<div className="pt-4 sm:pb-4 px-6 w-full">
 						<div>
 							<div className="flex items-center justify-between">
@@ -126,7 +126,7 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 						)}
 					</div>
 				</div>
-				<div className="bg-white sm:shadow sm:rounded-lg sm:mt-4">
+				<div className="flex-1 max-w-md sm:max-w-3xl bg-white sm:shadow sm:rounded-lg">
 					<div className="border-b border-gray-200">
 						<div className="px-6">
 							<nav className="-mb-px flex">
