@@ -1,5 +1,5 @@
 import { usePageLayout } from '../components/App/PageLayout'
-import useSWR, { useSWRPages, cache } from 'swr'
+import useSWR, { useSWRPages, mutate } from 'swr'
 import Client from '../utils/Client'
 import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
@@ -31,11 +31,7 @@ const Home = () => {
 		if (endOnScreen) loadMore()
 	}, [endOnScreen])
 
-	const removeFromTimeline = () =>
-		cache
-			.keys()
-			.filter((key) => key.includes('/api/timeline?page='))
-			.forEach((key) => cache.delete(key))
+	const removeFromTimeline = () => mutate('/api/timeline?page=1')
 
 	return (
 		<>
