@@ -10,10 +10,10 @@ export default async (req, res) => {
 
 	return res.status(200).json({ url: `${process.env.VERCEL_URL}/meta/profile?handle=${req.query.handle}` })
 
-	res.setHeader('Content-Type', `image/jpeg`)
-	res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=60, stale-while-revalidate`)
+	// res.setHeader('Content-Type', `image/jpeg`)
+	// res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=60, stale-while-revalidate`)
 
-	res.status(200).send(await getScreenshot(req.query.handle))
+	// res.status(200).send(await getScreenshot(req.query.handle))
 }
 
 const getScreenshot = async (handle) => {
