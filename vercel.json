@@ -1,8 +1,0 @@
-{
-	"regions": ["all"],
-	"functions": {
-		"api/meta/**": {
-			"memory": 3008
-		}
-	}
-}
