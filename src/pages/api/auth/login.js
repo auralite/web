@@ -1,7 +1,7 @@
 import Client from '../../../utils/Client'
 
 export default (req, res) => {
-	if (req.method !== 'POST') return
+	if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
 	const { email, password } = req.body
 
