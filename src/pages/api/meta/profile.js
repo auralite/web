@@ -8,6 +8,8 @@ const isLocal = process.env.VERCEL_REGION === 'dev1'
 export default async (req, res) => {
 	if (req.method !== 'GET' || !req.query.handle) return res.status(400).json({ error: 'Invalid Request' })
 
+	return res.status(200).json({ url: `${process.env.VERCEL_URL}/meta/profile?handle=${handle}` })
+
 	res.setHeader('Content-Type', `image/jpeg`)
 	res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=60, stale-while-revalidate`)
 
@@ -19,7 +21,6 @@ const getScreenshot = async (handle) => {
 
 	await page.setViewport({ width: 2048, height: 1170 })
 
-	console.log(`${process.env.VERCEL_URL}/meta/profile?handle=${handle}`)
 	await page.goto(`${process.env.VERCEL_URL}/meta/profile?handle=${handle}`)
 
 	return await page.screenshot({ type: 'jpeg' })
