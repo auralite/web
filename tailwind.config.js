@@ -19,6 +19,7 @@ module.exports = {
 			},
 			fontFamily: {
 				screen: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
+				'screen-italic': ["'Verveine Regular'", ...defaultTheme.fontFamily.sans],
 			},
 			inset: {
 				card: 'calc(max(1rem, env(safe-area-inset-top)) + 4rem)',

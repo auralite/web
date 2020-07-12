@@ -4,6 +4,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
 
+@font-face {
+    font-family: 'Verveine Regular';
+    src: url('/fonts/Verveine/Verveine.eot');
+    src: url('/fonts/Verveine/Verveine.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/Verveine/Verveine.woff2') format('woff2'),
+         url('/fonts/Verveine/Verveine.woff') format('woff'),
+         url('/fonts/Verveine/Verveine.ttf') format('truetype'),
+         url('/fonts/Verveine/Verveine.svg#Verveine W01 Regular') format('svg');
+}
+
 strong {
     @apply font-bold;
 }
