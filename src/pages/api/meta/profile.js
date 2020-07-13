@@ -19,7 +19,7 @@ const getScreenshot = async (handle) => {
 
 	await page.setViewport({ width: 2048, height: 1170 })
 
-	await page.goto(`${process.env.VERCEL_URL}/meta/profile?handle=${handle}`)
+	await page.goto(`https://auralite.io/meta/profile?handle=${handle}`)
 
 	return await page.screenshot({ type: 'jpeg' })
 }
