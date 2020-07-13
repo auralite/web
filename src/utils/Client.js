@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import redirectTo from './redirectTo'
 
 class Client {
 	constructor() {
@@ -14,59 +15,82 @@ class Client {
 				...(this.apiToken ? { Authorization: `Bearer ${this.apiToken}` } : {}),
 			},
 		})
+
+		this.client.interceptors.response.use(
+			(response) => response.data,
+			(error) => {
+				if (error.response.status !== 417 || !error.response.data._force_redirect_to) return Promise.reject(error)
+
+				redirectTo(error.response.data._force_redirect_to)
+			}
+		)
 	}
 
 	login({ email, password }) {
-		return this.client
-			.post('/oauth/token', {
-				grant_type: 'password',
-				client_id: this.clientId,
-				client_secret: this.clientSecret,
-				username: email,
-				password,
-				scope: '*',
-			})
-			.then((res) => res.data)
+		return this.client.post('/oauth/token', {
+			grant_type: 'password',
+			client_id: this.clientId,
+			client_secret: this.clientSecret,
+			username: email,
+			password,
+			scope: '*',
+		})
 	}
 
 	user() {
-		return this.client.get('/api/user').then((res) => res.data)
+		return this.client.get('/api/user')
 	}
 
 	profile({ handle }) {
-		return this.client.get(`/api/profiles/${handle}`).then((res) => res.data)
+		return this.client.get(`/api/profiles/${handle}`)
 	}
 
 	updateProfile({ bio, avatar }) {
-		return this.client.post('/api/profile/update', { bio, avatar }).then((res) => res.data)
+		return this.client.post('/api/profile/update', { bio, avatar })
 	}
 
 	timeline({ page }) {
-		return this.client.get(`/api/timeline?page=${page ?? 1}`).then((res) => res.data)
+		return this.client.get(`/api/timeline?page=${page ?? 1}`)
 	}
 
 	notifications() {
-		return this.client.get('/api/notifications').then((res) => res.data)
+		return this.client.get('/api/notifications')
 	}
 
 	post({ postId }) {
-		return this.client.get(`/api/posts/${postId}`).then((res) => res.data)
+		return this.client.get(`/api/posts/${postId}`)
 	}
 
 	createPost({ post, reply_to, privacy, images }) {
-		return this.client.post('/api/posts', { content: post, reply_to, privacy, images }).then((res) => res.data)
+		return this.client.post('/api/posts', { content: post, reply_to, privacy, images })
 	}
 
 	deletePost({ postId }) {
-		return this.client.delete(`/api/posts/${postId}`).then((res) => res.data)
+		return this.client.delete(`/api/posts/${postId}`)
 	}
 
 	markNotificationRead({ id }) {
-		return this.client.post(`/api/notifications/${id}/read`).then((res) => res.data)
+		return this.client.post(`/api/notifications/${id}/read`)
+	}
+
+	resendEmailVerification() {
+		return this.client.post('/api/onboarding/email-verification/resend')
+	}
+
+	createProfile({ name, handle, bio, avatar }) {
+		return this.client.put('/api/onboarding/profile', { name, handle, bio, avatar })
+	}
+
+	startIdentityVerification() {
+		return this.client.post('/api/onboarding/identity/start')
+	}
+
+	launchCheckout({ plan }) {
+		return this.client.post('/api/onboarding/subscription/checkout', { plan })
 	}
 
 	async uploadFile({ file, progress = () => {} }) {
-		const { data: response } = await this.client.post('/api/asset-upload', { content_type: file.type })
+		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 
 		let headers = response.headers
 
