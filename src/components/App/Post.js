@@ -5,12 +5,12 @@ import Avatar from './Avatar'
 import useFormat from '../../hooks/format'
 import useSWR from 'swr'
 import Client from '../../utils/Client'
-import { useState, Fragment, useRef, forwardRef, useEffect, useMemo } from 'react'
+import { useState, Fragment, useRef, forwardRef, useEffect } from 'react'
 import useClickOutside from '../../hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 
-const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true, isSkeleton = false }, ref) => {
+const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
 	const parentRef = useRef(null)
@@ -41,11 +41,11 @@ const Post = forwardRef(({ post, shouldLink = true, showReply = true, isParent =
 
 	const gridSettings = useImageGrid(post?.media, true)
 
-	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${showReply && post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
+	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 ${withBorder ? '' : 'sm:border-b-0'}`} ${post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
 
 	return (
 		<>
-			{!isSkeleton && showReply && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} showReply={false} />}
+			{!isSkeleton && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} />}
 			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
