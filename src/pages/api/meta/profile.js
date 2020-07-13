@@ -17,7 +17,7 @@ export default async (req, res) => {
 const getScreenshot = async (handle) => {
 	const page = await getPage()
 
-	await page.setViewport({ width: 1792, height: 990 })
+	await page.setViewport({ width: 1572, height: 960 })
 
 	await page.goto(`https://auralite.io/meta/profile?handle=${handle}`)
 
