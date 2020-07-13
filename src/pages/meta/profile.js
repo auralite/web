@@ -35,7 +35,7 @@ const ProfileMeta = ({ profile }) => {
 			<div className="w-full">
 				<div className="flex items-center justify-center -mb-24 relative z-20">
 					<div className="rounded-full border-indigo-500 overflow-hidden" style={{ borderWidth: '8px' }}>
-						<Avatar src={profile.avatar} sizeClasses="h-48 w-48" />
+						<Avatar src={profile.avatar} lazy={false} sizeClasses="h-48 w-48" />
 					</div>
 				</div>
 				<div className="relative pt-24 pb-16 px-6 w-full max-w-6xl mx-auto bg-indigo-100 border-indigo-500 rounded-xl shadow" style={{ borderWidth: '8px' }}>

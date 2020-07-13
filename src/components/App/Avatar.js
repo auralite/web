@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton'
 import useTailwind from '../../hooks/tailwind'
 import { base64 } from '../../utils/encoding'
 
-const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
+const Avatar = ({ src, isUpdating, onChange, className, sizeClasses, lazy = true }) => {
 	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
 	const [file, setFile] = useState(null)
 	const [progress, setProgress] = useState(0)
@@ -39,14 +39,14 @@ const Avatar = ({ src, isUpdating, onChange, className, sizeClasses }) => {
 			{avatarUrl ? (
 				avatarUrl?.startsWith('https://images.auralite.io/') ? (
 					<figure className={`${sizeClasses} rounded-full overflow-hidden`}>
-						<picture loading="lazy" className="w-full h-full">
+						<picture loading={lazy ? 'lazy' : 'auto'} className="w-full h-full">
 							<source type="image/webp" srcSet={`${avatarUrl}.webp`} />
 							<source type={`image/${avatarUrl.split('.').pop() === 'png' ? 'png' : 'jpeg'}`} srcSet={avatarUrl} />
-							<img loading="lazy" src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
+							<img loading={lazy ? 'lazy' : 'auto'} src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
 						</picture>
 					</figure>
 				) : (
-					<img loading="lazy" className={`${sizeClasses} rounded-full overflow-hidden`} src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
+					<img loading={lazy ? 'lazy' : 'auto'} className={`${sizeClasses} rounded-full overflow-hidden`} src={avatarUrl} alt="" width={parseFloat(width.split('rem')[0]) * 16} height={parseFloat(height.split('rem')[0]) * 16} />
 				)
 			) : (
 				<Skeleton circle={true} width={width} height={height} style={{ display: 'block' }} />
