@@ -129,7 +129,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 						<div className="flex items-center justify-between">
 							<div className="flex items-stretch">
 								<div className="pb-4 flex items-center">
-									<button onClick={() => setMobileNavigationOpen(true)} className="flex-shrink-0">
+									<button onClick={() => (authCheck ? setMobileNavigationOpen(true) : router.push('/'))} className="flex-shrink-0">
 										<a className="flex-shrink-0">
 											<Logo className="h-8 w-8" />
 										</a>
