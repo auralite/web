@@ -5,6 +5,7 @@ import { MDXProvider } from '@mdx-js/react'
 import { YouTube } from './Video'
 import Link from 'next/link'
 import Logo from '../Global/Logo'
+import useMeta from '@/hooks/meta'
 
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/heading-has-content */
@@ -22,6 +23,7 @@ const mdxComponents = {
 
 const BlogLayout = ({ meta, children }) => {
 	const router = useRouter()
+	const setMeta = useMeta(meta.title, meta.description, meta.image)
 
 	return (
 		<>
@@ -53,15 +55,8 @@ const BlogLayout = ({ meta, children }) => {
 						image: ['https://auralite.io' + meta.image],
 					})}
 				</script>
-				<title key="title">{meta.title} - Auralite</title>
-				<meta key="ogTitle" name="og:title" content={`${meta.title} - Auralite`} />
-				<meta key="twitterTitle" name="twitter:title" content={`${meta.title} - Auralite`} />
-				<meta name="description" key="description" content={meta.description} />
-				<meta name="og:description" key="ogDescription" content={meta.description} />
-				<meta name="twitter:description" key="twitterDescription" content={meta.description} />
-				<meta name="og:image" key="ogImage" content={`https://auralite.io${meta.image}`} />
-				<meta name="twitter:image" key="twitterImage" content={`https://auralite.io${meta.image}`} />
 			</Head>
+			{setMeta}
 
 			<div className="font-screen text-black antialiased leading-tight bg-gray-200">
 				<div className="relative bg-white overflow-x-hidden">

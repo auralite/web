@@ -2,7 +2,7 @@ import { usePageLayout } from '../components/App/PageLayout'
 import useSWR from 'swr'
 import Client from '../utils/Client'
 import Notification from '../components/App/Notification'
-import useTitle from '../hooks/title'
+import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
 
 const Notifications = () => {

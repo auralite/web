@@ -7,7 +7,7 @@ import { usePageLayout } from '../../components/App/PageLayout'
 import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
-import useTitle, { useImage } from '../../hooks/title'
+import useMeta from '../../hooks/meta'
 import Error from '../_error'
 import { withAuthInfo } from '../../middleware/auth'
 import Link from 'next/link'
@@ -19,8 +19,7 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 		{ initialData }
 	)
 	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
-	const setTitle = useTitle(profile && `${profile?.name} (@${profile.handle})`)
-	const setImage = useImage(`/api/meta/profile?handle=${handle}`)
+	const setMeta = useMeta(profile && `${profile?.name} (@${profile.handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)
 	const [isUpdating, setIsUpdating] = useState(false)
@@ -86,8 +85,7 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 
 	return (
 		<>
-			{setTitle}
-			{setImage}
+			{setMeta}
 			<div className="relative z-0 sm:mt-4 flex flex-col sm:flex-row sm:items-start sm:space-x-8">
 				<div className="flex sm:shadow sm:rounded-lg bg-white sm:sticky sm:top-card sm:max-w-lg w-full">
 					<div className="pt-4 sm:pb-4 px-6 w-full">
