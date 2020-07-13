@@ -28,33 +28,36 @@ const BlogLayout = ({ meta, children }) => {
 	return (
 		<>
 			<Head>
-				<script type="application/ld+json">
-					{JSON.stringify({
-						'@context': 'https://schema.org',
-						'@type': 'Article',
-						headline: meta.title,
-						publisher: {
-							'@type': 'Organization',
-							name: 'Auralite',
-							url: 'https://auralite.io/',
-							logo: {
-								'@type': 'ImageObject',
-								url: 'https://auralite.io/img/icons/apple-touch-icon.png',
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							'@context': 'https://schema.org',
+							'@type': 'Article',
+							headline: meta.title,
+							publisher: {
+								'@type': 'Organization',
+								name: 'Auralite',
+								url: 'https://auralite.io/',
+								logo: {
+									'@type': 'ImageObject',
+									url: 'https://auralite.io/img/icons/apple-touch-icon.png',
+								},
 							},
-						},
-						author: {
-							'@type': 'Person',
-							name: 'Miguel Piedrafita',
-						},
-						url: 'https://auralite.io/',
-						mainEntityOfPage: {
-							'@type': 'WebPage',
-							'@id': `https://auralite.io${router.pathname}`,
-						},
-						datePublished: meta.date,
-						image: ['https://auralite.io' + meta.image],
-					})}
-				</script>
+							author: {
+								'@type': 'Person',
+								name: 'Miguel Piedrafita',
+							},
+							url: 'https://auralite.io/',
+							mainEntityOfPage: {
+								'@type': 'WebPage',
+								'@id': `https://auralite.io${router.pathname}`,
+							},
+							datePublished: meta.date,
+							image: ['https://auralite.io' + meta.image],
+						}),
+					}}
+				/>
 			</Head>
 			{setMeta}
 
