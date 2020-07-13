@@ -81,6 +81,18 @@ module.exports = [
 		},
 	},
 	{
+		urlPattern: /^https:\/\/images\.auralite\.io\/.*/i,
+		handler: 'StaleWhileRevalidate',
+		method: 'GET',
+		options: {
+			cacheName: 'auralite-image-cdn',
+			expiration: {
+				maxEntries: 64,
+				maxAgeSeconds: 24 * 60 * 60, // 24 hours
+			},
+		},
+	},
+	{
 		urlPattern: /^https:\/\/beta\.auralite\.io\/api\/.*/i,
 		handler: 'NetworkFirst',
 		method: 'GET',
