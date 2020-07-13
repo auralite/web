@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/browser'
 import NProgress from 'nprogress'
 import Error from './_error'
 import { syncWithStorage } from 'swr-sync-storage'
+import { useBaseLayout } from '@/components/App/BaseLayout'
 
 Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',
@@ -49,7 +50,7 @@ const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 
 	if (pageProps?.isError) return <Error statusCode={pageProps.statusCode} />
 
-	const getLayout = Component.getLayout || ((page) => page)
+	const getLayout = Component.getLayout || useBaseLayout()
 
 	return getLayout(<Component {...pageProps} {...serverProps} />, serverProps)
 }
