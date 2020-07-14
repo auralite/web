@@ -28,7 +28,19 @@ const Settings = ({ user }) => {
 
 				setLoading(false)
 			})
-			.catch((error) => handleValidationErrors(error, setErrors))
+			.catch((error) => {
+				handleValidationErrors(error, setErrors)
+
+				setLoading(false)
+			})
+	}
+
+	const openBilling = (event, setLoading) => {
+		event.preventDefault()
+
+		setLoading(true)
+
+		Client.redirectToBilling()
 	}
 
 	const updatePassword = (event, setLoading) => {
@@ -44,7 +56,11 @@ const Settings = ({ user }) => {
 
 				setLoading(false)
 			})
-			.catch((error) => handleValidationErrors(error, setErrors))
+			.catch((error) => {
+				handleValidationErrors(error, setErrors)
+
+				setLoading(false)
+			})
 	}
 
 	return (
@@ -57,6 +73,8 @@ const Settings = ({ user }) => {
 				<SettingsField label="Password" errors={errors} key="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={password} onChange={(password) => setPassword(password)} description="We'll email you to let you know your password has changed." />
 				<SettingsField label="Repeat password" errors={errors} key="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={confirmPassword} onChange={(password) => setConfirmPassword(password)} />
 			</SettingsPanel>
+
+			<SettingsPanel title="Billing" cta="Open Billing Center" onSubmit={openBilling} />
 		</>
 	)
 }
@@ -67,7 +85,7 @@ const SettingsPanel = ({ title, onSubmit, children, submitDisabled, cta = 'Save'
 	return (
 		<form onSubmit={(event) => onSubmit(event, setLoading)} className="mt-6 bg-white shadow sm:rounded-lg overflow-hidden">
 			<div className="px-4 py-5 sm:p-6">
-				<div className="mb-5">
+				<div className={children ? 'mb-5' : ''}>
 					<h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
 				</div>
 				<div>

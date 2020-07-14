@@ -104,6 +104,10 @@ class Client {
 		this.client.defaults.headers.Authorization = `Bearer ${token}`
 	}
 
+	redirectToBilling() {
+		return this.client.post('/api/user/billing')
+	}
+
 	async uploadFile({ file, progress = () => {} }) {
 		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 
