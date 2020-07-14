@@ -19,7 +19,7 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 		{ initialData }
 	)
 	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
-	const setMeta = useMeta(profile && `${profile?.name} (@${profile.handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`)
+	const setMeta = useMeta(profile && `${profile?.name} (@${profile.handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`, <link rel="alternate" type="application/rss+xml" title="Ghost" href={`https://feeds.auralite.io/${handle}`} />)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)
 	const [isUpdating, setIsUpdating] = useState(false)
