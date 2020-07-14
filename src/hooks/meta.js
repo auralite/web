@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const useMeta = (title, description, image) => (
+const useMeta = (title, description, image, extra) => (
 	<Head>
 		<title key="title">{title ? `${title} - ` : ''}Auralite</title>
 		<meta key="ogTitle" name="og:title" content={`${title ? `${title} - ` : ''}Auralite`} />
@@ -10,6 +10,7 @@ const useMeta = (title, description, image) => (
 		<meta name="twitter:description" key="twitterDescription" content={description} />
 		<meta name="og:image" key="ogImage" content={`https://auralite.io${image}`} />
 		<meta name="twitter:image" key="twitterImage" content={`https://auralite.io${image}`} />
+		{extra}
 	</Head>
 )
 
