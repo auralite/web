@@ -16,5 +16,12 @@
     "theme_color": "#6875f5",
     "background_color": "#6875f5",
     "display": "standalone",
+    "prefer_related_applications": true,
+    "related_applications": [
+        {
+            "platform": "play",
+            "id": "io.auralite.mobile"
+        }
+    ],
     "start_url": "https://auralite.io/home"
 }
