@@ -19,9 +19,10 @@ class Client {
 		this.client.interceptors.response.use(
 			(response) => response.data,
 			(error) => {
-				if (error.response.status !== 417 || !error.response.data._force_redirect_to) return Promise.reject(error)
+				if (error.response.status === 417 && error.response.data._force_redirect_to) return redirectTo(error.response.data._force_redirect_to)
+				if (error.response.status === 401) return logout()
 
-				redirectTo(error.response.data._force_redirect_to)
+				return Promise.reject(error)
 			}
 		)
 	}
