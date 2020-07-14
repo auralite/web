@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, cloneElement } from 'react'
 import useSWR from 'swr'
 import Client from '../../utils/Client'
 import useClickOutside from '../../hooks/click-outside'
@@ -192,7 +192,7 @@ const PageLayout = ({ children, authCheck, title }) => {
 				<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50">
 					<div className="hidden sm:block w-full h-header bg-white" />
 					<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
-						<div>{children}</div>
+						<div>{cloneElement(children, { user })}</div>
 					</div>
 				</main>
 
