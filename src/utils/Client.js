@@ -91,6 +91,14 @@ class Client {
 		return this.client.post('/api/onboarding/subscription/checkout', { plan })
 	}
 
+	updateEmail({ email }) {
+		return this.client.post('/api/user/update', { email })
+	}
+
+	updatePassword({ password, confirmPassword }) {
+		return this.client.post('/api/user/security', { password, password_confirmation: confirmPassword })
+	}
+
 	updateAuthToken(token) {
 		this.apiToken = token
 		this.client.defaults.headers.Authorization = `Bearer ${token}`
