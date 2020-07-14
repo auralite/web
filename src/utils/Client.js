@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import redirectTo from './redirectTo'
+import { logout } from './auth'
 
 class Client {
 	constructor() {
