@@ -14,11 +14,12 @@ const useMeta = (title, description, image, extra) => (
 	</Head>
 )
 
-export const useTitle = (title) => (
+export const useTitle = (title, extra) => (
 	<Head>
 		<title key="title">{title ? `${title} - ` : ''}Auralite</title>
 		<meta key="ogTitle" name="og:title" content={`${title ? `${title} - ` : ''}Auralite`} />
 		<meta key="twitterTitle" name="twitter:title" content={`${title ? `${title} - ` : ''}Auralite`} />
+		{extra}
 	</Head>
 )
 
