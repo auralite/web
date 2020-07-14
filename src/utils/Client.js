@@ -90,6 +90,11 @@ class Client {
 		return this.client.post('/api/onboarding/subscription/checkout', { plan })
 	}
 
+	updateAuthToken(token) {
+		this.apiToken = token
+		this.client.defaults.headers.Authorization = `Bearer ${token}`
+	}
+
 	async uploadFile({ file, progress = () => {} }) {
 		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 

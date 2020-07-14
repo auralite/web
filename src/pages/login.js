@@ -5,6 +5,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { withGuest } from '../middleware/auth'
+import Client from '@/utils/Client'
 
 const Login = () => {
 	const router = useRouter()
@@ -25,6 +26,8 @@ const Login = () => {
 			.post('/api/auth/login', { email, password })
 			.then((response) => {
 				Cookies.set('auralite_token', response.data.access_token, { expires: 2628000, sameSite: 'lax' })
+
+				Client.updateAuthToken(response.data.access_token)
 
 				router.push('/home')
 			})
