@@ -3,6 +3,7 @@ import withAuth from '@/middleware/auth'
 import Client from '@/utils/Client'
 import Logo from '@/components/Global/Logo'
 import Avatar from '@/components/App/Avatar'
+import { handleValidationErrors } from '@/utils/errors'
 
 const CreateProfile = () => {
 	const [errors, setErrors] = useState({})
@@ -16,11 +17,7 @@ const CreateProfile = () => {
 	const submitForm = (event) => {
 		event.preventDefault()
 
-		Client.createProfile({ name: `${firstName} ${lastName}`, handle, bio, avatar }).catch((error) => {
-			if (error.response.status !== 422) return alert('Something went wrong when creating your profile.')
-
-			setErrors(error.response.data.errors)
-		})
+		Client.createProfile({ name: `${firstName} ${lastName}`, handle, bio, avatar }).catch((error) => handleValidationErrors(error, setErrors))
 	}
 
 	return (
