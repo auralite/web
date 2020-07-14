@@ -1,4 +1,3 @@
-import Head from '../Global/Head'
 import { useRouter } from 'next/router'
 import EarlyAccessForm from './EarlyAccessForm'
 import { MDXProvider } from '@mdx-js/react'
@@ -23,42 +22,44 @@ const mdxComponents = {
 
 const BlogLayout = ({ meta, children }) => {
 	const router = useRouter()
-	const setMeta = useMeta(meta.title, meta.description, meta.image)
+	const setMeta = useMeta(
+		meta.title,
+		meta.description,
+		meta.image,
+		<script
+			type="application/ld+json"
+			dangerouslySetInnerHTML={{
+				__html: JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'Article',
+					headline: meta.title,
+					publisher: {
+						'@type': 'Organization',
+						name: 'Auralite',
+						url: 'https://auralite.io/',
+						logo: {
+							'@type': 'ImageObject',
+							url: 'https://auralite.io/img/icons/apple-touch-icon.png',
+						},
+					},
+					author: {
+						'@type': 'Person',
+						name: 'Miguel Piedrafita',
+					},
+					url: 'https://auralite.io/',
+					mainEntityOfPage: {
+						'@type': 'WebPage',
+						'@id': `https://auralite.io${router.pathname}`,
+					},
+					datePublished: meta.date,
+					image: ['https://auralite.io' + meta.image],
+				}),
+			}}
+		/>
+	)
 
 	return (
 		<>
-			<Head>
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							'@context': 'https://schema.org',
-							'@type': 'Article',
-							headline: meta.title,
-							publisher: {
-								'@type': 'Organization',
-								name: 'Auralite',
-								url: 'https://auralite.io/',
-								logo: {
-									'@type': 'ImageObject',
-									url: 'https://auralite.io/img/icons/apple-touch-icon.png',
-								},
-							},
-							author: {
-								'@type': 'Person',
-								name: 'Miguel Piedrafita',
-							},
-							url: 'https://auralite.io/',
-							mainEntityOfPage: {
-								'@type': 'WebPage',
-								'@id': `https://auralite.io${router.pathname}`,
-							},
-							datePublished: meta.date,
-							image: ['https://auralite.io' + meta.image],
-						}),
-					}}
-				/>
-			</Head>
 			{setMeta}
 
 			<div className="font-screen text-black antialiased leading-tight bg-gray-200">
