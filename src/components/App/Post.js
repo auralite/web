@@ -5,18 +5,14 @@ import Avatar from './Avatar'
 import useFormat from '../../hooks/format'
 import useSWR from 'swr'
 import Client from '../../utils/Client'
-import { useState, Fragment, useRef, forwardRef, useEffect } from 'react'
+import { useState, Fragment, forwardRef } from 'react'
 import useClickOutside from '../../hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 
-const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, parentReply = () => {}, withBorder = true, isSkeleton = false }, ref) => {
+const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
-	const parentRef = useRef(null)
-	useEffect(() => {
-		parentReply(parentRef)
-	})
 	const { ref: optionsRef, excludeRef } = useClickOutside(() => {
 		if (!optionsOpen) return
 
@@ -45,8 +41,8 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, feat
 
 	return (
 		<>
-			{!isSkeleton && post?.parent && <Post ref={parentRef} post={post?.parent} isParent={true} withBorder={false} />}
-			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: true } : { className: parentClasses, ref })}>
+			{!isSkeleton && post?.parent && <Post post={post?.parent} isParent={true} withBorder={false} />}
+			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: false } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
 						{meta && <div className="mb-2 -mt-2">{meta}</div>}
