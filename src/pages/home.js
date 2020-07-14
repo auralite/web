@@ -8,11 +8,9 @@ import withAuth from '../middleware/auth'
 import useOnScreen from '../hooks/on-screen'
 import { useRef, useEffect } from 'react'
 
-const Home = () => {
-	const setTitle = useTitle('Home')
-	// const pages = undefined
-	// const isLoadingMore = true
-	// const isReachingEnd = false
+const Home = ({ user }) => {
+	const setTitle = useTitle('Home', user?.profile?.timeline_feed && <link rel="alternate" type="application/rss+xml" title="Auralite Timeline" href={user.profile.timeline_feed} />)
+
 	const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages(
 		'timeline',
 		({ offset, withSWR }) => {
