@@ -9,7 +9,7 @@ import Head from '../Global/Head'
 import Avatar from './Avatar'
 import LoadLink from './LoadLink'
 import Skeleton from 'react-loading-skeleton'
-import Cookies from 'js-cookie'
+import { logout } from '@/utils/auth'
 import { useRouter } from 'next/router'
 import NavLink from './NavLink'
 import BaseLayout from './BaseLayout'
@@ -27,12 +27,6 @@ const PageLayout = ({ children, authCheck, title }) => {
 
 		setProfileNavigationOpen(false)
 	})
-
-	const logout = () => {
-		Cookies.remove('auralite_token', { expires: 2628000, sameSite: 'lax' })
-
-		router.push('/login')
-	}
 
 	return (
 		<BaseLayout>
