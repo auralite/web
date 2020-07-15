@@ -59,6 +59,10 @@ class Client {
 		return this.client.get('/api/notifications')
 	}
 
+	search({ query }) {
+		return this.client.get(`/api/search?q=${query}`)
+	}
+
 	post({ postId }) {
 		return this.client.get(`/api/posts/${postId}`)
 	}
