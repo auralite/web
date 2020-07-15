@@ -55,7 +55,7 @@ const Search = () => {
 								<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 							</svg>
 						</div>
-						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" />
+						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" autoFocus={true} />
 					</div>
 				</div>
 				<div className="bg-white sm:rounded-lg sm:shadow mb-4 sm:mt-4">{pages}</div>
