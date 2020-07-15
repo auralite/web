@@ -24,7 +24,9 @@ const Home = ({ user }) => {
 		[]
 	)
 
-	const [$timelineEnd, endOnScreen] = useOnScreen('200px')
+	const $timelineEnd = useRef(null)
+
+	const endOnScreen = useOnScreen($timelineEnd, '200px')
 
 	useEffect(() => {
 		if (endOnScreen) loadMore()
