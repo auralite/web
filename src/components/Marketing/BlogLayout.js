@@ -25,7 +25,7 @@ const BlogLayout = ({ meta, children }) => {
 	const setMeta = useMeta(
 		meta.title,
 		meta.description,
-		meta.image,
+		meta.image ?? '/img/card.jpg',
 		<script
 			type="application/ld+json"
 			dangerouslySetInnerHTML={{
@@ -52,7 +52,7 @@ const BlogLayout = ({ meta, children }) => {
 						'@id': `https://auralite.io${router.pathname}`,
 					},
 					datePublished: meta.date,
-					image: ['https://auralite.io' + meta.image],
+					image: ['https://auralite.io' + (meta.image ?? '/img/card.jpg')],
 				}),
 			}}
 		/>
