@@ -1627,6 +1627,11 @@
     mini-svg-data-uri "^1.0.3"
     traverse "^0.6.6"
 
+"@tailwindcss/typography@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.1.3.tgz#df8213d3a306457287dfed8be255efbaf28b8f32"
+  integrity sha512-I9jUUuiYExJiaQy6o9YTw7W7qMaYz9nMDg5+znRop7xo0WqqaIJP1HfkbdJpoZBchU4i5COaewpXQLx1alCYLg==
+
 "@tailwindcss/ui@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@tailwindcss/ui/-/ui-0.3.0.tgz#846e489c61bdeb60bdd4e2c32033db770ad8d429"

@@ -85,111 +85,112 @@ const Landing = () => (
 						</div>
 					</div>
 					<div className="relative">
-						<h2 className="sm:-mx-12 block text-center text-black text-5xl sm:text-6xl font-display font-bold leading-tight mb-10 tracking-tighter z-10 relative">
-							A new{' '}
-							<span className="inline-block text-indigo-500 bg-indigo-100 rounded-lg -mx-2 sm:-mx-8 px-2 sm:px-8 relative" style={{ zIndex: '-1' }}>
-								social network
-							</span>{' '}
-							for the future
-						</h2>
+						<div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
+							<h1 className="text-center font-display z-10 relative">
+								A new{' '}
+								<span className="inline-block text-indigo-500 bg-indigo-100 rounded-lg -mx-2 sm:-mx-8 px-2 sm:px-8 relative" style={{ zIndex: '-1' }}>
+									social network
+								</span>{' '}
+								for the future
+							</h1>
+							<p className="z-10 relative">
+								Social networks are great. They are a place for{' '}
+								<span className="bg-yellow-100 font-bold text-yellow-500 rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
+									connecting
+								</span>{' '}
+								with like-minded individuals and{' '}
+								<span className="bg-yellow-100 text-yellow-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
+									sharing
+								</span>{' '}
+								knowledge.
+							</p>
 
-						<p className="mb-6 z-10 relative">
-							Social networks are great. They are a place for{' '}
-							<span className="bg-yellow-100 font-bold text-yellow-500 rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
-								connecting
-							</span>{' '}
-							with like-minded individuals and{' '}
-							<span className="bg-yellow-100 text-yellow-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
-								sharing
-							</span>{' '}
-							knowledge.
-						</p>
+							<p>
+								For{' '}
+								<a href="https://twitter.com/m1guelpf" target="_blank" rel="noreferrer" className="rounded-full pr-2 ml-2 w-7" style={{ fontWeight: 400, textDecoration: 'none', color: 'white', background: 'linear-gradient(90deg, #f2709c, #ff9472)' }}>
+									<picture>
+										<source type="image/webp" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=.webp" />
+										<source type="image/jpeg" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" />
+										<img src="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" alt="Miguel Piedrafita" className="inline w-8 h-8 rounded-full shadow" style={{ margin: '-0.25rem 0 0 -0.5rem' }} />
+									</picture>{' '}
+									me
+								</a>
+								, they've enabled building an audience of people interested in my journey as a maker and helped me{' '}
+								<a href="https://twitter.com/mijustin/status/1155874456062943237" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									meet
+								</a>{' '}
+								<a href="https://twitter.com/m1guelpf/status/1167594024158605314" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									amazing
+								</a>{' '}
+								<a href="https://twitter.com/christophrumpel/status/1167361583397449729" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									people
+								</a>
+								. Others have{' '}
+								<a href="https://twitter.com/frankdilo/status/1274753091028619265" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									met their business partners
+								</a>{' '}
+								or{' '}
+								<a href="https://twitter.com/amrith/status/1273877935745691648" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									given people jobs
+								</a>
+								.
+							</p>
 
-						<p className="mb-6">
-							For{' '}
-							<a href="https://twitter.com/m1guelpf" target="_blank" rel="noreferrer" className="rounded-full pr-2 ml-2 w-7 text-white" style={{ background: 'linear-gradient(90deg, #f2709c, #ff9472)' }}>
-								<picture>
-									<source type="image/webp" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=.webp" />
-									<source type="image/jpeg" srcSet="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" />
-									<img src="https://images.auralite.io/avatars/fit/48/48/sm/0/czM6Ly9hdXJhbGl0ZS9hdmF0YXJzL21pZ3VlbC5qcGc=" alt="Miguel Piedrafita" className="inline -mt-1 -ml-2 w-8 h-8 rounded-full shadow" />
-								</picture>{' '}
-								me
-							</a>
-							, they've enabled building an audience of people interested in my journey as a maker and helped me{' '}
-							<a href="https://twitter.com/mijustin/status/1155874456062943237" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								meet
-							</a>{' '}
-							<a href="https://twitter.com/m1guelpf/status/1167594024158605314" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								amazing
-							</a>{' '}
-							<a href="https://twitter.com/christophrumpel/status/1167361583397449729" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								people
-							</a>
-							. Others have{' '}
-							<a href="https://twitter.com/frankdilo/status/1274753091028619265" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								met their business partners
-							</a>{' '}
-							or{' '}
-							<a href="https://twitter.com/amrith/status/1273877935745691648" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								given people jobs
-							</a>
-							.
-						</p>
+							<p>
+								But, in the last few years, they've become a source of{' '}
+								<a href="https://www.cjr.org/the_media_today/disinformation-facebook.php" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									disinformation
+								</a>
+								,{' '}
+								<a href="https://decoders.amnesty.org/projects/troll-patrol/findings" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									anonymous harassment
+								</a>
+								,{' '}
+								<a href="https://www.washingtonpost.com/technology/2020/01/28/off-facebook-activity-page/" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									privacy concerns
+								</a>
+								, and{' '}
+								<a href="https://www.psychologytoday.com/intl/blog/digital-world-real-world/202002/anxiety-and-social-media-use" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
+									anxiety
+								</a>
+								, while the platforms focused only on growing their engagement and revenue.
+							</p>
 
-						<p className="mb-6">
-							But, in the last few years, they've become a source of{' '}
-							<a href="https://www.cjr.org/the_media_today/disinformation-facebook.php" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								disinformation
-							</a>
-							,{' '}
-							<a href="https://decoders.amnesty.org/projects/troll-patrol/findings" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								anonymous harassment
-							</a>
-							,{' '}
-							<a href="https://www.washingtonpost.com/technology/2020/01/28/off-facebook-activity-page/" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								privacy concerns
-							</a>
-							, and{' '}
-							<a href="https://www.psychologytoday.com/intl/blog/digital-world-real-world/202002/anxiety-and-social-media-use" target="_blank" rel="noreferrer" className="underline font-bold text-indigo-500">
-								anxiety
-							</a>
-							, while the platforms focused only on growing their engagement and revenue.
-						</p>
+							<p className="z-10 relative">
+								<span className="bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
+									It's time for a new platform
+								</span>
+								, one that <span className="text-indigo-500 font-bold">respects your privacy</span>, that <span className="text-indigo-500 font-bold">doesn't try to get you addicted</span>, and that <span className="text-indigo-500 font-bold">protects you from hate and harassment</span>. A platform{' '}
+								<span className="bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
+									made for users, not for advertisers
+								</span>
+								.
+							</p>
 
-						<p className="mb-6 z-10 relative">
-							<span className="bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
-								It's time for a new platform
-							</span>
-							, one that <span className="text-indigo-500 font-bold">respects your privacy</span>, that <span className="text-indigo-500 font-bold">doesn't try to get you addicted</span>, and that <span className="text-indigo-500 font-bold">protects you from hate and harassment</span>. A platform{' '}
-							<span className="bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: '-1' }}>
-								made for users, not for advertisers
-							</span>
-							.
-						</p>
+							<p>And, while we're at it, let's also include everything we've been asking those other platforms for ages.</p>
 
-						<p className="mb-6">And, while we're at it, let's also include everything we've been asking those other platforms for ages.</p>
+							<h2 className="text-black text-3xl font-display font-semibold leading-tight">Meet Auralite.</h2>
 
-						<h2 className="text-black text-3xl font-display font-semibold leading-tight mb-6">Meet Auralite.</h2>
+							<p>Auralite is a social network built for people, starting with its revenue model. Instead of making money off ads, Auralite is user-funded, ensuring the focus is always on providing the best experience for our users.</p>
 
-						<p className="mb-6">Auralite is a social network built for people, starting with its revenue model. Instead of making money off ads, Auralite is user-funded, ensuring the focus is always on providing the best experience for our users.</p>
+							<p>
+								With no ads, there's also no need for any tracking or selling of your data. We're the first <span className="text-indigo-500 font-bold">privacy-first social network</span>.
+							</p>
 
-						<p className="mb-6">
-							With no ads, there's also no need for any tracking or selling of your data. We're the first <span className="text-indigo-500 font-bold">privacy-first social network</span>.
-						</p>
+							<p>Control is a big element of Auralite. Aside from complete control over your data, you can also choose who can see each post you make or interact with it, from everyone to mutual followers or even a small hand-picked selection.</p>
 
-						<p className="mb-6">Control is a big element of Auralite. Aside from complete control over your data, you can also choose who can see each post you make or interact with it, from everyone to mutual followers or even a small hand-picked selection.</p>
+							<p>
+								While we believe this should help prevent harassment, we also require each user to verify their identity before posting to Auralite, deterring abuse, and making our network <span className="text-indigo-500 font-bold">more about people and less about profiles</span>.
+							</p>
 
-						<p className="mb-6">
-							While we believe this should help prevent harassment, we also require each user to verify their identity before posting to Auralite, deterring abuse, and making our network <span className="text-indigo-500 font-bold">more about people and less about profiles</span>.
-						</p>
+							<p>
+								Auralite is also built to be open and extendable, <span className="text-indigo-500 font-bold">embracing open standards</span> like RSS and webmentions and empowering developers with an <span className="text-indigo-500 font-bold">open API</span> and a <span className="text-indigo-500 font-bold">powerful bot platform</span>.
+							</p>
 
-						<p className="mb-6">
-							Auralite is also built to be open and extendable, <span className="text-indigo-500 font-bold">embracing open standards</span> like RSS and webmentions and empowering developers with an <span className="text-indigo-500 font-bold">open API</span> and a <span className="text-indigo-500 font-bold">powerful bot platform</span>.
-						</p>
-
-						<p className="mb-6">
-							These are just some of the things we've planned for Auralite. If you want to <span className="text-indigo-500 font-bold">learn more about what we're building</span>, <span className="text-indigo-500 font-bold">have a voice in the development</span> on the platform, and <span className="text-indigo-500 font-bold">be the first one to get access</span> when we open the gates, leave your email below.
-						</p>
+							<p>
+								These are just some of the things we've planned for Auralite. If you want to <span className="text-indigo-500 font-bold">learn more about what we're building</span>, <span className="text-indigo-500 font-bold">have a voice in the development</span> on the platform, and <span className="text-indigo-500 font-bold">be the first one to get access</span> when we open the gates, leave your email below.
+							</p>
+						</div>
 					</div>
 				</div>
 				<EarlyAccessForm />

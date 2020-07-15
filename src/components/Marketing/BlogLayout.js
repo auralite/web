@@ -11,7 +11,6 @@ import useMeta from '@/hooks/meta'
 /* eslint-disable jsx-a11y/anchor-has-content */
 const mdxComponents = {
 	YouTube,
-	a: ({ className, ...props }) => <a className={`${className} underline font-bold text-indigo-500`} target="_blank" rel="noopener" {...props} />,
 	h2: ({ className, ...props }) => <h2 className={`${className} text-black text-3xl font-display font-semibold leading-tight`} {...props} />,
 	strong: ({ className, ...props }) => <strong className={`${className} text-indigo-500 font-bold`} {...props} />,
 	em: ({ className, ...props }) => <em className={`${className} not-italic bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative`} style={{ zIndex: '-1' }} {...props} />,
@@ -132,7 +131,7 @@ const BlogLayout = ({ meta, children }) => {
 							)}
 							<h2 className="block text-center text-gray-900 text-4xl sm:text-5xl font-display font-bold tracking-tighter leading-tight mb-10 z-10 relative">{meta.title}</h2>
 
-							<div className="space-y-6 z-10 relative">
+							<div className="z-10 relative prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
 								<MDXProvider components={mdxComponents}>{children}</MDXProvider>
 							</div>
 						</div>

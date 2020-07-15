@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('@tailwindcss/ui/colors')
 
 module.exports = {
 	purge: ['./src/components/**/*.js', './src/pages/**/*.js'],
@@ -38,11 +39,25 @@ module.exports = {
 			zIndex: {
 				1: 1,
 			},
+			typography: {
+				default: {
+					css: {
+						a: {
+							color: colors.indigo[500],
+							fontWeight: 700,
+						},
+						strong: {
+							color: colors.indigo[500],
+							fontWeight: 700,
+						},
+					},
+				},
+			},
 		},
 	},
 	variants: {
 		display: ['responsive', 'group-hover'],
 		opacity: ['responsive', 'hover', 'focus', 'group-hover'],
 	},
-	plugins: [require('@tailwindcss/ui')],
+	plugins: [require('@tailwindcss/ui'), require('@tailwindcss/typography')],
 }
