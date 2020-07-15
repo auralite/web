@@ -11,6 +11,7 @@ import useMeta from '@/hooks/meta'
 /* eslint-disable jsx-a11y/anchor-has-content */
 const mdxComponents = {
 	YouTube,
+	a: ({ className, ...props }) => <a className={className} target="_blank" rel="noopener" {...props} />,
 	h2: ({ className, ...props }) => <h2 className={`${className} text-black text-3xl font-display font-semibold leading-tight`} {...props} />,
 	strong: ({ className, ...props }) => <strong className={`${className} text-indigo-500 font-bold`} {...props} />,
 	em: ({ className, ...props }) => <em className={`${className} not-italic bg-indigo-100 text-indigo-500 font-bold rounded-lg px-2 -mx-2 relative`} style={{ zIndex: '-1' }} {...props} />,
