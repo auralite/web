@@ -30,9 +30,7 @@ const Search = () => {
 		[query]
 	)
 
-	const $timelineEnd = useRef(null)
-
-	const endOnScreen = useOnScreen($timelineEnd, '200px')
+	const [$timelineEnd, endOnScreen] = useOnScreen('200px')
 
 	useEffect(() => {
 		if (endOnScreen) loadMore()
