@@ -5,6 +5,7 @@ import { YouTube } from './Video'
 import Link from 'next/link'
 import Logo from '../Global/Logo'
 import useMeta from '@/hooks/meta'
+import Head from '@/components/Global/Head'
 
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/heading-has-content */
@@ -60,6 +61,7 @@ const BlogLayout = ({ meta, children }) => {
 
 	return (
 		<>
+			<Head />
 			{setMeta}
 
 			<div className="font-screen text-black antialiased leading-tight bg-gray-200">
