@@ -11,10 +11,10 @@ function useOnScreen(ref, rootMargin = '0px') {
 	useEffect(() => {
 		if (!observer.current) return
 
-		if (ref.current) observer.observe(ref.current)
+		if (ref.current) observer.current.observe(ref.current)
 
 		return () => {
-			if (ref.current) observer.unobserve(ref.current)
+			if (ref.current) observer.current.unobserve(ref.current)
 		}
 	}, [ref, observer])
 
