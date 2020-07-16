@@ -1,0 +1,55 @@
+import image from './card.jpg'
+
+export const meta = {
+    subheading: 'Auralite Bi-Weekly Update #2',
+    title: 'A Mobile App, New Features & Future Plans.',
+    description: 'A recap of my last two weeks of work on Auralite, including migrating to Next.js, getting feature-parity with other social networks, going mobile and adding more features.',
+    date: '2020-07-16T05:00:00Z',
+    image,
+}
+
+**👋 Hi! I'm Miguel Piedrafita, the maker behind Auralite.** I've been hard at work on Auralite since [the last update](https://auralite.io/blog/progress-update-1). Here's a recap of everything I got done on these two weeks, and what I have planned for the next two.
+
+## 🛠 Migrating to Next.js
+
+I started building Auralite with the stack I'm most used to, a monolithic PHP app powered by Laravel. A week into building the app, however, I decided to switch to a different model, with an open-source SPA powered by our public API. This not only served our _openness_ goal and set an example for developing custom Auralite clients, but made the experience much smoother.
+
+Anyway, I had to migrate all my existing, backend-supported code to a Next.js app and figure out how to handle authentication, state, and communication. This turned out to be easier than I expected, and I managed to get most of the migration done in two days.
+
+## 📱 A mobile app
+
+With the Next.js migration out of the way, I started brainstorming ideas for **providing a great mobile experience**. After looking into React Native and Flutter, I decided to roll with a Progressive Web App, since it'd allow me to get something out in the least time. The initial setup was pretty easy, as the frontend was already fully-responsive, and a Webpack plugin took me most of the way to where I wanted.
+
+Once that was done, I started looking into distribution. iOS seems to be a lost cause regarding PWAs, but they provide decent support and allow installation via Safari, which is something. Android, on the other hand, allows you to package your PWA into a native Android app and release it on the Play Store, [which is just what I did](https://play.google.com/store/apps/details?id=io.auralite.mobile).
+
+## 🌐 Network feature parity
+
+Which is the nerdy way of saying that **Auralite now has enough features to be called a proper social network**. You can post, reply, add images to your posts, edit your profile, view others' profiles, etc. (there's no following right now since there aren't many people, but that'll be added down the line) It also has search, mentions and notifications. This won't seem very exciting, but it was required so I could start working on the cool stuff, *the things that make Auralite different* from every other platform out there.
+
+Oh, and **profiles are now public**! The whole platform required login before, but you can now view anyone's profile without an Auralite account. [Here's mine](https://auralite.io/miguel).
+
+## ✨ New Auralite features
+
+I had some extra time after all that work and started sketching out some of those Auralite-unique features. Since I was gonna make profiles public, I started by **allowing users to control who can view their posts** on a per-post basis. You can only choose between <i>Everyone</i> and <i>Auralite users</i> right now, but I plan to add more options down the line, as well as a separate toggle for **controlling who can interact with posts**.
+
+Something from the announcement that resonated with many people was the promise of a platform that embraced open standards, like RSS. With this in mind, I didn't stop at adding **public RSS feeds for each Auralite user** (point your feedreader at [my profile](https://auralite.io/miguel) to try it out), but also added a **private feed with your personal timeline**, so you can read your Auralite feed alongside your favourite blogs.
+
+Finally, I wanted Auralite profiles to look great when shared, so I made some **dynamic cards that appear when sharing your profile** on sites like Twitter, Telegram, or Slack. [Here's a tweet showing off how it looks](https://twitter.com/m1guelpf/status/1282493331885510656).
+
+## 🔮 Plans for the next cycle
+
+I'm organizing development in **two-week development cycles**. This means I disappear into the coding cave for two weeks, occasionally coming out to share what I'm working on (on [Twitter](https://twitter.com/m1guelpf) and [Auralite](https://auralite.io/miguel)), then write an email to the early-access list and a big recap article like the one you're reading right now. I'm also going to start **dropping a batch of invites at the end of each cycle, starting with this one**.
+
+The first thing I want to add on the next cycle is **cross-posting to Twitter**. This will be an optional feature and might even be removed in the future, but it's meant to allow everyone to **start using Auralite without losing your existing Twitter audience**. It will also allow me to spend less time on Twiter, which is always a good thing.
+
+Once that's done, I want to **rework notifications**. They work as we've grown to expect notifications to work (someone mentions, you get a notification), but I want to experiment with ways to *make them less attention-grabbing*, like batching or delaying them.
+
+Finally, I want to start working on an improved version of the feed. **I want to make it impossible for anyone to get stuck scrolling and scrolling down the feed**, which I constantly find myself doing on Twitter. I have a few ideas on how to improve this, but I'll save those for the next update.
+
+## 🙌 Thank You
+
+Finally, I wanted to take a moment to **thank everyone excited to get their hands into the platform**. Auralite started as my dream for *a better social network*, and it's awesome to see others share this dream.
+
+If you have any questions, feedback, or ideas, feel free to [email me](mailto:miguel@auralite.io), and I'll be happy to answer you. **Let's make something great, together!**
+
+*~ Miguel Piedrafita*
