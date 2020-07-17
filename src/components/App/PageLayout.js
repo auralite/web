@@ -123,11 +123,16 @@ const PageLayout = ({ children, authCheck, title }) => {
 						<div className="flex items-center justify-between">
 							<div className="flex items-stretch">
 								<div className="pb-4 flex items-center">
-									<button onClick={() => (authCheck ? setMobileNavigationOpen(true) : router.push('/'))} className="flex-shrink-0">
+									<button onClick={() => (authCheck ? setMobileNavigationOpen(true) : router.push('/'))} className="sm:hidden flex-shrink-0">
 										<a className="flex-shrink-0">
 											<Logo className="h-8 w-8" />
 										</a>
 									</button>
+									<Link href={authCheck ? '/home' : '/'}>
+										<a className="hidden sm:block flex-shrink-0">
+											<Logo className="h-8 w-8" />
+										</a>
+									</Link>
 									{title && <p className="sm:hidden ml-2 text-gray-800 font-semibold text-xl">{title}</p>}
 								</div>
 								<div className="hidden sm:-my-px sm:ml-6 sm:flex space-x-8">
