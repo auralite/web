@@ -39,6 +39,16 @@ class Client {
 		})
 	}
 
+	register({ email, password, code }) {
+		return this.client.post('/oauth/register', {
+			client_id: this.clientId,
+			client_secret: this.clientSecret,
+			email,
+			password,
+			code,
+		})
+	}
+
 	user() {
 		return this.client.get('/api/user')
 	}
