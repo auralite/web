@@ -123,6 +123,10 @@ class Client {
 		return this.client.post('/api/user/billing')
 	}
 
+	connectTwitter() {
+		redirectTo(`${this.baseURL}/connections/twitter?token=${encodeURIComponent(this.apiToken)}`)
+	}
+
 	async uploadFile({ file, progress = () => {} }) {
 		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 
