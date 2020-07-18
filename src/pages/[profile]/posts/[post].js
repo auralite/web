@@ -3,7 +3,7 @@ import { withAuthInfo } from '../../../middleware/auth'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import Client from '../../../utils/Client'
-import { useTitle } from '../../../hooks/meta'
+import useMeta from '../../../hooks/meta'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
 import { useEffect, useRef, useLayoutEffect } from 'react'
@@ -17,7 +17,7 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 		{ initialData }
 	)
 
-	const setTitle = useTitle(post && `${post.author.name} (@${post.author_handle}) on Auralite: ${post.content}`)
+	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite: ${post.content}`, post.content, `/api/meta/post?postId=${postId}`)
 
 	const newPost = (reply) => {
 		mutate((post) => {
@@ -57,7 +57,7 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 
 	return (
 		<>
-			{setTitle}
+			{setMeta}
 			<div className="max-w-md sm:max-w-3xl rounded-b-lg relative z-0 mt-4">
 				<div>
 					<div className="bg-white sm:rounded-lg sm:shadow sm:mb-4">
