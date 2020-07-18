@@ -2,12 +2,12 @@ import { useMemo } from 'react'
 import replace from 'react-string-replace'
 import Link from 'next/link'
 
-const useFormat = (content) => {
+const useFormat = (content, { underlineLinks = false } = {}) => {
 	return useMemo(() => {
 		let formatted = replace(content, /([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~?#/.=]+)/g, (url, i) => {
 			try {
 				return (
-					<a key={url + i} href={url} target="_blank" className="text-indigo-500 hover:underline" rel="noopener noreferrer nofollow">
+					<a key={url + i} href={url} target="_blank" className={`text-indigo-500 ${underlineLinks ? 'underline' : ''} hover:underline`} rel="noopener noreferrer nofollow">
 						{normalizeUrl(url)}
 					</a>
 				)
