@@ -63,6 +63,14 @@ const Settings = ({ user }) => {
 			})
 	}
 
+	const connectTwitter = (event, setLoading) => {
+		event.preventDefault()
+
+		setLoading(true)
+
+		Client.connectTwitter()
+	}
+
 	return (
 		<>
 			<SettingsPanel title="Account" onSubmit={updateEmail} submitDisabled={email === user?.email}>
@@ -73,6 +81,8 @@ const Settings = ({ user }) => {
 				<SettingsField label="Password" errors={errors} key="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={password} onChange={(password) => setPassword(password)} description="We'll email you to let you know your password has changed." />
 				<SettingsField label="Repeat password" errors={errors} key="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={confirmPassword} onChange={(password) => setConfirmPassword(password)} />
 			</SettingsPanel>
+
+			{!user?.has_twitter_token && <SettingsPanel title="Connections" onSubmit={connectTwitter} cta="Connect Twitter" />}
 
 			<SettingsPanel title="Billing" cta="Open Billing Center" onSubmit={openBilling} />
 		</>

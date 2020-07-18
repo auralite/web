@@ -8,9 +8,10 @@ class Client {
 		this.clientId = process.env.AURALITE_ID
 		this.clientSecret = process.env.AURALITE_SECRET
 		this.apiToken = Cookies.get('auralite_token')
+		this.baseURL = process.env.NEXT_PUBLIC_AURALITE_URL
 
 		this.client = axios.create({
-			baseURL: process.env.NEXT_PUBLIC_AURALITE_URL,
+			baseURL: this.baseURL,
 			headers: {
 				Accept: 'application/json',
 				...(this.apiToken ? { Authorization: `Bearer ${this.apiToken}` } : {}),
