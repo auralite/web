@@ -17,7 +17,7 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 		{ initialData }
 	)
 
-	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite: ${post.content}`, post.content, `/api/meta/post?postId=${postId}`)
+	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite`, post.content, `/api/meta/post?postId=${postId}`)
 
 	const newPost = (reply) => {
 		mutate((post) => {
