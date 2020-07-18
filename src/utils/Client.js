@@ -127,6 +127,10 @@ class Client {
 		redirectTo(`${this.baseURL}/connections/twitter?token=${encodeURIComponent(this.apiToken)}`)
 	}
 
+	unlinkTwitter() {
+		return this.client.delete('/api/connections/twitter')
+	}
+
 	async uploadFile({ file, progress = () => {} }) {
 		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 

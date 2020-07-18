@@ -24,7 +24,7 @@ const Settings = ({ user }) => {
 			.then((response) => {
 				createAlert({ title: 'Email Updated', body: 'Your email has been updated successfully. You may need to verify your account again.' })
 
-				mutate('/api/user', response.data, false)
+				mutate('/api/user', response)
 
 				setLoading(false)
 			})
@@ -71,6 +71,18 @@ const Settings = ({ user }) => {
 		Client.connectTwitter()
 	}
 
+	const unlinkTwitter = (event) => {
+		event.preventDefault()
+
+		Client.unlinkTwitter()
+			.then((response) => {
+				mutate('/api/user', response)
+			})
+			.catch((error) => {
+				handleValidationErrors(error, setErrors)
+			})
+	}
+
 	return (
 		<>
 			<SettingsPanel title="Account" onSubmit={updateEmail} submitDisabled={email === user?.email}>
@@ -82,7 +94,29 @@ const Settings = ({ user }) => {
 				<SettingsField label="Repeat password" errors={errors} key="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={confirmPassword} onChange={(password) => setConfirmPassword(password)} />
 			</SettingsPanel>
 
-			{!user?.has_twitter_token && <SettingsPanel title="Connections" onSubmit={connectTwitter} cta="Connect Twitter" />}
+			<SettingsPanel title="Connections" onSubmit={user?.has_twitter_token ? unlinkTwitter : connectTwitter} withFooter={false}>
+				<div className="col-span-12 flex flex-col md:flex-row items-center justify-between">
+					<div>
+						<h3 className="text-lg leading-6 font-medium text-gray-900">Connect to Twitter</h3>
+						<div className="mt-2 max-w-xl lg:max-w-2xl text-sm leading-5 text-gray-600 md:pr-4">
+							<p>Link your Twitter account to Auralite to automatically cross-post your Auralite posts to your Twitter profile. This is not applied for replies.</p>
+						</div>
+					</div>
+					<div className="mt-4 md:mt-0 w-full md:w-auto">
+						<span className="inline-flex rounded-md shadow-sm w-full">
+							{user?.has_twitter_token ? (
+								<button type="submit" className="w-full relative px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-800 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in">
+									Unlink account
+								</button>
+							) : (
+								<button type="submit" className="w-full relative px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-800 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in">
+									Link account
+								</button>
+							)}
+						</span>
+					</div>
+				</div>
+			</SettingsPanel>
 
 			<SettingsPanel title="Billing" cta="Open Billing Center" onSubmit={openBilling} />
 		</>
