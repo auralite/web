@@ -25,7 +25,7 @@
     "moment": "^2.27.0",
     "next": "9.4.4",
     "next-cookies": "^2.0.3",
-    "next-pwa": "^3.0.1",
+    "next-pwa": "^3.1.1",
     "nprogress": "^0.2.0",
     "pipeline-js": "^1.0.2",
     "postcss-flexbugs-fixes": "^4.2.1",
