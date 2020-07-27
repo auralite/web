@@ -5,6 +5,8 @@ import Notification from '../components/App/Notification'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
 import { useState } from 'react'
+import { ZERO_TAGLINES } from '@/utils/constants'
+import { random } from '@/utils/arr'
 
 const Notifications = () => {
 	const setTitle = useTitle('Notifications')
@@ -42,7 +44,7 @@ const Notifications = () => {
 								<path className="text-indigo-900 fill-current" fillRule="nonzero" d="M44.02 6.5a6 6 0 1 1 11.96 0A36 36 0 0 1 86 42v31a8 8 0 0 0 8 8h6v5a5 5 0 0 1-5 5H59a9 9 0 1 1-18 0H5a5 5 0 0 1-5-5v-5h6a8 8 0 0 0 8-8V42A36 36 0 0 1 44.02 6.5zM86 79H57v-1h28.34A9.93 9.93 0 0 1 84 73V42a34 34 0 1 0-68 0v31a9.97 9.97 0 0 1-4 8h76a10.06 10.06 0 0 1-2-2zM6 83H2v3a3 3 0 0 0 3 3h90a3 3 0 0 0 3-3v-3H6zM46 6.22a36.4 36.4 0 0 1 8 0V6a4 4 0 1 0-8 .22zM43 91a7 7 0 1 0 14 0H43zm7-77v1a27 27 0 0 0-23.83 14.3l-.88-.48A28 28 0 0 1 50 14zM22.94 34.78c.29-1.09.64-2.15 1.06-3.18l.92.37c-.4 1-.74 2.02-1.01 3.07l-.97-.26zm-.7 3.52l1 .13A27.25 27.25 0 0 0 23 42v12h-1V42c0-1.25.08-2.49.24-3.7z" />
 							</svg>
 							<p className="text-4xl text-gray-800">No new notifications</p>
-							<p className="text-2xl text-gray-700">Enjoy your day!</p>
+							<p className="text-2xl text-gray-700">{random(ZERO_TAGLINES)}</p>
 						</div>
 					)}
 				</div>
