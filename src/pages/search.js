@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import useSWR, { useSWRPages } from 'swr'
 import Client from '@/utils/Client'
 import Post from '@/components/App/Post'
-import { useRef, useEffect, useState } from 'react'
-import useOnScreen from '@/hooks/on-screen'
+import { useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 const Search = () => {
 	const router = useRouter()
@@ -30,13 +30,11 @@ const Search = () => {
 		[query]
 	)
 
-	const $timelineEnd = useRef(null)
-
-	const endOnScreen = useOnScreen($timelineEnd, '200px')
+	const [$timelineEnd, isEnd] = useInView({ threshold: 1, rootMargin: '200px' })
 
 	useEffect(() => {
-		if (endOnScreen) loadMore()
-	}, [endOnScreen])
+		if (isEnd) loadMore()
+	}, [isEnd])
 
 	useEffect(() => {
 		router.push({
