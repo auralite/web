@@ -23,6 +23,8 @@ const isAuthenticated = (ctx) => {
 	return !!cookie.auralite_token
 }
 
-export default () => [AddAuthInfo, AuthMiddleware]
+const withAuth = () => [AddAuthInfo, AuthMiddleware]
+
+export default withAuth
 export const withGuest = () => [AddAuthInfo, GuestMiddleware]
 export const withAuthInfo = () => [AddAuthInfo]

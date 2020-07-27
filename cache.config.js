@@ -2,6 +2,17 @@
 
 module.exports = [
 	{
+		urlPattern: '/',
+		handler: 'NetworkFirst',
+		options: {
+			cacheName: 'start-url',
+			expiration: {
+				maxEntries: 1,
+				maxAgeSeconds: 24 * 60 * 60, // 24 hours
+			},
+		},
+	},
+	{
 		urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
 		handler: 'CacheFirst',
 		options: {
