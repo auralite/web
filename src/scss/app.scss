@@ -34,3 +34,19 @@ strong {
     background-color: rgba(255, 255, 255, .9);
     backdrop-filter: blur(5px);
 }
+
+.animate-ring {
+    animation: ring 1s ease-in-out 0s 1;
+}
+
+@keyframes ring {
+    0%, 80% {
+        transform: rotate(0deg);
+    }
+    16%, 48% {
+        transform: rotate(15deg);
+    }
+    32%, 64% {
+        transform: rotate(-15deg);
+    }
+}

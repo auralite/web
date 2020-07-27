@@ -10,7 +10,7 @@ import useClickOutside from '@/hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 
-const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
+const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent = true, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
 	const { ref: optionsRef, excludeRef } = useClickOutside(() => {
@@ -41,11 +41,11 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, meta, feat
 
 	return (
 		<>
-			{!isSkeleton && post?.parent && <Post post={post?.parent} isParent={true} withBorder={false} />}
+			{!isSkeleton && post?.parent && showParent && <Post post={post?.parent} isParent={true} withBorder={false} />}
 			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: false } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
 					<>
-						{meta && <div className="mb-2 -mt-2">{meta}</div>}
+						{meta && <div className="mb-2 mt-2">{meta}</div>}
 						<div className="flex items-stretch">
 							<div className="flex-shrink-0 mr-4">
 								<Avatar src={post?.author?.avatar} sizeClasses="w-12 h-12" />
