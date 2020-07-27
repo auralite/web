@@ -5,9 +5,9 @@ import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
-import useOnScreen from '../hooks/on-screen'
-import { useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useInView } from 'react-intersection-observer'
 
 const Home = ({ user }) => {
 	const router = useRouter()
@@ -27,13 +27,13 @@ const Home = ({ user }) => {
 		[]
 	)
 
-	const $timelineEnd = useRef(null)
-
-	const endOnScreen = useOnScreen($timelineEnd, '200px')
+	const [$timelineEnd, isEnd] = useInView({ threshold: 1 })
 
 	useEffect(() => {
-		if (endOnScreen) loadMore()
-	}, [endOnScreen])
+		if (!isEnd) return
+
+		loadMore()
+	}, [isEnd])
 
 	const removeFromTimeline = () => mutate('/api/timeline?page=1')
 
@@ -51,8 +51,7 @@ const Home = ({ user }) => {
 							))}
 						</div>
 					)}
-					{!isReachingEnd && <div ref={$timelineEnd} />}
-					{isReachingEnd && <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div>}
+					{isReachingEnd ? <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div> : <div ref={$timelineEnd} />}
 				</div>
 				<div className="hidden sm:block max-w-sm w-full mt-4 relative rounded-md shadow-sm">
 					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

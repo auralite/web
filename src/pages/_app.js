@@ -7,15 +7,12 @@ import App from 'next/app'
 import * as Sentry from '@sentry/browser'
 import NProgress from 'nprogress'
 import Error from './_error'
-import { syncWithStorage } from 'swr-sync-storage'
 import { useBaseLayout } from '@/components/App/BaseLayout'
 
 Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 })
-
-if (typeof window !== 'undefined') syncWithStorage('session')
 
 const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 	useEffect(() => {
