@@ -29,7 +29,7 @@
     "nprogress": "^0.2.0",
     "pipeline-js": "^1.0.2",
     "postcss-flexbugs-fixes": "^4.2.1",
-    "puppeteer-core": "^5.0.0",
+    "puppeteer-core": "^5.2.1",
     "react": "16.13.1",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "16.13.1",
