@@ -8,23 +8,23 @@ import Avatar from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
 import useMeta from '../../hooks/meta'
-import Error from '../_error'
-import { withAuthInfo } from '../../middleware/auth'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import useAlert from '@/hooks/alert'
 
-const Profile = ({ handle, authCheck, isReplies, initialData }) => {
-	const { data: profile, mutate: mutateProfile, error: profileError } = useSWR(
-		() => `/api/users/${handle}`,
-		() => Client.profile({ handle }),
-		{ initialData }
-	)
+const Profile = ({ handle, authCheck, profile }) => {
+	const router = useRouter()
+	const isReplies = router.pathname.endsWith('/replies')
+
 	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
-	const setMeta = useMeta(profile && `${profile?.name} (@${profile.handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`, <link rel="alternate" type="application/rss+xml" title={`${profile.name}'s Auralite Feed`} href={`https://feeds.auralite.io/${handle}`} />)
+
+	const setMeta = useMeta(profile && `${profile?.name} (@${handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`, <link rel="alternate" type="application/rss+xml" title={`${profile?.name}'s Auralite Feed`} href={`https://feeds.auralite.io/${handle}`} />)
 	const userBio = useFormat(profile?.bio)
 	const [error, setError] = useState(null)
 	const [isUpdating, setIsUpdating] = useState(false)
 	const [bio, setBio] = useState(profile?.bio)
 	const [avatar, setAvatar] = useState(null)
+	const { createAlert } = useAlert()
 
 	useEffect(() => {
 		setBio(profile?.bio)
@@ -42,7 +42,8 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 
 					return user
 				})
-				mutateProfile(profile)
+
+				createAlert({ title: 'Profile Updated', body: 'Your profile has been updated. Changes might take a few seconds to propagate.' })
 			})
 			.catch((error) => {
 				if (!error.response?.data?.errors) return alert('Something went wrong when updating your profile.')
@@ -58,7 +59,6 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 			return profile
 		}
 
-		mutateProfile(profileFunc)
 		mutateUser((user) => {
 			user.profile = profileFunc(user.profile)
 
@@ -80,8 +80,6 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 			dd: '%dd',
 		},
 	})
-
-	if (profileError?.response) return <Error statusCode={profileError.response.status} />
 
 	return (
 		<>
@@ -147,14 +145,24 @@ const Profile = ({ handle, authCheck, isReplies, initialData }) => {
 }
 
 Profile.getLayout = usePageLayout()
-Profile.middleware = withAuthInfo()
 
-Profile.getInitialProps = async ({ query, pathname }) => {
+export const getStaticProps = async ({ params: { profile } }) => {
 	try {
-		return { handle: query.profile, isReplies: pathname.includes('/replies'), initialData: await Client.profile({ handle: query.profile }) }
+		return {
+			props: {
+				handle: profile,
+				profile: await Client.profile({ handle: profile }),
+			},
+			revalidate: 1,
+		}
 	} catch (error) {
-		return { error }
+		return { props: { isError: true, statusCode: error.response.status }, revalidate: 1 }
 	}
 }
+
+export const getStaticPaths = async () => ({
+	paths: [],
+	fallback: true,
+})
 
 export default Profile

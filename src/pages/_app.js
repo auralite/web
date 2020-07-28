@@ -49,21 +49,7 @@ const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 
 	const getLayout = Component.getLayout || useBaseLayout()
 
-	return getLayout(<Component {...pageProps} {...serverProps} />, serverProps)
-}
-
-MyApp.getInitialProps = async ({ Component, ctx }) => {
-	const props = await App.getInitialProps({ Component, ctx })
-
-	if (props.pageProps.error) {
-		ctx.res.statusCode = props.pageProps.error.response.status
-
-		return { pageProps: { isError: true, statusCode: props.pageProps.error.response.status } }
-	}
-
-	const middleware = new Pipeline(Component.middleware || [])
-
-	return middleware.process({ props, ctx })?.props ?? {}
+	return getLayout(<Component {...pageProps} {...serverProps} />, { ...serverProps, middleware: Component.middleware })
 }
 
 export default MyApp

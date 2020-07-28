@@ -1,5 +1,4 @@
 import { usePageLayout } from '../../../components/App/PageLayout'
-import { withAuthInfo } from '../../../middleware/auth'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import Client from '../../../utils/Client'
@@ -7,32 +6,21 @@ import useMeta from '../../../hooks/meta'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
 import { useEffect, useRef, useLayoutEffect } from 'react'
+import useAlert from '@/hooks/alert'
 
-const PostPage = ({ postId, authCheck, initialData }) => {
+const PostPage = ({ postId, authCheck, post, handle }) => {
 	const router = useRouter()
 	const postRef = useRef(null)
-	const { data: post, mutate } = useSWR(
-		() => `/api/posts/${postId}`,
-		() => Client.post({ postId }),
-		{ initialData }
-	)
+	const { createAlert } = useAlert()
 
-	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite`, post.content, `/api/meta/post?postId=${postId}`)
+	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite`, post?.content, `/api/meta/post?postId=${postId}`)
 
-	const newPost = (reply) => {
-		mutate((post) => {
-			post.replies.concat(reply)
-
-			return post
-		})
+	const newPost = () => {
+		createAlert({ title: 'Reply Posted', body: 'Your reply has been posted. Changes might take a few seconds to propagate.' })
 	}
 
-	const updateReplyList = (deletedPost) => {
-		mutate((post) => {
-			post.replies = post.replies.filter((reply) => reply.id !== deletedPost.id)
-
-			return post
-		})
+	const updateReplyList = () => {
+		createAlert({ title: 'Post Deleted', body: 'Your post has been deleted. Changes might take a few seconds to propagate.' })
 	}
 
 	const scrollToReply = () => {
@@ -75,14 +63,24 @@ const PostPage = ({ postId, authCheck, initialData }) => {
 
 PostPage.getLayout = usePageLayout()
 
-PostPage.getInitialProps = async ({ query }) => {
+export const getStaticProps = async ({ params: { profile, post } }) => {
 	try {
-		return { postId: query.post, initialData: await Client.post({ postId: query.post }) }
+		return {
+			props: {
+				postId: post,
+				handle: profile,
+				post: await Client.post({ postId: post }),
+			},
+			revalidate: 1,
+		}
 	} catch (error) {
-		return { error }
+		return { props: { isError: true, statusCode: error.response.status }, revalidate: 1 }
 	}
 }
 
-PostPage.middleware = withAuthInfo()
+export const getStaticPaths = async () => ({
+	paths: [],
+	fallback: true,
+})
 
 export default PostPage

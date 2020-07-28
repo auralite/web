@@ -62,11 +62,11 @@ const PostMeta = ({ post }) => {
 	)
 }
 
-PostMeta.getInitialProps = async ({ query }) => {
+export const getServerSideProps = async ({ query }) => {
 	try {
-		return { post: await Client.post({ postId: query.postId }) }
+		return { props: { post: await Client.post({ postId: query.postId }) } }
 	} catch (error) {
-		return { error }
+		return { props: { isError: true, statusCode: error.response.status } }
 	}
 }
 

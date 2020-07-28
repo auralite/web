@@ -56,11 +56,11 @@ const ProfileMeta = ({ profile }) => {
 	)
 }
 
-ProfileMeta.getInitialProps = async ({ query }) => {
+export const getServerSideProps = async ({ query }) => {
 	try {
-		return { profile: await Client.profile({ handle: query.handle }) }
+		return { props: { profile: await Client.profile({ handle: query.handle }) } }
 	} catch (error) {
-		return { error }
+		return { props: { isError: true, statusCode: error.response.status } }
 	}
 }
 

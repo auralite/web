@@ -1,30 +1,17 @@
-import cookies from 'next-cookies'
 import redirectTo from '../utils/redirectTo'
+import Cookies from 'js-cookie'
 
-const AuthMiddleware = ({ props, ctx }) => {
-	if (!props.authCheck) return redirectTo('/login', { res: ctx.res, status: 301 })
-
-	return { props, ctx }
+const AuthMiddleware = () => {
+	if (!authCheck) return redirectTo('/login')
 }
 
-const GuestMiddleware = ({ props, ctx }) => {
-	if (props.authCheck) return redirectTo('/home', { res: ctx.res, status: 301 })
-
-	return { props, ctx }
+const GuestMiddleware = () => {
+	if (authCheck) return redirectTo('/home')
 }
 
-const AddAuthInfo = ({ props, ctx }) => {
-	return { props: { ...props, authCheck: isAuthenticated(ctx) }, ctx }
-}
+export const authCheck = !!Cookies.get('auralite_token') || typeof window === 'undefined'
 
-const isAuthenticated = (ctx) => {
-	const cookie = cookies(ctx)
-
-	return !!cookie.auralite_token
-}
-
-const withAuth = () => [AddAuthInfo, AuthMiddleware]
+const withAuth = () => [AuthMiddleware]
 
 export default withAuth
-export const withGuest = () => [AddAuthInfo, GuestMiddleware]
-export const withAuthInfo = () => [AddAuthInfo]
+export const withGuest = () => [GuestMiddleware]
