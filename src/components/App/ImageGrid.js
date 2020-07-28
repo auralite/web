@@ -2,6 +2,7 @@ import { Controlled as Zoom } from 'react-medium-image-zoom'
 import { useState, useMemo, useEffect, memo } from 'react'
 import Client from '../../utils/Client'
 import { base64 } from '../../utils/encoding'
+import { CrossSolid } from './Icon'
 
 const ImageGrid = ({ imageRows, onImageRemove, onUpload, imageCount, isUpload }) => (
 	<div className="w-auto border rounded-lg relative bg-gray-100 mb-4 shadow-inset overflow-hidden">
@@ -48,9 +49,7 @@ const ImageUpload = ({ image, imageCount, onRemove, onKey }) => {
 			</Zoom>
 			{onRemove && (
 				<button onClick={() => onRemove(image.id)} className="shadow cursor-pointer absolute top-0 right-0 p-1 sm:p-2 mr-1 sm:mr-2 mt-1 sm:mt-2 rounded-full bg-gray-600">
-					<svg className="h-4 w-4 sm:h-6 sm:w-6 text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-					</svg>
+					<CrossSolid className="h-4 w-4 sm:h-6 sm:w-6 text-gray-100" />
 				</button>
 			)}
 		</div>

@@ -6,6 +6,7 @@ import Client from '@/utils/Client'
 import Post from '@/components/App/Post'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { SearchOutline } from '@/components/App/Icon'
 
 const Search = () => {
 	const router = useRouter()
@@ -49,9 +50,7 @@ const Search = () => {
 				<div>
 					<div className="mt-1 relative rounded-md shadow-sm">
 						<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-							<svg className="h-5 w-5 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-								<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-							</svg>
+							<SearchOutline className="h-5 w-5 text-gray-400" />
 						</div>
 						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" autoFocus={true} />
 					</div>

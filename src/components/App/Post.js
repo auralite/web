@@ -10,6 +10,7 @@ import useClickOutside from '@/hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 import useUser from '@/hooks/user'
+import { ChevronDownOutline, TrashOutline } from './Icon'
 
 const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent = true, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
@@ -69,18 +70,14 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 									{showOptions && post?.author_handle && user?.profile?.handle === post?.author_handle && (
 										<div className="relative hidden group-hover:block">
 											<button ref={excludeRef} onClick={openDropdown} className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="Options" id="options-menu" aria-haspopup="true" aria-expanded="true">
-												<svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-													<path d="M19 9l-7 7-7-7" />
-												</svg>
+												<ChevronDownOutline className="ml-2 w-4 h-4" />
 											</button>
 											<Transition show={optionsOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
 												<div onClick={(event) => event.stopPropagation()} className="origin-top-right absolute right-0 mt-2 w-56 z-20 rounded-md shadow-lg">
 													<div ref={optionsRef} className="rounded-md bg-white shadow-xs">
 														<div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 															<button onClick={deletePost} className="flex w-full items-center px-4 py-2 text-sm leading-5 text-red-700 hover:bg-red-50 focus:outline-none focus:bg-red-50" role="menuitem">
-																<svg className="w-4 h-4 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-																	<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-																</svg>
+																<TrashOutline className="w-4 h-4 mr-2" />
 																<span>Delete Post</span>
 															</button>
 														</div>

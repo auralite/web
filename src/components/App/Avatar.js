@@ -5,6 +5,7 @@ import Client from '../../utils/Client'
 import Skeleton from 'react-loading-skeleton'
 import useTailwind from '../../hooks/tailwind'
 import { base64 } from '../../utils/encoding'
+import { UploadSolid } from './Icon'
 
 const Avatar = ({ src, className = '', sizeClasses, lazy, children }) => {
 	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
@@ -68,9 +69,7 @@ export const UploadableAvatar = ({ shouldAllowUploads = true, onChange, src, ...
 			{shouldAllowUploads && (
 				<>
 					<div className={`absolute opacity-0 group-hover:opacity-100 inset-0 bg-indigo-300${source ? ' bg-opacity-75' : ''} ${props.sizeClasses} rounded-full flex items-center justify-center transition-opacity duration-200 ease-in-out z-10 pointer-events-none`}>
-						<svg className="text-indigo-50 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-							<path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-						</svg>
+						<UploadSolid className="text-indigo-50 w-6 h-6" />
 					</div>
 					<CircularProgressbar className={`absolute inset-0 ${props.sizeClasses} z-10`} value={progress} styles={buildStyles({ trailColor: 'transparent', pathColor: indigo[500] })} />
 					<label className="absolute inset-0 cursor-pointer z-20">
