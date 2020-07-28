@@ -7,20 +7,15 @@ import SideNav from './Navigation/SideNav'
 import BottomNav from './Navigation/BottomNav'
 import TopNav from './Navigation/TopNav'
 import { authCheck } from '@/middleware/auth'
-import Pipeline from 'pipeline-js'
 
 const PageLayout = ({ children, title, middleware }) => {
-	useEffect(() => {
-		new Pipeline(middleware).process()
-	}, [])
-
 	const { data: user } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
 	const { data: notifications } = useSWR(authCheck ? '/api/notifications' : null, () => Client.notifications())
 
 	const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false)
 
 	return (
-		<BaseLayout>
+		<BaseLayout middleware={middleware}>
 			<Head />
 			<SideNav isOpen={mobileNavigationOpen} onClose={() => setMobileNavigationOpen(false)} user={user} />
 			<div className="flex flex-col h-screen">

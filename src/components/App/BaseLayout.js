@@ -1,7 +1,15 @@
 import AlertManager from './AlertManager'
+import { useEffect } from 'react'
+import Pipeline from 'pipeline-js'
 
-const BaseLayout = ({ children }) => <AlertManager>{children}</AlertManager>
+const BaseLayout = ({ children, middleware }) => {
+	useEffect(() => {
+		new Pipeline(middleware).process()
+	}, [])
 
-export const useBaseLayout = () => (page) => <BaseLayout>{page}</BaseLayout>
+	return <AlertManager>{children}</AlertManager>
+}
+
+export const useBaseLayout = () => (page, props = {}) => <BaseLayout {...props}>{page}</BaseLayout>
 
 export default BaseLayout

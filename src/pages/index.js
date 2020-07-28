@@ -2,6 +2,7 @@ import Head from '../components/Global/Head'
 import EarlyAccessForm from '../components/Marketing/EarlyAccessForm'
 import ConfirmationModal from '../components/Marketing/ConfirmationModal'
 import { withGuest } from '../middleware/auth'
+import { useBaseLayout } from '@/components/App/BaseLayout'
 
 const Landing = () => (
 	<>
@@ -269,6 +270,7 @@ const Landing = () => (
 	</>
 )
 
+Landing.getLayout = useBaseLayout()
 Landing.middleware = withGuest()
 
 export default Landing
