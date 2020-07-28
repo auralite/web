@@ -51,17 +51,19 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 								<Avatar src={post?.author?.avatar} sizeClasses="w-12 h-12" />
 								{isParent && <div className="w-0.5 bg-gray-200 mx-auto h-full" />}
 							</div>
-							<div className="flex-1 overflow-hidden flex flex-col">
+							<div className="flex flex-col flex-1 min-w-0">
 								<div className="flex items-center justify-between">
-									<p className="m-0 whitespace-no-wrap overflow-hidden inline-flex space-x-1">
+									<p className="m-0 whitespace-no-wrap overflow-hidden inline-flex">
 										<Link href="/[profile]" as={`/${post?.author_handle}`}>
-											<a className="inline overflow-ellipsis overflow-hidden min-w-0 space-x-1">
-												<span className="font-bold text-gray-900">{post?.author?.name ?? <Skeleton width={100} />}</span>
-												<span className="overflow-ellipsis text-gray-600 overflow-hidden min-w-0">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</span>
+											<a className="inline overflow-ellipsis overflow-hidden space-x-1 text-cool-gray-500">
+												<span className="font-bold text-cool-gray-900">{post?.author?.name ?? <Skeleton width={100} />}</span>
+												<span className="text-cool-gray-500">{post?.author_handle ? `@${post.author_handle}` : <Skeleton width={50} />}</span>
 											</a>
 										</Link>
-										<span className="text-gray-600">&middot;</span>
-										<span className="text-gray-600">{post?.created_at ? moment.unix(post.created_at).format('MMM D') : <Skeleton width={30} />}</span>
+										<span className="flex-shrink-0">
+											<span className="text-cool-gray-500 px-1">&middot;</span>
+											<span className="text-cool-gray-500">{post?.created_at ? moment.unix(post.created_at).format('MMM D') : <Skeleton width={30} />}</span>
+										</span>
 									</p>
 									{showOptions && post?.author_handle && user?.profile?.handle === post?.author_handle && (
 										<div className="relative hidden group-hover:block">
