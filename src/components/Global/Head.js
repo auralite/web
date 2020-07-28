@@ -1,5 +1,6 @@
 import { default as NextHead } from 'next/head'
 import { useRouter } from 'next/router'
+import { authCheck } from '@/middleware/auth'
 
 const Head = ({ children }) => {
 	const router = useRouter()
@@ -33,6 +34,12 @@ const Head = ({ children }) => {
 			<meta name="apple-mobile-web-app-capable" content="yes" />
 			<meta name="mobile-web-app-capable" content="yes" />
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover" />
+			{authCheck && (
+				<>
+					<link rel="preload" href="https://api.auralite.io/api/user" as="fetch" crossOrigin="anonymous" />
+					<link rel="preload" href="https://api.auralite.io/api/notifications" as="fetch" crossOrigin="anonymous" />
+				</>
+			)}
 			{children}
 		</NextHead>
 	)
