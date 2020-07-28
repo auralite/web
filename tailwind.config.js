@@ -12,6 +12,9 @@ module.exports = {
 				xl: '1rem',
 				'2xl': '2rem',
 			},
+			lineHeight: {
+				px: '1',
+			},
 			letterSpacing: {
 				micro: '-0.01em',
 			},
@@ -41,6 +44,22 @@ module.exports = {
 			},
 			fill: {
 				none: 'none',
+			},
+			animation: {
+				ring: 'ring 1s ease-in-out 0s 1',
+			},
+			keyframes: {
+				ring: {
+					'0%, 80%': {
+						transform: 'rotate(0deg)',
+					},
+					'16%, 48%': {
+						transform: 'rotate(15deg)',
+					},
+					'32%, 64%': {
+						transform: 'rotate(-15deg)',
+					},
+				},
 			},
 			typography: {
 				default: {

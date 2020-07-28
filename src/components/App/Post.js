@@ -1,5 +1,5 @@
 import { fromUnixTime, format } from 'date-fns'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '@/components/App/Skeleton'
 import Link from 'next/link'
 import Avatar from './Avatar'
 import useFormat from '@/hooks/format'

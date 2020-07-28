@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import Client from '../../utils/Client'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from './Skeleton'
 import useTailwind from '../../hooks/tailwind'
 import { UploadSolid } from './Icon'
 

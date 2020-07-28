@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import Client from '../../utils/Client'
-import Skeleton from 'react-loading-skeleton'
 import Post from './Post'
 import { useInView } from 'react-intersection-observer'
 import { ReplySolid, AtSolid } from './Icon'
+import Skeleton from './Skeleton'
 
 const Notification = ({ type, ...notification }) => {
 	switch (type) {

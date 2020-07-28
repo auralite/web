@@ -34,7 +34,7 @@ const Notifications = () => {
 					{notifications ? filteredNotifications.map((notification, key) => <Notification key={key} {...notification} />) : [...Array(10).keys()].map((key) => <Notification key={key} />)}
 					{notifications && filteredNotifications.length === 0 && (
 						<div className="text-center mt-10 pb-6">
-							<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" className="mx-auto animate-ring mb-4">
+							<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" className="mx-auto animation-ring mb-4">
 								<path className="text-indigo-400 fill-current" d="M86 79c.57.76 1.24 1.43 2 2H12a9.97 9.97 0 0 0 4-8V42a34 34 0 1 1 68 0v31c0 1.83.49 3.53 1.34 5l.66 1z" />
 								<path className="text-indigo-500 fill-current" d="M6 83h92v3a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-3h4z" />
 								<path className="text-indigo-300 fill-current" d="M46 6.22a36.4 36.4 0 0 1 8 0V6a4 4 0 1 0-8 .22z" />

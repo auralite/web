@@ -1,7 +1,6 @@
 import Client from '@/utils/Client'
 import Avatar from '@/components/App/Avatar'
 import useFormat from '@/hooks/format'
-import Skeleton from 'react-loading-skeleton'
 import Logo from '@/components/Global/Logo'
 
 const ProfileMeta = ({ profile }) => {
