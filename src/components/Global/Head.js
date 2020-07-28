@@ -7,7 +7,7 @@ const Head = ({ children }) => {
 	return (
 		<NextHead>
 			<title key="title">Auralite</title>
-			<link rel="preconnect" href="https://images.auralite.io" />
+			<link rel="preconnect" href="https://ik.imagekit.io/auralite" />
 			<link rel="preconnect" href="https://koi.auralite.io" />
 			<meta name="description" key="description" content="A social network for the future" />
 			<meta name="og:type" content="website" />
