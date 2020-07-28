@@ -1,9 +1,8 @@
-import moment from 'moment'
+import { fromUnixTime, format } from 'date-fns'
 import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
 import Avatar from './Avatar'
 import useFormat from '@/hooks/format'
-import useSWR from 'swr'
 import Client from '@/utils/Client'
 import { useState, Fragment, forwardRef, memo } from 'react'
 import useClickOutside from '@/hooks/click-outside'
@@ -64,7 +63,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 										</Link>
 										<span className="flex-shrink-0">
 											<span className="text-cool-gray-500 px-1">&middot;</span>
-											<span className="text-cool-gray-500">{post?.created_at ? moment.unix(post.created_at).format('MMM D') : <Skeleton width={30} />}</span>
+											<span className="text-cool-gray-500">{post?.created_at ? format(fromUnixTime(post.created_at), 'MMM dd') : <Skeleton width={30} />}</span>
 										</span>
 									</p>
 									{showOptions && post?.author_handle && user?.profile?.handle === post?.author_handle && (
@@ -103,5 +102,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 		</>
 	)
 })
+
+Post.displayName = 'Post'
 
 export default memo(Post)

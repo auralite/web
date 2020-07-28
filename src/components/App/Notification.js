@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Client from '../../utils/Client'
-import { mutate } from 'swr'
 import Skeleton from 'react-loading-skeleton'
 import Post from './Post'
 import { useInView } from 'react-intersection-observer'

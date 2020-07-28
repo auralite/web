@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import moment from 'moment'
 import Client from '../../utils/Client'
 import useFormat from '../../hooks/format'
 import { usePageLayout } from '../../components/App/PageLayout'
-import Avatar, { UploadableAvatar } from '../../components/App/Avatar'
+import { UploadableAvatar } from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
 import useMeta from '../../hooks/meta'
@@ -65,21 +64,6 @@ const Profile = ({ handle, authCheck, profile }) => {
 			return user
 		})
 	}
-
-	moment.updateLocale('en', {
-		relativeTime: {
-			future: 'in %s',
-			past: '%s ago',
-			s: '%ds',
-			ss: '%ds',
-			m: '%dm',
-			mm: '%dm',
-			h: '%dh',
-			hh: '%dh',
-			d: '%dd',
-			dd: '%dd',
-		},
-	})
 
 	return (
 		<>
