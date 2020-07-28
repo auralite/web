@@ -8,7 +8,7 @@ import { UploadSolid } from './Icon'
 
 const Avatar = ({ src, className = '', sizeClasses, lazy, children }) => {
 	const [width, height] = useTailwind(sizeClasses, ['width', 'height'])
-	const [avatarUrl, setAvatarUrl] = useState(src)
+	const [avatarUrl, setAvatarUrl] = useState(useCDN(src, width, height))
 
 	useEffect(() => {
 		setAvatarUrl(useCDN(src, width, height))
