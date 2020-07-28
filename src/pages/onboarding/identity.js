@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import Logo from '@/components/Global/Logo'
 import LoadingButton from '@/components/App/LoadingButton'
 import Client from '@/utils/Client'
-import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import withAuth from '@/middleware/auth'
+import useUser from '@/hooks/user'
 
 const Verify = () => {
 	const router = useRouter()
-	const { data: user } = useSWR('/api/user', () => Client.user())
+	const { user } = useUser
 	const isWaiting = user?.profile?.verification_status === 'IN_PROGRESS'
 	const [isLoading, setIsLoading] = useState(false)
 	const startVerification = (event) => {

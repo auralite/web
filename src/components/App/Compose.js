@@ -2,11 +2,11 @@ import { useState, useEffect, forwardRef } from 'react'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 import Avatar from './Avatar'
-import useSWR from 'swr'
 import ImageGrid, { useImageGrid } from './ImageGrid'
+import useUser from '@/hooks/user'
 
 const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
-	const { data: user } = useSWR('/api/user', () => Client.user())
+	const { user } = useUser()
 
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)

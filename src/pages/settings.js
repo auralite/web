@@ -7,8 +7,10 @@ import Client from '@/utils/Client'
 import useAlert from '@/hooks/alert'
 import { handleValidationErrors } from '@/utils/errors'
 import { logout } from '@/utils/auth'
+import useUser from '@/hooks/user'
 
-const Settings = ({ user }) => {
+const Settings = () => {
+	const { user, mutate } = useUser()
 	const { createAlert } = useAlert()
 	const [errors, setErrors] = useState({})
 	const [email, setEmail] = useState(user?.email)
@@ -24,7 +26,7 @@ const Settings = ({ user }) => {
 			.then((response) => {
 				createAlert({ title: 'Email Updated', body: 'Your email has been updated successfully. You may need to verify your account again.' })
 
-				mutate('/api/user', response)
+				mutate(response)
 
 				setLoading(false)
 			})

@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import LoadLink from '../LoadLink'
 import Avatar from '../Avatar'
 import { HomeOutline, SearchOutline, BellOutline, HomeSolid, SearchSolid, BellSolid } from '../Icon'
+import useUser from '@/hooks/user'
+import useNotifications from '@/hooks/notifications'
 
-const BottomNav = ({ user, notifications }) => {
-	const router = useRouter()
+const BottomNav = () => {
+	const { user } = useUser()
+	const { notifications } = useNotifications()
 
 	return (
 		<footer className="sm:hidden bg-white flex fixed bottom-0 z-20 w-full pb-safe-b" style={{ boxShadow: '0 -3px 6px 0 rgba(0, 0, 0, 0.05)' }}>

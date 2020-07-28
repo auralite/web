@@ -1,16 +1,15 @@
 import { usePageLayout } from '../components/App/PageLayout'
-import useSWR from 'swr'
-import Client from '../utils/Client'
 import Notification from '../components/App/Notification'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
 import { useState } from 'react'
 import { ZERO_TAGLINES } from '@/utils/constants'
 import { random } from '@/utils/arr'
+import useNotifications from '@/hooks/notifications'
 
 const Notifications = () => {
 	const setTitle = useTitle('Notifications')
-	const { data: notifications } = useSWR('/api/notifications', () => Client.notifications())
+	const { notifications } = useNotifications()
 	const [showRead, setShowRead] = useState(false)
 	const filteredNotifications = notifications?.filter((notification) => showRead || notification.unread)
 

@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
-import useSWR from 'swr'
 import Client from '../../utils/Client'
 import useFormat from '../../hooks/format'
 import { usePageLayout } from '../../components/App/PageLayout'
-import Avatar from '../../components/App/Avatar'
+import Avatar, { UploadableAvatar } from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from 'react-loading-skeleton'
 import useMeta from '../../hooks/meta'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useAlert from '@/hooks/alert'
+import useUser from '@/hooks/user'
 
 const Profile = ({ handle, authCheck, profile }) => {
 	const router = useRouter()
 	const isReplies = router.pathname.endsWith('/replies')
 
-	const { data: currentUser, mutate: mutateUser } = useSWR(authCheck ? '/api/user' : null, () => Client.user())
+	const { user: currentUser, mutate: mutateUser } = useUser()
 
 	const setMeta = useMeta(profile && `${profile?.name} (@${handle})`, profile?.bio, `/api/meta/profile?handle=${handle}`, <link rel="alternate" type="application/rss+xml" title={`${profile?.name}'s Auralite Feed`} href={`https://feeds.auralite.io/${handle}`} />)
 	const userBio = useFormat(profile?.bio)
@@ -89,7 +89,7 @@ const Profile = ({ handle, authCheck, profile }) => {
 					<div className="pt-4 sm:pb-4 px-6 w-full">
 						<div>
 							<div className="flex items-center justify-between">
-								<Avatar src={profile?.avatar} isUpdating={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />
+								<UploadableAvatar src={profile?.avatar} shouldAllowUploads={isUpdating} sizeClasses="h-12 w-12" onChange={(key) => setAvatar(key)} />
 								{profile && currentUser && profile.handle === currentUser.profile.handle && (
 									<>
 										{isUpdating ? (

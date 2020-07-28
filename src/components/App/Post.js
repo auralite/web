@@ -9,6 +9,7 @@ import { useState, Fragment, forwardRef } from 'react'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
+import useUser from '@/hooks/user'
 
 const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent = true, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
 	const postContent = useFormat(post?.content)
@@ -18,7 +19,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 
 		setOptionsOpen(false)
 	})
-	const { data: user } = useSWR(post && showOptions ? '/api/user' : null, () => Client.user())
+	const { user } = useUser(post && showOptions)
 
 	const Wrapper = shouldLink ? Link : 'div'
 	const ChildWrapper = shouldLink ? 'div' : Fragment

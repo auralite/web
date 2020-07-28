@@ -2,7 +2,7 @@ import { useState } from 'react'
 import withAuth from '@/middleware/auth'
 import Client from '@/utils/Client'
 import Logo from '@/components/Global/Logo'
-import Avatar from '@/components/App/Avatar'
+import Avatar, { UploadableAvatar } from '@/components/App/Avatar'
 import { handleValidationErrors } from '@/utils/errors'
 
 const CreateProfile = () => {
@@ -113,7 +113,7 @@ const CreateProfile = () => {
 											Avatar
 										</label>
 										<div className="mt-2 flex items-center">
-											<Avatar isUpdating={true} onChange={(key) => setAvatar(key)} sizeClasses="h-12 w-12" />
+											<UploadableAvatar shouldAllowUploads={true} onChange={(key) => setAvatar(key)} sizeClasses="h-12 w-12" />
 										</div>
 										<p className={`mt-2 text-sm ${errors.avatar ? 'text-red-600' : 'text-gray-500'}`}>{errors.avatar ? errors.avatar[0] : "We require you to have an avatar so others can recognize you. Don't worry, you can change it from your profile later!"}</p>
 									</div>

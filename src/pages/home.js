@@ -8,32 +8,23 @@ import withAuth from '../middleware/auth'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useInView } from 'react-intersection-observer'
+import useUser from '@/hooks/user'
 
-const Home = ({ user }) => {
+const Home = () => {
 	const router = useRouter()
+	const { user } = useUser()
 
 	const setTitle = useTitle('Home', user?.profile?.timeline_feed && <link rel="alternate" type="application/rss+xml" title="Auralite Timeline" href={user.profile.timeline_feed} />)
 
-	const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages(
-		'timeline',
-		({ offset, withSWR }) => {
-			const { data } = withSWR(useSWR(`/api/timeline?page=${offset ?? 1}`, () => Client.timeline({ page: offset })))
+	const { pages, isLoading, loadMore, isEnd } = useTimeline()
 
-			if (!data) return null
-
-			return data.data.map((post) => <Post key={post.id} post={post} onDelete={removeFromTimeline} />)
-		},
-		(SWR) => (SWR.data?.last_page === SWR.data?.current_page ? null : SWR.data.current_page + 1),
-		[]
-	)
-
-	const [$timelineEnd, isEnd] = useInView({ threshold: 1 })
+	const [$timelineEnd, onEnd] = useInView({ threshold: 1 })
 
 	useEffect(() => {
-		if (!isEnd) return
+		if (!onEnd) return
 
 		loadMore()
-	}, [isEnd])
+	}, [onEnd])
 
 	const removeFromTimeline = () => mutate('/api/timeline?page=1')
 
@@ -44,14 +35,14 @@ const Home = ({ user }) => {
 				<div className="flex-1 max-w-md sm:max-w-3xl relative z-0 mt-4">
 					<Compose onPost={removeFromTimeline} />
 					<div className="bg-white sm:rounded-lg sm:shadow mb-4">{pages}</div>
-					{isLoadingMore && (
+					{isLoading && (
 						<div className="bg-white sm:rounded-lg sm:shadow mb-4">
 							{[...Array(10).keys()].map((key) => (
 								<Post key={`loading-${key}`} isSkeleton={true} />
 							))}
 						</div>
 					)}
-					{isReachingEnd ? <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div> : <div ref={$timelineEnd} />}
+					{isEnd ? <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div> : <div ref={$timelineEnd} />}
 				</div>
 				<div className="hidden sm:block max-w-sm w-full mt-4 relative rounded-md shadow-sm">
 					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -64,6 +55,25 @@ const Home = ({ user }) => {
 			</div>
 		</>
 	)
+}
+
+const useTimeline = () => {
+	const removeFromTimeline = () => mutate('/api/timeline?page=1')
+
+	const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages(
+		'timeline',
+		({ offset, withSWR }) => {
+			const { data } = withSWR(useSWR(`/api/timeline?page=${offset ?? 1}`, () => Client.timeline({ page: offset }), { focusThrottleInterval: 10000 }))
+
+			if (!data) return null
+
+			return data.data.map((post) => <Post key={post.id} post={post} onDelete={removeFromTimeline} />)
+		},
+		(SWR) => (SWR.data?.last_page === SWR.data?.current_page ? null : SWR.data.current_page + 1),
+		[]
+	)
+
+	return { pages, isLoading: isLoadingMore, loadMore, isEnd: isReachingEnd }
 }
 
 Home.getLayout = usePageLayout('Home')

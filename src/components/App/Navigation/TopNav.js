@@ -7,9 +7,11 @@ import { useState } from 'react'
 import { logout } from '@/utils/auth'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '@/components/Global/Transition'
+import useUser from '@/hooks/user'
 
-const TopNav = ({ title, openSideNav, user }) => {
+const TopNav = ({ title, openSideNav }) => {
 	const router = useRouter()
+	const { user } = useUser()
 	const [isOpen, setOpen] = useState(false)
 
 	const { ref: profileRef } = useClickOutside(() => {
