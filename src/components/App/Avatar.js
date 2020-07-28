@@ -1,6 +1,5 @@
 import { useState, useEffect, memo } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
-import { indigo } from '@tailwindcss/ui/colors'
 import Client from '../../utils/Client'
 import Skeleton from 'react-loading-skeleton'
 import useTailwind from '../../hooks/tailwind'
@@ -71,7 +70,7 @@ export const UploadableAvatar = ({ shouldAllowUploads = true, onChange, src, ...
 					<div className={`absolute opacity-0 group-hover:opacity-100 inset-0 bg-indigo-300${source ? ' bg-opacity-75' : ''} ${props.sizeClasses} rounded-full flex items-center justify-center transition-opacity duration-200 ease-in-out z-10 pointer-events-none`}>
 						<UploadSolid className="text-indigo-50 w-6 h-6" />
 					</div>
-					<CircularProgressbar className={`absolute inset-0 ${props.sizeClasses} z-10`} value={progress} styles={buildStyles({ trailColor: 'transparent', pathColor: indigo[500] })} />
+					<CircularProgressbar className={`absolute inset-0 ${props.sizeClasses} z-10`} value={progress} styles={buildStyles({ trailColor: 'transparent', pathColor: '#6875f5' })} />
 					<label className="absolute inset-0 cursor-pointer z-20">
 						<input type="file" className="hidden" onChange={(event) => setFile(event.target.files[0])} accept="image/jpeg,image/png" />
 					</label>

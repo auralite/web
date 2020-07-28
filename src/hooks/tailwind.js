@@ -1,11 +1,11 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../../tailwind.config'
+import { theme as defaultConfig } from 'tailwindcss/stubs/defaultConfig.stub'
+import { theme as tailwindConfig } from '../../tailwind.config'
 
 const useTailwind = (classes, type) => {
 	if (!Array.isArray(type)) type = [type]
 	classes = classes.split(' ')
 
-	const { theme: tailwind } = resolveConfig(tailwindConfig)
+	const tailwind = { ...defaultConfig, ...tailwindConfig }
 
 	return type.map((key, i) => {
 		const twClass = classes[i]
