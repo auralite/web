@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import { indigo } from '@tailwindcss/ui/colors'
 import Client from '../../utils/Client'
@@ -88,4 +88,4 @@ const useCDN = (src, width, height) => {
 	return `https://images.auralite.io/avatars/fit/${parseFloat(width.split('rem')[0]) * 24}/${parseFloat(height.split('rem')[0]) * 24}/sm/0/${base64('s3://auralite/' + src.split('https://auralite.s3.eu-west-2.amazonaws.com/', 2)[1])}`
 }
 
-export default Avatar
+export default memo(Avatar)

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { authCheck } from '@/middleware/auth'
 import Logo from '@/components/Global/Logo'
 import Avatar from '../Avatar'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { logout } from '@/utils/auth'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '@/components/Global/Transition'
@@ -96,4 +96,4 @@ const TopNav = ({ title, openSideNav }) => {
 	)
 }
 
-export default TopNav
+export default memo(TopNav)

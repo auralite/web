@@ -4,6 +4,7 @@ import Avatar from '../Avatar'
 import { HomeOutline, SearchOutline, BellOutline, HomeSolid, SearchSolid, BellSolid } from '../Icon'
 import useUser from '@/hooks/user'
 import useNotifications from '@/hooks/notifications'
+import { memo } from 'react'
 
 const BottomNav = () => {
 	const { user } = useUser()
@@ -44,4 +45,4 @@ const NavLink = ({ children, className = '', ...props }) => {
 	)
 }
 
-export default BottomNav
+export default memo(BottomNav)

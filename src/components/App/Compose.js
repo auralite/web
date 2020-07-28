@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from 'react'
+import { useState, useEffect, forwardRef, memo } from 'react'
 import Client from '../../utils/Client'
 import LoadingButton from './LoadingButton'
 import Avatar from './Avatar'
@@ -105,4 +105,4 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 	)
 })
 
-export default Compose
+export default memo(Compose)

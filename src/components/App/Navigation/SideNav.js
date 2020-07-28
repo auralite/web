@@ -6,6 +6,7 @@ import Avatar from '../Avatar'
 import Skeleton from 'react-loading-skeleton'
 import { logout } from '@/utils/auth'
 import useUser from '@/hooks/user'
+import { memo } from 'react'
 
 const SideNav = ({ isOpen, onClose }) => {
 	const { user } = useUser()
@@ -112,4 +113,4 @@ const NavLink = ({ children, href, as, onClick, ...props }) => {
 	)
 }
 
-export default SideNav
+export default memo(SideNav)

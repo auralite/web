@@ -1,5 +1,5 @@
 import { Controlled as Zoom } from 'react-medium-image-zoom'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, memo } from 'react'
 import Client from '../../utils/Client'
 import { base64 } from '../../utils/encoding'
 
@@ -143,4 +143,4 @@ const useWithUploads = () => {
 	return { uploaderSettings: { onChange: (event) => onImageAdd(event.target.files) }, gridSettings: { imageRows: chunkImages(images), onImageRemove, onUpload, imageCount: images.length, isUpload: true }, showGrid: images.length > 0, hasPendingImages: images.length != Object.keys(uploadImages).length, images: Object.values(uploadImages), cleanupImages }
 }
 
-export default ImageGrid
+export default memo(ImageGrid)

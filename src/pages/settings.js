@@ -88,12 +88,12 @@ const Settings = () => {
 	return (
 		<>
 			<SettingsPanel title="Account" onSubmit={updateEmail} submitDisabled={email === user?.email}>
-				<SettingsField label="Email address" errors={errors} key="email" type="email" placeholder="miguel@auralite.io" value={email} onChange={(email) => setEmail(email)} description="You'll need to verify your email again after updating it." />
+				<SettingsField label="Email address" errors={errors} id="email" type="email" placeholder="miguel@auralite.io" value={email} onChange={(email) => setEmail(email)} description="You'll need to verify your email again after updating it." />
 			</SettingsPanel>
 
 			<SettingsPanel title="Security" onSubmit={updatePassword} submitDisabled={password.trim() === '' || password !== confirmPassword} cta="Update">
-				<SettingsField label="Password" errors={errors} key="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={password} onChange={(password) => setPassword(password)} description="We'll email you to let you know your password has changed." />
-				<SettingsField label="Repeat password" errors={errors} key="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={confirmPassword} onChange={(password) => setConfirmPassword(password)} />
+				<SettingsField label="Password" errors={errors} id="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={password} onChange={(password) => setPassword(password)} description="We'll email you to let you know your password has changed." />
+				<SettingsField label="Repeat password" errors={errors} id="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={confirmPassword} onChange={(password) => setConfirmPassword(password)} />
 			</SettingsPanel>
 
 			<SettingsPanel title="Connections" onSubmit={user?.has_twitter_token ? unlinkTwitter : connectTwitter} withFooter={false}>
@@ -151,15 +151,15 @@ const SettingsPanel = ({ title, onSubmit, children, submitDisabled, cta = 'Save'
 	)
 }
 
-const SettingsField = ({ label, errors, key, type = 'text', placeholder, value, description, onChange }) => {
+const SettingsField = ({ label, errors, id, type = 'text', placeholder, value, description, onChange }) => {
 	return (
 		<div className="col-span-6 sm:col-span-4">
-			<label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
+			<label htmlFor={id} className="block text-sm font-medium leading-5 text-gray-700">
 				{label}
 			</label>
 			<div className="mt-1 relative rounded-md shadow-sm">
-				<input id="email" className={`form-input block w-full ${errors[key] ? 'pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''} sm:text-sm sm:leading-5`} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} type={type} required />
-				{errors[key] && (
+				<input id={id} className={`form-input block w-full ${errors[id] ? 'pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''} sm:text-sm sm:leading-5`} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} type={type} required />
+				{errors[id] && (
 					<div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
 						<svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
 							<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -167,7 +167,7 @@ const SettingsField = ({ label, errors, key, type = 'text', placeholder, value, 
 					</div>
 				)}
 			</div>
-			<p className={`mt-2 text-sm ${errors[key] ? 'text-red-600' : 'text-gray-500'}`}>{errors[key] ? errors[key][0] : description}</p>
+			<p className={`mt-2 text-sm ${errors[id] ? 'text-red-600' : 'text-gray-500'}`}>{errors[id] ? errors[id][0] : description}</p>
 		</div>
 	)
 }

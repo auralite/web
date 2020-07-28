@@ -5,7 +5,7 @@ import Avatar from './Avatar'
 import useFormat from '@/hooks/format'
 import useSWR from 'swr'
 import Client from '@/utils/Client'
-import { useState, Fragment, forwardRef } from 'react'
+import { useState, Fragment, forwardRef, memo } from 'react'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
@@ -107,4 +107,4 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 	)
 })
 
-export default Post
+export default memo(Post)
