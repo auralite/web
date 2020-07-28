@@ -39,6 +39,9 @@ module.exports = {
 			zIndex: {
 				1: 1,
 			},
+			fill: {
+				none: 'none',
+			},
 			typography: {
 				default: {
 					css: {
