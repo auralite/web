@@ -144,9 +144,11 @@ export const getStaticProps = async ({ params: { profile } }) => {
 	}
 }
 
-export const getStaticPaths = async () => ({
-	paths: [],
-	fallback: true,
-})
+export const getStaticPaths = async () => {
+	return {
+		paths: [{ params: { profile: 'miguel' } }],
+		fallback: true,
+	}
+}
 
 export default Profile
