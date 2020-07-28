@@ -27,9 +27,7 @@ const TopNav = ({ title, openSideNav }) => {
 					<div className="flex items-stretch">
 						<div className="pb-4 flex items-center">
 							<button onClick={() => (authCheck ? openSideNav() : router.push('/'))} className="sm:hidden flex-shrink-0" aria-label="Menu">
-								<a className="flex-shrink-0">
-									<Logo className="h-8 w-8" />
-								</a>
+								<Logo className="h-8 w-8" />
 							</button>
 							<Link href={authCheck ? '/home' : '/'}>
 								<a className="hidden sm:block flex-shrink-0">
