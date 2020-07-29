@@ -50,7 +50,7 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 	}
 
 	return (
-		<div ref={ref} className="bg-white sm:rounded-lg sm:shadow p-6 sm:mb-8 border-b sm:border-b-0 border-gray-200">
+		<div ref={ref} className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow p-6 sm:mb-8 border-b sm:border-b-0 border-gray-200 dark:border-gray-800">
 			<div className="flex w-full">
 				<div className="hidden sm:block flex-shrink-0 mr-5">
 					<div>
@@ -58,16 +58,16 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 					</div>
 				</div>
 				<form onSubmit={submitForm} className="flex-1">
-					<textarea value={post} onChange={(event) => updatePost(event.target.value)} className={`form-textarea mb-2 focus:bg-white block w-full ${remainingChars <= 0 ? 'border border-red-500' : ''}`} rows="3" placeholder="What's on your mind?" />
+					<textarea value={post} onChange={(event) => updatePost(event.target.value)} className={`form-textarea mb-2 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 block w-full ${remainingChars <= 0 ? 'border border-red-500' : ''}`} rows="3" placeholder="What's on your mind?" />
 					{error && <p className="mb-2 text-sm text-red-600">{error}</p>}
 					{showGrid && <ImageGrid {...gridSettings} />}
 					<div className="flex justify-between items-center">
 						<div className="flex items-center space-x-2">
-							<label htmlFor="image" type="button" className="-m-2 cursor-pointer inline-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-white hover:bg-gray-200 transition duration-200 ease-in-out">
+							<label htmlFor="image" type="button" className="-m-2 cursor-pointer inline-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-transparent hover:bg-gray-200 dark-hover:bg-gray-800 transition duration-200 ease-in-out">
 								<input id="image" multiple accept="image/*" className="hidden" type="file" {...uploaderSettings} />
 								<ImageOutline className="h-6 w-6 text-gray-500" />
 							</label>
-							<button type="button" title={privacy === 'public' ? 'Share with everyone' : 'Share with Auralite users'} onClick={() => setPrivacy((privacy) => (privacy === 'public' ? 'users' : 'public'))} className="-m-2 cursor-pointer inline-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-white hover:bg-gray-200 transition duration-200 ease-in-out">
+							<button type="button" title={privacy === 'public' ? 'Share with everyone' : 'Share with Auralite users'} onClick={() => setPrivacy((privacy) => (privacy === 'public' ? 'users' : 'public'))} className="-m-2 cursor-pointer inline-flex justify-between items-center focus:outline-none p-2 rounded-full text-gray-500 bg-transparent hover:bg-gray-200 dark-hover:bg-gray-800 transition duration-200 ease-in-out">
 								{privacy === 'public' ? (
 									<>
 										<GlobeOutline className="h-6 w-6 text-gray-500" />
@@ -88,8 +88,8 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 							</button>
 						</div>
 						<div className="flex items-center">
-							<span className={`mr-3 text-sm text-gray-600 ${remainingChars <= 20 && remainingChars > 10 ? 'text-yellow-600' : ''} ${remainingChars <= 10 ? 'text-red-600' : ''}`}>{remainingChars}</span>
-							<LoadingButton loading={loading} disabled={post.trim().length < 2 || remainingChars <= 0 || hasPendingImages} type="submit" disabledClasses="bg-indigo-300 cursor-not-allowed" loadingClasses="bg-indigo-600 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
+							<span className={`mr-3 text-sm text-gray-600 dark:text-gray-400 ${remainingChars <= 20 && remainingChars > 10 ? 'text-yellow-600' : ''} ${remainingChars <= 10 ? 'text-red-600' : ''}`}>{remainingChars}</span>
+							<LoadingButton loading={loading} disabled={post.trim().length < 2 || remainingChars <= 0 || hasPendingImages} type="submit" disabledClasses="bg-indigo-300 dark:bg-indigo-600 dark:bg-opacity-10 cursor-not-allowed" loadingClasses="bg-indigo-300 dark:bg-indigo-600 dark:bg-opacity-10 cursor-wait" activeClasses="hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 bg-indigo-600 dark:bg-indigo-700 dark:bg-opacity-90" className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
 								Post
 							</LoadingButton>
 						</div>
@@ -99,5 +99,7 @@ const Compose = forwardRef(({ replyTo, onPost = () => {} }, ref) => {
 		</div>
 	)
 })
+
+Compose.displayName = 'Compose'
 
 export default memo(Compose)

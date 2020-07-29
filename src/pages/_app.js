@@ -7,7 +7,7 @@ import App from 'next/app'
 import * as Sentry from '@sentry/browser'
 import NProgress from 'nprogress'
 import Error from './_error'
-import { useBaseLayout } from '@/components/App/BaseLayout'
+import { useBaseLayout } from '@/components/Global/BaseLayout'
 
 Sentry.init({
 	enabled: process.env.NODE_ENV === 'production',

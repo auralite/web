@@ -48,24 +48,24 @@ const Search = () => {
 		<>
 			<div className="max-w-md sm:max-w-3xl relative z-0 mt-4">
 				<div>
-					<div className="mt-1 relative rounded-md shadow-sm">
+					<div className="mt-1 relative rounded-md shadow-sm mx-4 sm:mx-0">
 						<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-							<SearchOutline className="h-5 w-5 text-gray-400" />
+							<SearchOutline className="h-5 w-5 text-gray-400 dark:text-gray-500" />
 						</div>
-						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" autoFocus={true} />
+						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" autoFocus={true} />
 					</div>
 				</div>
-				<div className="bg-white sm:rounded-lg sm:shadow mb-4 sm:mt-4">{pages}</div>
+				<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4 sm:mt-4">{pages}</div>
 				{isLoadingMore && (
-					<div className="bg-white sm:rounded-lg sm:shadow mb-4">
+					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 						{[...Array(10).keys()].map((key) => (
 							<Post key={`loading-${key}`} isSkeleton={true} />
 						))}
 					</div>
 				)}
 				{!isReachingEnd && <div ref={$timelineEnd} />}
-				{isReachingEnd && !isEmpty && <div className="text-center pb-2">No more results :(</div>}
-				{isEmpty && <div className="text-center pb-2">No results :(</div>}
+				{isReachingEnd && !isEmpty && <div className="text-center dark:text-gray-400 pb-2">No more results :(</div>}
+				{isEmpty && <div className="text-center dark:text-gray-400 pb-2">No results :(</div>}
 			</div>
 		</>
 	)

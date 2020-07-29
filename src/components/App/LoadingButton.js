@@ -7,7 +7,7 @@ const LoadingButton = ({ loading, disabled, loadingClasses, disabledClasses, act
 				<AnimatedLoading className="mx-auto w-8 h-auto" />
 			</span>
 		)}
-		<span className={wrapperClasses + (loading ? ' invisible' : '')}>{children}</span>
+		<span className={`${wrapperClasses ?? ''}${loading ? ' invisible' : ''}`}>{children}</span>
 	</button>
 )
 

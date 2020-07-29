@@ -11,12 +11,12 @@ const BottomNav = () => {
 	const { notifications } = useNotifications()
 
 	return (
-		<footer className="sm:hidden bg-white flex fixed bottom-0 z-20 w-full pb-safe-b" style={{ boxShadow: '0 -3px 6px 0 rgba(0, 0, 0, 0.05)' }}>
-			<NavLink href="/home">{(isActive) => (isActive ? <HomeSolid className="w-6 h-6 text-gray-600" /> : <HomeOutline className="w-6 h-6 text-gray-400" />)}</NavLink>
-			<NavLink href="/search">{(isActive) => (isActive ? <SearchSolid className="w-6 h-6 text-gray-600" /> : <SearchOutline className="w-6 h-6 text-gray-400" />)}</NavLink>
+		<footer className="sm:hidden bg-white dark:bg-gray-900 flex fixed bottom-0 z-20 w-full pb-safe-b shadow-footer dark:shadow-footer-dark">
+			<NavLink href="/home">{(isActive) => (isActive ? <HomeSolid className="w-6 h-6 text-gray-600 dark:text-gray-400" /> : <HomeOutline className="w-6 h-6 text-gray-400 dark:text-gray-600" />)}</NavLink>
+			<NavLink href="/search">{(isActive) => (isActive ? <SearchSolid className="w-6 h-6 text-gray-600 dark:text-gray-400" /> : <SearchOutline className="w-6 h-6 text-gray-400 dark:text-gray-600" />)}</NavLink>
 			<NavLink href="/notifications">
 				{(isActive) => (
-					<div className={`relative ${isActive ? 'text-gray-600' : 'text-gray-400'}`}>
+					<div className={`relative ${isActive ? 'text-gray-600 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'}`}>
 						{isActive ? <BellSolid className="w-6 h-6" /> : <BellOutline className="w-6 h-6" />}
 						{notifications && notifications.filter((notification) => notification.unread).length > 0 && <span className="-mr-1.5 -mt-1 absolute top-0 right-0 text-sm">{notifications.filter((notification) => notification.unread).length}</span>}
 					</div>
@@ -24,7 +24,7 @@ const BottomNav = () => {
 			</NavLink>
 			<NavLink href="/[profile]" as={`/${user?.profile?.handle}`} className="group focus:outline-none">
 				{(isActive) => (
-					<div className={`w-6 h-6 rounded-full text-gray-600 group-focus:shadow-solid ${isActive ? 'shadow-solid' : ''}`}>
+					<div className={`w-6 h-6 rounded-full text-gray-600 dark:text-gray-400 group-focus:shadow-solid ${isActive ? 'shadow-solid' : ''}`}>
 						<Avatar sizeClasses="h-6 w-6" src={user?.profile?.avatar} />
 					</div>
 				)}

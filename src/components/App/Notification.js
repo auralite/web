@@ -26,7 +26,7 @@ const LoadingNotification = () => (
 		<Post
 			showReply={false}
 			meta={
-				<div className="flex items-center text-gray-400">
+				<div className="flex items-center text-gray-400 dark:text-gray-500">
 					<Skeleton width={250} />
 				</div>
 			}
@@ -43,7 +43,7 @@ const NotificationSkeleton = ({ post, read, children, id }) => {
 		Client.markNotificationRead({ id })
 	}, [inView])
 
-	const meta = <div className="flex items-center text-gray-400">{children}</div>
+	const meta = <div className="flex items-center text-gray-400 dark:text-gray-500">{children}</div>
 
 	return <Post ref={read ? null : ref} post={post} showParent={false} meta={meta} showOptions={false} />
 }

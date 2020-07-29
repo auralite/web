@@ -2,7 +2,7 @@ import Head from '../components/Global/Head'
 import EarlyAccessForm from '../components/Marketing/EarlyAccessForm'
 import ConfirmationModal from '../components/Marketing/ConfirmationModal'
 import { withGuest } from '../middleware/auth'
-import { useBaseLayout } from '@/components/App/BaseLayout'
+import { useBaseLayout } from '@/components/Global/BaseLayout'
 
 const Landing = () => (
 	<>

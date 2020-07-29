@@ -13,7 +13,7 @@ const Skeleton = ({ count = 1, width, wrapper: Wrapper, height, circle = false, 
 		}
 
 		elements.push(
-			<span key={i} className={`animate-pulse bg-no-repeat inline-block w-full leading-px bg-gray-200 ${circle ? 'rounded-full' : 'rounded'} ${className}`} style={{ ...style, ...customStyle }}>
+			<span key={i} className={`animate-pulse bg-no-repeat inline-block w-full leading-px bg-gray-200 dark:bg-gray-700 ${circle ? 'rounded-full' : 'rounded'} ${className}`} style={{ ...style, ...customStyle }}>
 				&zwnj;
 			</span>
 		)

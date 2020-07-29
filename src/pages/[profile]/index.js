@@ -6,10 +6,10 @@ import { UploadableAvatar } from '../../components/App/Avatar'
 import Post from '../../components/App/Post'
 import Skeleton from '../../components/App/Skeleton'
 import useMeta from '../../hooks/meta'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useAlert from '@/hooks/alert'
 import useUser from '@/hooks/user'
+import Tabs from '@/components/App/Tabs'
 
 const Profile = ({ handle, authCheck, profile }) => {
 	const router = useRouter()
@@ -69,7 +69,7 @@ const Profile = ({ handle, authCheck, profile }) => {
 		<>
 			{setMeta}
 			<div className="relative z-0 sm:mt-4 flex flex-col sm:flex-row sm:items-start sm:space-x-8">
-				<div className="flex sm:shadow sm:rounded-lg bg-white sm:sticky sm:top-card sm:max-w-lg w-full">
+				<div className="flex sm:shadow sm:rounded-lg bg-white dark:bg-gray-900 sm:sticky sm:top-card sm:max-w-lg w-full">
 					<div className="pt-4 sm:pb-4 px-6 w-full">
 						<div>
 							<div className="flex items-center justify-between">
@@ -77,47 +77,47 @@ const Profile = ({ handle, authCheck, profile }) => {
 								{profile && currentUser && profile.handle === currentUser.profile.handle && (
 									<>
 										{isUpdating ? (
-											<button onClick={saveChanges} type="button" className="inline-flex items-center px-2.5 py-1.5 border-2 border-indigo-500 text-sm leading-5 font-medium rounded-md bg-indigo-500 text-indigo-50 hover:bg-indigo-400 hover:border-indigo-400 focus:outline-none focus:bg-indigo-400 focus:border-indigo-400 focus:shadow-outline-indigo transition ease-in-out duration-150">
+											<button onClick={saveChanges} type="button" className="inline-flex items-center px-2.5 py-1.5 border-2 border-indigo-500 text-sm leading-5 font-medium rounded-md bg-indigo-500 dark:bg-indigo-600 dark:bg-opacity-25 dark:border-transparent text-indigo-50 hover:bg-indigo-400 hover:border-indigo-400 focus:outline-none focus:bg-indigo-400 focus:border-indigo-400 focus:shadow-outline-indigo transition ease-in-out duration-150">
 												Save Changes
 											</button>
 										) : (
-											<button onClick={() => setIsUpdating((state) => !state)} type="button" className="inline-flex items-center px-2.5 py-1.5 border-2 border-indigo-500 text-sm leading-5 font-medium rounded-md text-indigo-500 hover:bg-indigo-500 hover:text-indigo-50 focus:outline-none focus:bg-indigo-500 focus:text-indigo-50 focus:shadow-outline-indigo transition ease-in-out duration-150">
+											<button onClick={() => setIsUpdating((state) => !state)} type="button" className="inline-flex items-center px-2.5 py-1.5 border-2 border-indigo-500 text-sm leading-5 font-medium rounded-md text-indigo-500 hover:bg-indigo-500 hover:text-indigo-50 dark-hover:bg-indigo-600 dark-hover:bg-opacity-25 dark-hover:border-transparent focus:outline-none focus:shadow-outline-indigo transition ease-in-out duration-150">
 												Edit Profile
 											</button>
 										)}
 									</>
 								)}
 							</div>
-							<p className="font-bold text-lg text-gray-800 mt-1">{profile?.name ? profile.name : <Skeleton width={200} />}</p>
-							<p className="text-gray-600 text-sm">{profile?.handle ? `@${profile.handle}` : <Skeleton width={100} />}</p>
+							<p className="font-bold text-lg text-gray-800 dark:text-gray-300 mt-1">{profile?.name ? profile.name : <Skeleton width={200} />}</p>
+							<p className="text-gray-600 dark:text-gray-500 text-sm">{profile?.handle ? `@${profile.handle}` : <Skeleton width={100} />}</p>
 						</div>
 						{isUpdating ? (
 							<>
 								<div className="relative rounded-md shadow-sm">
-									<textarea data-gramm="false" id="about" rows="3" className={`form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5${error ? ' border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''}`} placeholder="18-year-old maker. Founder of Sitesauce, working on Auralite." onChange={(event) => setBio(event.target.value)} value={bio} required minLength="60" maxLength="160" />
+									<textarea data-gramm="false" id="about" rows="3" className={`form-textarea dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5${error ? ' border-red-300 dark:border-red-500 text-red-900 dark:text-red-400 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : ''}`} placeholder="18-year-old maker. Founder of Sitesauce, working on Auralite." onChange={(event) => setBio(event.target.value)} value={bio} required minLength="60" maxLength="160" />
 									<div className="absolute bottom-2 right-2 pointer-events-none">
-										<span className="text-sm text-gray-400">
-											<span className={bio.length < 60 || bio.length > 160 ? 'text-red-400' : 'text-green-400'}>{bio.length}</span>/{bio.length < 60 ? 60 : 160}
+										<span className="text-sm text-gray-400 dark:text-gray-500">
+											<span className={bio.length < 60 || bio.length > 160 ? 'text-red-400 dark:text-red-500' : 'text-green-400 dark:text-green-500'}>{bio.length}</span>/{bio.length < 60 ? 60 : 160}
 										</span>
 									</div>
 								</div>
 								{error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 							</>
 						) : (
-							<div className="mt-3 leading-normal">{userBio[0] ? userBio : <Skeleton count={2} />}</div>
+							<div className="mt-3 dark:text-gray-400 leading-normal">{userBio[0] ? userBio : <Skeleton count={2} />}</div>
 						)}
 					</div>
 				</div>
-				<div className="flex-1 max-w-md sm:max-w-3xl bg-white sm:shadow sm:rounded-lg">
-					<div className="border-b border-gray-200">
+				<div className="flex-1 max-w-md sm:max-w-3xl bg-white dark:bg-gray-900 sm:shadow sm:rounded-lg">
+					<div className="border-b border-gray-200 dark:border-gray-800">
 						<div className="px-6">
 							<nav className="-mb-px flex">
-								<Link href="/[profile]" as={`/${handle}`} shallow={true}>
-									<a className={`${isReplies ? 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' : 'border-indigo-500 text-indigo-600 focus:text-indigo-800 focus:border-indigo-700'} whitespace-no-wrap py-4 px-1 border-b-2 font-medium text-sm leading-5 focus:outline-none`}>Posts</a>
-								</Link>
-								<Link href="/[profile]/replies" as={`/${handle}/replies`} shallow={true}>
-									<a className={`${isReplies ? 'border-indigo-500 text-indigo-600 focus:text-indigo-800 focus:border-indigo-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} whitespace-no-wrap ml-8 py-4 px-1 border-b-2 font-medium text-sm leading-5 focus:outline-none`}>Replies</a>
-								</Link>
+								<Tabs
+									tabs={[
+										{ isLink: true, active: !isReplies, href: '/[profile]', as: `/${handle}`, shallow: true, content: 'Posts' },
+										{ isLink: true, active: isReplies, href: '/[profile]/replies', as: `/${handle}/replies`, shallow: true, content: 'Replies' },
+									]}
+								/>
 							</nav>
 						</div>
 					</div>

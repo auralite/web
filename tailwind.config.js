@@ -1,5 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('@tailwindcss/ui/colors')
+const plugin = require('tailwindcss/plugin')
+const selectorParser = require('postcss-selector-parser')
 
 module.exports = {
 	purge: ['./src/**/*.{js,mdx}', './next.config.js'],
@@ -21,6 +23,16 @@ module.exports = {
 			fontSize: {
 				'6xl': '4.5rem',
 			},
+			backgroundOpacity: {
+				10: '.1',
+				90: '.9',
+			},
+			boxShadow: {
+				header: 'rgb(0, 0, 0, .05) 0px 3px 6px 0px',
+				'header-dark': 'rgb(255, 255, 255, .02) 0px 3px 6px 0px',
+				footer: '0 -3px 6px 0 rgba(0, 0, 0, 0.05)',
+				'footer-dark': '0 -3px 6px 0 rgb(255, 255, 255, .02)',
+			},
 			fontFamily: {
 				screen: ["'Nunito Sans'", ...defaultTheme.fontFamily.sans],
 				'screen-italic': ["'Verveine Regular'", ...defaultTheme.fontFamily.sans],
@@ -40,6 +52,7 @@ module.exports = {
 				'-2': '-2deg',
 			},
 			zIndex: {
+				'-1': -1,
 				1: 1,
 			},
 			fill: {
@@ -78,8 +91,33 @@ module.exports = {
 		},
 	},
 	variants: {
+		backgroundColor: ['responsive', 'hover', 'focus', 'dark', 'dark-hover'],
+		textColor: ['responsive', 'hover', 'focus', 'dark', 'dark-hover'],
+		borderColor: ['responsive', 'hover', 'focus', 'dark', 'dark-hover'],
+		backgroundOpacity: ['responsive', 'hover', 'focus', 'dark', 'dark-hover'],
+		boxShadow: ['responsive', 'hover', 'focus', 'dark'],
 		display: ['responsive', 'group-hover'],
 		opacity: ['responsive', 'hover', 'focus', 'group-hover'],
 	},
-	plugins: [require('@tailwindcss/ui'), require('@tailwindcss/typography')],
+	plugins: [
+		plugin(function ({ addVariant, prefix, e }) {
+			addVariant('dark', ({ modifySelectors, separator }) => {
+				modifySelectors(({ selector }) => {
+					return selectorParser((selectors) => {
+						selectors.walkClasses((sel) => {
+							sel.value = `dark${separator}${sel.value}`
+							sel.parent.insertBefore(sel, selectorParser().astSync(prefix('.scheme-dark ')))
+						})
+					}).processSync(selector)
+				})
+			})
+			addVariant('dark-hover', ({ modifySelectors, separator }) => {
+				modifySelectors(({ className }) => {
+					return `.scheme-dark .${e(`dark-hover${separator}${className}`)}:hover`
+				})
+			})
+		}),
+		require('@tailwindcss/ui'),
+		require('@tailwindcss/typography'),
+	],
 }

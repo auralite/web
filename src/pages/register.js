@@ -1,5 +1,5 @@
 import { withGuest } from '@/middleware/auth'
-import { useBaseLayout } from '@/components/App/BaseLayout'
+import { useBaseLayout } from '@/components/Global/BaseLayout'
 import { useState } from 'react'
 import Logo from '@/components/Global/Logo'
 import Link from 'next/link'

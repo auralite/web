@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Head from '../Global/Head'
-import BaseLayout from './BaseLayout'
+import BaseLayout from '../Global/BaseLayout'
 import SideNav from './Navigation/SideNav'
 import BottomNav from './Navigation/BottomNav'
 import TopNav from './Navigation/TopNav'
@@ -16,7 +16,7 @@ const PageLayout = ({ children, title, middleware }) => {
 			<div className="flex flex-col h-screen">
 				<TopNav title={title} openSideNav={() => setMobileNavigationOpen(true)} />
 
-				<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50">
+				<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50 sm:dark:dark-bg sm:dark:bg-transparent">
 					<div className="hidden sm:block w-full h-header bg-white" />
 					<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
 						<div>{children}</div>

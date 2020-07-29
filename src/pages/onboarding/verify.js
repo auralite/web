@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Client from '@/utils/Client'
 import Logo from '@/components/Global/Logo'
 import useAlert from '@/hooks/alert'
-import { useBaseLayout } from '@/components/App/BaseLayout'
+import { useBaseLayout } from '@/components/Global/BaseLayout'
 import withAuth from '@/middleware/auth'
 
 const VerifyEmail = () => {

@@ -1,5 +1,4 @@
 import { usePageLayout } from '../../../components/App/PageLayout'
-import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import Client from '../../../utils/Client'
 import useMeta from '../../../hooks/meta'
@@ -7,8 +6,9 @@ import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
 import { useEffect, useRef, useLayoutEffect } from 'react'
 import useAlert from '@/hooks/alert'
+import { authCheck } from '@/middleware/auth'
 
-const PostPage = ({ postId, authCheck, post, handle }) => {
+const PostPage = ({ postId, post, handle }) => {
 	const router = useRouter()
 	const postRef = useRef(null)
 	const { createAlert } = useAlert()
@@ -48,12 +48,12 @@ const PostPage = ({ postId, authCheck, post, handle }) => {
 			{setMeta}
 			<div className="max-w-md sm:max-w-3xl rounded-b-lg relative z-0 mt-4">
 				<div>
-					<div className="bg-white sm:rounded-lg sm:shadow sm:mb-4">
+					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow sm:mb-4">
 						<Post ref={postRef} post={post} shouldLink={false} featured={true} onDelete={() => router.back()} withBorder={false} />
 					</div>
 					<div className="min-h-screen">
 						{authCheck && <Compose replyTo={post} onPost={newPost} />}
-						<div className="bg-white sm:rounded-lg sm:shadow mb-4">{post ? post.replies.map((reply, key) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} withBorder={key + 1 !== post.replies.length} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}</div>
+						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{post ? post.replies.map((reply, key) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} withBorder={key + 1 !== post.replies.length} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}</div>
 					</div>
 				</div>
 			</div>
