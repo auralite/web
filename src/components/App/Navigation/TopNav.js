@@ -11,6 +11,7 @@ import useUser from '@/hooks/user'
 import { SunSolid, MoonSolid } from '../Icon'
 import useTheme from '@/hooks/theme'
 import dynamic from 'next/dynamic'
+import Swipe from 'react-easy-swipe'
 
 const TopNav = ({ title, openSideNav }) => {
 	const router = useRouter()
@@ -111,6 +112,7 @@ const NavItem = ({ href, label }) => {
 const ThemeToggle = dynamic(
 	Promise.resolve(() => {
 		const { isDark, toggleTheme } = useTheme()
+		const [swipeDirection, setSwipeDirection] = useState(null)
 
 		function handleKeyDown(e) {
 			if ([' ', 'Enter'].includes(e.key)) {
@@ -119,17 +121,32 @@ const ThemeToggle = dynamic(
 			}
 		}
 
+		const registerDirection = (position) => {
+			if (Math.abs(position.x) < 20) return
+
+			setSwipeDirection(position.x > 0 ? 'right' : 'left')
+		}
+
+		const performSwipe = () => {
+			if (swipeDirection === 'right' && !isDark) toggleTheme()
+			if (swipeDirection === 'left' && isDark) toggleTheme()
+
+			setSwipeDirection(null)
+		}
+
 		return (
-			<span role="checkbox" tabIndex={0} aria-checked={isDark} onClick={() => toggleTheme()} onKeyDown={(e) => handleKeyDown(e)} className={`${isDark ? 'bg-indigo-600' : 'bg-gray-200'} select-none relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline`}>
-				<span aria-hidden="true" className={`${isDark ? 'translate-x-5' : 'translate-x-0'} relative inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200`}>
-					<span className={`${isDark ? 'opacity-0 ease-out duration-100' : 'opacity-100 ease-in duration-200'} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
-						<SunSolid className="h-3 w-3 text-gray-400" />
-					</span>
-					<span className={`${isDark ? 'opacity-100 ease-in duration-200' : 'opacity-0 ease-out duration-100'} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
-						<MoonSolid className="h-3 w-3 text-indigo-600" />
+			<Swipe tag="span" onSwipeMove={registerDirection} onSwipeEnd={performSwipe}>
+				<span role="checkbox" tabIndex={0} aria-checked={isDark} onClick={() => toggleTheme()} onKeyDown={(e) => handleKeyDown(e)} className={`${isDark ? 'bg-indigo-600' : 'bg-gray-200'} select-none relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline`}>
+					<span aria-hidden="true" className={`${isDark ? 'translate-x-5' : 'translate-x-0'} relative inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200`}>
+						<span className={`${isDark ? 'opacity-0 ease-out duration-100' : 'opacity-100 ease-in duration-200'} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
+							<SunSolid className="h-3 w-3 text-gray-400" />
+						</span>
+						<span className={`${isDark ? 'opacity-100 ease-in duration-200' : 'opacity-0 ease-out duration-100'} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
+							<MoonSolid className="h-3 w-3 text-indigo-600" />
+						</span>
 					</span>
 				</span>
-			</span>
+			</Swipe>
 		)
 	}),
 	{ ssr: false }
