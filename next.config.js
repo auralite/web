@@ -9,6 +9,9 @@ process.env.SENTRY_DSN = SENTRY_DSN
 
 module.exports = withPWA(
 	withSourceMaps({
+		env: {
+			commitHash: process.env.VERCEL_GITHUB_COMMIT_SHA,
+		},
 		pageExtensions: ['js', 'jsx', 'mdx'],
 		experimental: {
 			modern: true,

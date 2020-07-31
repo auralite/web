@@ -23,8 +23,8 @@ const SideNav = ({ isOpen, onClose }) => {
 				<div className="my-safe-t sm:my-0 relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-gray-900 pointer-events-auto rounded-r-2xl sm:rounded-none shadow-lg sm:shadow-none">
 					<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
 						<div className="flex-shrink-0 flex items-center px-4">
-							<Logo className="h-8 w-auto" />
-							<span className="ml-3 text-gray-800 dark:text-gray-300 font-semibold text-xl">Auralite</span>
+							<Avatar sizeClasses="h-8 w-8" src={user?.profile?.avatar} />
+							<span className="ml-3 text-gray-800 dark:text-gray-300 font-semibold text-xl">{user?.profile?.name ?? <Skeleton width={120} />}</span>
 						</div>
 						<nav className="mt-5 px-2 space-y-1">
 							<NavLink onClick={onClose} href="/home">
@@ -73,10 +73,17 @@ const SideNav = ({ isOpen, onClose }) => {
 						<div className="flex-shrink-0">
 							<div className="flex items-center">
 								<div>
-									<Avatar sizeClasses="h-10 w-10" src={user?.profile?.avatar} />
+									<Logo className="h-10 w-auto" />
 								</div>
 								<div className="ml-3">
-									<p className="text-base leading-6 font-medium text-gray-700 dark:text-gray-300">{user?.profile?.name ?? <Skeleton width={120} />}</p>
+									<p className="text-base leading-6 font-medium text-gray-700 dark:text-gray-300">
+										<span className="relative" style={{ zIndex: 4 }}>
+											Auralite
+										</span>{' '}
+										<span className="bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-indigo-300 font-bold rounded-lg px-2 -mx-2 relative" style={{ zIndex: 3 }}>
+											beta ({process.env.commitHash.substring(0, 6)})
+										</span>
+									</p>
 									<button type="button" onClick={logout} className="text-sm leading-5 font-medium text-gray-500 dark:text-gray-600 group-hover:text-gray-700 focus:outline-none focus:underline transition ease-in-out duration-150">
 										Log Out
 									</button>
