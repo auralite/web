@@ -131,6 +131,10 @@ class Client {
 		return this.client.delete('/api/connections/twitter')
 	}
 
+	markPostRead({ postId }) {
+		return this.client.post(`/api/posts/${postId}/view`)
+	}
+
 	async uploadFile({ file, progress = () => {} }) {
 		const response = await this.client.post('/api/asset-upload', { content_type: file.type })
 

@@ -52,7 +52,7 @@ const Home = () => {
 							?.flat(1)
 							?.filter((post) => showRead || !post.is_read)
 							?.map((post) => (
-								<Post key={post.id} post={post} onDelete={() => refresh()} />
+								<Post key={post.id} post={post} onDelete={() => refresh()} shouldTrack={!showRead} />
 							))}
 					</div>
 					{isLoading && (
@@ -62,7 +62,7 @@ const Home = () => {
 							))}
 						</div>
 					)}
-					{isEnd ? <div className="text-center pb-2">You've reached the end of Auralite. Now close the tab and do something else.</div> : <div ref={$timelineEnd} />}
+					{isEnd ? <div className="text-center pb-2 dark:text-gray-300">You've reached the end of Auralite. Now close the app and do something else.</div> : <div ref={$timelineEnd} />}
 				</div>
 				<div className="hidden sm:block max-w-sm w-full mt-4 relative rounded-md shadow-sm">
 					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

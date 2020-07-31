@@ -4,14 +4,15 @@ import Link from 'next/link'
 import Avatar from './Avatar'
 import useFormat from '@/hooks/format'
 import Client from '@/utils/Client'
-import { useState, Fragment, forwardRef, memo } from 'react'
+import { useState, Fragment, forwardRef, memo, useEffect } from 'react'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '../Global/Transition'
 import ImageGrid, { useImageGrid } from './ImageGrid'
 import useUser from '@/hooks/user'
 import { ChevronDownOutline, TrashOutline } from './Icon'
+import { useInView } from 'react-intersection-observer'
 
-const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent = true, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false }, ref) => {
+const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent = true, meta, featured = false, showOptions = true, onDelete = () => {}, withBorder = true, isSkeleton = false, shouldTrack = false }, ref) => {
 	const postContent = useFormat(post?.content)
 	const [optionsOpen, setOptionsOpen] = useState(false)
 	const { ref: optionsRef, excludeRef } = useClickOutside(() => {
@@ -20,6 +21,14 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 		setOptionsOpen(false)
 	})
 	const { user } = useUser(post && showOptions)
+
+	const [observerRef, inView] = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
+
+	useEffect(() => {
+		if (!shouldTrack || !inView || !post || post?.is_read) return
+
+		Client.markPostRead({ postId: post.id })
+	}, [inView])
 
 	const Wrapper = shouldLink ? Link : 'div'
 	const ChildWrapper = shouldLink ? 'div' : Fragment
@@ -41,7 +50,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 dark:border-gray-800 ${withBorder ? '' : 'sm:border-b-0'}`} ${post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
 
 	return (
-		<>
+		<div ref={isParent ? null : observerRef}>
 			{!isSkeleton && post?.parent && showParent && <Post post={post?.parent} isParent={true} withBorder={false} />}
 			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: false } : { className: parentClasses, ref })}>
 				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
@@ -99,7 +108,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 					</>
 				</ChildWrapper>
 			</Wrapper>
-		</>
+		</div>
 	)
 })
 
