@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { withGuest } from '../middleware/auth'
 import { login } from '@/utils/auth'
+import redirectTo from '@/utils/redirectTo'
 
 const Login = () => {
 	const router = useRouter()
@@ -26,7 +27,7 @@ const Login = () => {
 			.then((response) => {
 				login(response.data.access_token)
 
-				router.push('/home')
+				window.location = '/home'
 			})
 			.catch((error) => {
 				if (error.response.data.error !== 'invalid_grant') return alert('Something went wrong! Please try again or contact us if the problem persists.')
