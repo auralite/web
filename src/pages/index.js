@@ -7,6 +7,7 @@ import useMeta from '@/hooks/meta'
 import useTheme from '@/hooks/theme'
 import { SunSolid, MoonSolid } from '@/components/App/Icon'
 import dynamic from 'next/dynamic'
+import ClientOnly from '@/components/App/ClientOnly'
 
 const Landing = () => {
 	const setMeta = useMeta('Auralite: A new social network for the future', 'Meet Auralite, a new kind a social network that respects your privacy and your attention', 'img/card.jpg')
