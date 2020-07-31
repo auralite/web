@@ -5,11 +5,14 @@ import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useInView } from 'react-intersection-observer'
 import useUser from '@/hooks/user'
-import { SearchOutline } from '@/components/App/Icon'
+import { SearchOutline, SparklesOutline, SparklesSolid } from '@/components/App/Icon'
+import { Portal } from 'react-portal'
+import ClientOnly from '@/components/App/ClientOnly'
+import useStickyState from '@/hooks/sticky'
 
 const Home = () => {
 	const router = useRouter()
@@ -18,6 +21,8 @@ const Home = () => {
 	const setTitle = useTitle('Home', user?.profile?.timeline_feed && <link rel="alternate" type="application/rss+xml" title="Auralite Timeline" href={user.profile.timeline_feed} />)
 
 	const { data: posts, isLoading, loadMore, isEnd, refresh } = useTimeline()
+
+	const [showRead, setShowRead] = useStickyState(false, 'oldFeed')
 
 	const [$timelineEnd, onEnd] = useInView({ threshold: 1 })
 
@@ -32,10 +37,24 @@ const Home = () => {
 	return (
 		<>
 			{setTitle}
+			<ClientOnly>
+				<Portal node={typeof document != 'undefined' && document.getElementById('header-portal')}>
+					<button onClick={() => setShowRead((state) => !state)} className="focus:outline-none rounded-full p-1 focus:shadow-outline">
+						{showRead ? <SparklesOutline className="w-6 h-6 text-indigo-500" /> : <SparklesSolid className="w-6 h-6 text-indigo-500" />}
+					</button>
+				</Portal>
+			</ClientOnly>
 			<div className="sm:flex sm:items-start sm:justify-between sm:space-x-8">
 				<div className="flex-1 max-w-md sm:max-w-3xl relative z-0 mt-4">
 					<Compose onPost={removeFromTimeline} />
-					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{posts}</div>
+					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
+						{posts
+							?.flat(1)
+							?.filter((post) => showRead || !post.is_read)
+							?.map((post) => (
+								<Post key={post.id} post={post} onDelete={() => refresh()} />
+							))}
+					</div>
 					{isLoading && (
 						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 							{[...Array(10).keys()].map((key) => (
@@ -68,7 +87,7 @@ const useTimeline = () => {
 
 			if (!data) return
 
-			return { currentPage: data.current_page, lastPage: data.last_page, posts: data.data.map((post) => <Post key={post.id} post={post} onDelete={() => mutate()} />) }
+			return { currentPage: data.current_page, lastPage: data.last_page, posts: data.data }
 		}
 	)
 
