@@ -16,11 +16,9 @@ const PageLayout = ({ children, title, middleware }) => {
 			<div className="flex flex-col h-screen">
 				<TopNav title={title} openSideNav={() => setMobileNavigationOpen(true)} />
 
-				<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50 sm:dark:dark-bg sm:dark:bg-transparent">
+				<main className="pt-header sm:pt-0 pb-footer sm:bg-gray-50 sm:dark:dark-bg sm:dark:bg-transparent h-full">
 					<div className="hidden sm:block w-full h-header bg-white" />
-					<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">
-						<div>{children}</div>
-					</div>
+					<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 h-full">{children}</div>
 				</main>
 
 				{authCheck && <BottomNav />}
