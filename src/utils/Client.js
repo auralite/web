@@ -62,16 +62,16 @@ class Client {
 		return this.client.post('/api/profile/update', { bio, avatar })
 	}
 
-	timeline({ page }) {
-		return this.client.get(`/api/timeline?page=${page ?? 1}`)
+	timeline({ page = 1 }) {
+		return this.client.get(`/api/timeline?page=${page}`)
 	}
 
 	notifications() {
 		return this.client.get('/api/notifications')
 	}
 
-	search({ query }) {
-		return this.client.get(`/api/search?q=${query}`)
+	search({ query, page = 1 }) {
+		return this.client.get(`/api/search?q=${query}&page=${page}`)
 	}
 
 	post({ postId }) {

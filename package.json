@@ -9,8 +9,8 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.14",
-    "@next/mdx": "^9.5.0",
+    "@mdx-js/loader": "^1.6.16",
+    "@next/mdx": "^9.5.1",
     "@sentry/browser": "5.20.1",
     "@sentry/node": "^5.20.1",
     "@sentry/webpack-plugin": "^1.12.0",
@@ -39,7 +39,7 @@
     "react-string-replace": "^0.4.4",
     "react-transition-group": "^4.4.1",
     "sass": "^1.26.10",
-    "swr": "^0.2.3",
+    "swr": "^0.3.0",
     "tailwindcss": "^1.6.0"
   },
   "devDependencies": {
@@ -48,13 +48,10 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.4",
+    "eslint-plugin-react": "^7.20.5",
     "file-loader": "^6.0.0",
     "postcss-selector-parser": "^6.0.2",
     "prettier": "^2.0.5",
     "simple-functional-loader": "^1.2.1"
-  },
-  "resolutions": {
-    "webpack": "^5.0.0-beta.22"
   }
 }

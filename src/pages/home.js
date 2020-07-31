@@ -1,11 +1,11 @@
 import { usePageLayout } from '../components/App/PageLayout'
-import useSWR, { useSWRPages, mutate } from 'swr'
+import { useSWRInfinite } from 'swr'
 import Client from '../utils/Client'
 import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useInView } from 'react-intersection-observer'
 import useUser from '@/hooks/user'
@@ -17,7 +17,7 @@ const Home = () => {
 
 	const setTitle = useTitle('Home', user?.profile?.timeline_feed && <link rel="alternate" type="application/rss+xml" title="Auralite Timeline" href={user.profile.timeline_feed} />)
 
-	const { pages, isLoading, loadMore, isEnd } = useTimeline()
+	const { data: posts, isLoading, loadMore, isEnd, refresh } = useTimeline()
 
 	const [$timelineEnd, onEnd] = useInView({ threshold: 1 })
 
@@ -27,7 +27,7 @@ const Home = () => {
 		loadMore()
 	}, [onEnd])
 
-	const removeFromTimeline = () => mutate('/api/timeline?page=1')
+	const removeFromTimeline = () => refresh()
 
 	return (
 		<>
@@ -35,7 +35,7 @@ const Home = () => {
 			<div className="sm:flex sm:items-start sm:justify-between sm:space-x-8">
 				<div className="flex-1 max-w-md sm:max-w-3xl relative z-0 mt-4">
 					<Compose onPost={removeFromTimeline} />
-					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{pages}</div>
+					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{posts}</div>
 					{isLoading && (
 						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 							{[...Array(10).keys()].map((key) => (
@@ -57,22 +57,26 @@ const Home = () => {
 }
 
 const useTimeline = () => {
-	const removeFromTimeline = () => mutate('/api/timeline?page=1')
+	const { data, error, mutate, size, setSize } = useSWRInfinite(
+		(index, previousPageData) => {
+			if (previousPageData && previousPageData.currentPage === previousPageData.lastPage) return null
 
-	const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages(
-		'timeline',
-		({ offset, withSWR }) => {
-			const { data } = withSWR(useSWR(`/api/timeline?page=${offset ?? 1}`, () => Client.timeline({ page: offset }), { focusThrottleInterval: 10000 }))
-
-			if (!data) return null
-
-			return data.data.map((post) => <Post key={post.id} post={post} onDelete={removeFromTimeline} />)
+			return `/api/timeline?page=${(previousPageData?.currentPage ?? index) + 1}`
 		},
-		(SWR) => (SWR.data?.last_page === SWR.data?.current_page ? null : SWR.data.current_page + 1),
-		[]
+		async (key) => {
+			const data = await Client.timeline({ page: key.split('?page=', 2)[1] })
+
+			if (!data) return
+
+			return { currentPage: data.current_page, lastPage: data.last_page, posts: data.data.map((post) => <Post key={post.id} post={post} onDelete={() => mutate()} />) }
+		}
 	)
 
-	return { pages, isLoading: isLoadingMore, loadMore, isEnd: isReachingEnd }
+	const isLoading = (!data && !error) || (data && typeof data[size - 1] === 'undefined')
+	const isEnd = data?.[size - 1]?.currentPage === data?.[size - 1]?.lastPage
+	const loadMore = useCallback(async () => setSize((size) => size + 1), [])
+
+	return { data: data?.map((page) => page.posts), isLoading, loadMore, isEnd, refresh: mutate }
 }
 
 Home.getLayout = usePageLayout('Home')

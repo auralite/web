@@ -1,10 +1,10 @@
 import { usePageLayout } from '../components/App/PageLayout'
 import withAuth from '../middleware/auth'
 import { useRouter } from 'next/router'
-import useSWR, { useSWRPages } from 'swr'
+import { useSWRInfinite } from 'swr'
 import Client from '@/utils/Client'
 import Post from '@/components/App/Post'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { SearchOutline } from '@/components/App/Icon'
 
@@ -13,23 +13,7 @@ const Search = () => {
 
 	const [query, setQuery] = useState(router.query.q ?? '')
 
-	const { pages, isLoadingMore, loadMore, isReachingEnd, isEmpty } = useSWRPages(
-		'timeline',
-		({ offset, withSWR }) => {
-			const { data } = withSWR(
-				useSWR(
-					() => `/api/search?q=${query}&page=${offset ?? 1}`,
-					() => Client.search({ query })
-				)
-			)
-
-			if (!data) return null
-
-			return data.data.map((post) => <Post key={post.id} post={post} />)
-		},
-		(SWR) => (SWR.data?.last_page === SWR.data?.current_page ? null : SWR.data.current_page + 1),
-		[query]
-	)
+	const { data, isLoading, loadMore, isReachingEnd, isEmpty } = useSearchResults(query)
 
 	const [$timelineEnd, isEnd] = useInView({ threshold: 1, rootMargin: '200px' })
 
@@ -55,8 +39,8 @@ const Search = () => {
 						<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} className="form-input dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 block w-full pl-10 sm:text-sm sm:leading-5" placeholder="Search Auralite" autoFocus={true} />
 					</div>
 				</div>
-				<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4 sm:mt-4">{pages}</div>
-				{isLoadingMore && (
+				<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4 sm:mt-4">{data}</div>
+				{isLoading && (
 					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 						{[...Array(10).keys()].map((key) => (
 							<Post key={`loading-${key}`} isSkeleton={true} />
@@ -69,6 +53,29 @@ const Search = () => {
 			</div>
 		</>
 	)
+}
+
+const useSearchResults = (query) => {
+	const { data, error, mutate, size, setSize } = useSWRInfinite(
+		(index, previousPageData) => {
+			if (previousPageData && previousPageData.currentPage === previousPageData.lastPage) return null
+
+			return `/api/search?q=${query}&page=${(previousPageData?.currentPage ?? index) + 1}`
+		},
+		async (key) => {
+			const data = await Client.search({ query, page: key.split('?page=', 2)[1] })
+
+			if (!data) return
+
+			return { currentPage: data.current_page, lastPage: data.last_page, posts: data.data.map((post) => <Post key={post.id} post={post} onDelete={() => mutate()} />) }
+		}
+	)
+
+	const isLoading = (!data && !error) || (data && typeof data[size - 1] === 'undefined')
+	const isReachingEnd = data?.[size - 1]?.currentPage === data?.[size - 1]?.lastPage
+	const loadMore = useCallback(async () => setSize((size) => size + 1), [])
+
+	return { data: data?.map((page) => page.posts), isLoading, loadMore, isReachingEnd, refresh: mutate }
 }
 
 Search.getLayout = usePageLayout('Search')
