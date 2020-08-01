@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Logo from '../Global/Logo'
 import useMeta from '@/hooks/meta'
 import Head from '@/components/Global/Head'
-import { ThemeToggle } from '@/pages/index'
+import { ThemeBubble } from '../Global/ThemeManager'
 
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/heading-has-content */
@@ -143,7 +143,7 @@ const BlogLayout = ({ meta, children }) => {
 					<EarlyAccessForm />
 				</div>
 			</div>
-			<ThemeToggle />
+			<ThemeBubble />
 		</>
 	)
 }
