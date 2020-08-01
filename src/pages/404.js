@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import useMousePosition from '@/hooks/mouse'
+import React from 'react'
 import Link from 'next/link'
 import { ThemeBubble } from '@/components/Global/ThemeManager'
 import { ArrowLeftOutline } from '@/components/App/Icon'
