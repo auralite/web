@@ -24,7 +24,7 @@ const Home = () => {
 
 	const [showRead, setShowRead] = useStickyState(false, 'oldFeed')
 
-	const { data: posts, isLoading, loadMore, isEmpty, isEnd, refresh } = useTimeline(showRead)
+	const { data: posts, error, isLoading, loadMore, isEmpty, isEnd, refresh } = useTimeline(showRead)
 
 	const [$timelineEnd, onEnd] = useInView({ threshold: 1 })
 
@@ -50,11 +50,7 @@ const Home = () => {
 			<div className="sm:flex sm:items-start sm:justify-between sm:space-x-8">
 				<div className="flex-1 max-w-md sm:max-w-3xl relative z-0 mt-4">
 					<Compose onPost={removeFromTimeline} />
-					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
-						{posts?.flat(1)?.map((post) => (
-							<Post key={post.id} post={post} onDelete={() => refresh()} shouldTrack={!showRead} />
-						))}
-					</div>
+					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{!error && posts?.flat(1)?.map((post) => <Post key={post.id} post={post} onDelete={() => refresh()} shouldTrack={!showRead} />)}</div>
 					{!isEmpty && isLoading && (
 						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 							{[...Array(10).keys()].map((key) => (
@@ -120,7 +116,7 @@ const useTimeline = (showRead) => {
 	const isEnd = data?.[size - 1]?.currentPage === data?.[size - 1]?.lastPage
 	const loadMore = useCallback(async () => setSize((size) => size + 1), [])
 
-	return { data: data?.map((page) => page.posts), isEmpty, isLoading, loadMore, isEnd, refresh: mutate }
+	return { data: data?.map((page) => page.posts), error, isEmpty, isLoading, loadMore, isEnd, refresh: mutate }
 }
 
 Home.getLayout = usePageLayout('Home')
