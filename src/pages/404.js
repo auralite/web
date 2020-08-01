@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ThemeBubble } from '@/components/Global/ThemeManager'
 import { ArrowLeftOutline } from '@/components/App/Icon'
+import ClientOnly from '@/components/App/ClientOnly'
 
 const NotFoundPage = () => {
 	return (
@@ -18,7 +19,9 @@ const NotFoundPage = () => {
 					</Link>
 				</div>
 			</div>
-			<ThemeBubble />
+			<ClientOnly>
+				<ThemeBubble />
+			</ClientOnly>
 		</>
 	)
 }
