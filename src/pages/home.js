@@ -24,7 +24,7 @@ const Home = () => {
 
 	const [showRead, setShowRead] = useStickyState(false, 'oldFeed')
 
-	const { data: posts, error, isLoading, loadMore, isEmpty, isEnd, refresh } = useTimeline(showRead)
+	const { data: posts, error, isLoading, loadMore, isEnd, refresh } = useTimeline(showRead)
 
 	const [$timelineEnd, onEnd] = useInView({ threshold: 1 })
 
@@ -51,14 +51,14 @@ const Home = () => {
 				<div className="flex-1 max-w-md sm:max-w-3xl relative z-0 mt-4">
 					<Compose onPost={removeFromTimeline} />
 					<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{!error && posts?.flat(1)?.map((post) => <Post key={post.id} post={post} onDelete={() => refresh()} shouldTrack={!showRead} />)}</div>
-					{!isEmpty && isLoading && (
+					{isLoading && (
 						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">
 							{[...Array(10).keys()].map((key) => (
 								<Post key={`loading-${key}`} isSkeleton={true} />
 							))}
 						</div>
 					)}
-					{isEmpty || isEnd ? (
+					{isEnd ? (
 						<div className="text-center flex flex-col items-center justify-center pb-6 dark:text-gray-300">
 							<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" className="heroicon-award heroicon heroicons-lg">
 								<path className="text-indigo-400 fill-current" d="M30.42 61.96a6.07 6.07 0 0 0 1.54 1.95L26.18 85.5l9.8-5.66 5.65 9.8 5.65-21.07c.6.28 1.26.46 1.93.54l-6.9 25.7-7.06-12.24L23 89.64l7.42-27.68zM51.03 70l.27-.98c.5-.1.98-.26 1.43-.47h-.01l5.64 21.08 5.66-9.8 9.8 5.66-5.79-21.6a6.05 6.05 0 0 0 1.55-1.94L77 89.64l-12.25-7.07-7.07 12.25-6.65-24.8z" />
@@ -112,8 +112,8 @@ const useTimeline = (showRead) => {
 	)
 
 	const isEmpty = !data && !error
-	const isLoading = isEmpty || (data && typeof data[size - 1] === 'undefined')
-	const isEnd = data?.[size - 1]?.currentPage === data?.[size - 1]?.lastPage
+	const isLoading = isEmpty || (data && typeof data[data.length - 1] === 'undefined')
+	const isEnd = data?.[data.length - 1] && data[data.length - 1].currentPage === data[data.length - 1].lastPage
 	const loadMore = useCallback(async () => setSize((size) => size + 1), [])
 
 	return { data: data?.map((page) => page.posts), error, isEmpty, isLoading, loadMore, isEnd, refresh: mutate }
