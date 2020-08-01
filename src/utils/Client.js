@@ -62,8 +62,8 @@ class Client {
 		return this.client.post('/api/profile/update', { bio, avatar })
 	}
 
-	timeline({ page = 1 }) {
-		return this.client.get(`/api/timeline?page=${page}`)
+	timeline({ page = 1, includeRead = true }) {
+		return this.client.get(`/api/timeline${includeRead ? '' : '/unread'}?page=${page}`)
 	}
 
 	notifications() {

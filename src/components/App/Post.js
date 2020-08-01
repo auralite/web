@@ -25,7 +25,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 	const [observerRef, inView] = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
 
 	useEffect(() => {
-		if (!shouldTrack || !inView || !post || post?.is_read) return
+		if (!shouldTrack || !inView || !post) return
 
 		Client.markPostRead({ postId: post.id })
 	}, [inView])
