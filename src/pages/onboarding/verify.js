@@ -45,5 +45,6 @@ const VerifyEmail = () => {
 }
 
 VerifyEmail.middleware = withAuth()
+VerifyEmail.getLayout = useBaseLayout()
 
 export default VerifyEmail

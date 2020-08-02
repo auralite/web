@@ -5,7 +5,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { withGuest } from '../middleware/auth'
 import { login } from '@/utils/auth'
-import redirectTo from '@/utils/redirectTo'
 
 const Login = () => {
 	const router = useRouter()

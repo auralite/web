@@ -1,7 +1,7 @@
 const Video = ({ url }) => (
 	<div className="relative rounded-lg z-1 overflow-hidden">
 		<div className="relative p-0" style={{ paddingTop: '56.25%', margin: '-2px' }}>
-			<iframe className="absolute h-full inset-0 w-full" src={url} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+			<iframe className="absolute h-full inset-0 w-full" src={url} title="Video" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
 		</div>
 	</div>
 )

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import withAuth from '@/middleware/auth'
 import Client from '@/utils/Client'
 import Logo from '@/components/Global/Logo'
-import Avatar, { UploadableAvatar } from '@/components/App/Avatar'
+import { UploadableAvatar } from '@/components/App/Avatar'
 import { handleValidationErrors } from '@/utils/errors'
 
 const CreateProfile = () => {

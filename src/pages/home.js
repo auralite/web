@@ -5,7 +5,7 @@ import Compose from '../components/App/Compose'
 import Post from '../components/App/Post'
 import { useTitle } from '../hooks/meta'
 import withAuth from '../middleware/auth'
-import { useEffect, useCallback, useState, useMemo } from 'react'
+import { useEffect, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useInView } from 'react-intersection-observer'
 import useUser from '@/hooks/user'
@@ -96,7 +96,7 @@ const Home = () => {
 }
 
 const useTimeline = (showRead) => {
-	const { data, error, mutate, size, setSize } = useSWRInfinite(
+	const { data, error, mutate, setSize } = useSWRInfinite(
 		(index, previousPageData) => {
 			if (previousPageData && previousPageData.currentPage === previousPageData.lastPage) return null
 

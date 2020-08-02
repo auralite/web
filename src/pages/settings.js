@@ -1,6 +1,6 @@
 import withAuth from '@/middleware/auth'
 import { usePageLayout } from '@/components/App/PageLayout'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import LoadingButton from '@/components/App/LoadingButton'
 import Client from '@/utils/Client'
 import useAlert from '@/hooks/alert'

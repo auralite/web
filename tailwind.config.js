@@ -1,5 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('@tailwindcss/ui/colors')
 const plugin = require('tailwindcss/plugin')
 const selectorParser = require('postcss-selector-parser')
 

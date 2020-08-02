@@ -21,13 +21,9 @@ function CSSTransition({ show, enter = '', enterFrom = '', enterTo = '', leave =
 	const leaveFromClasses = leaveFrom.split(' ').filter((s) => s.length)
 	const leaveToClasses = leaveTo.split(' ').filter((s) => s.length)
 
-	function addClasses(node, classes) {
-		classes.length && node.classList.add(...classes)
-	}
+	const addClasses = (node, classes) => classes.length && node.classList.add(...classes)
 
-	function removeClasses(node, classes) {
-		classes.length && node.classList.remove(...classes)
-	}
+	const removeClasses = (node, classes) => classes.length && node.classList.remove(...classes)
 
 	return (
 		<ReactCSSTransition

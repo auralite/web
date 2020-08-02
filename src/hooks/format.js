@@ -50,6 +50,7 @@ const normalizeUrl = (urlString) => {
 	if (urlObj.pathname) {
 		try {
 			urlObj.pathname = decodeURI(urlObj.pathname)
+			// eslint-disable-next-line no-empty
 		} catch (_) {}
 	}
 

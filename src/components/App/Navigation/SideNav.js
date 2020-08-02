@@ -7,7 +7,7 @@ import Skeleton from '../Skeleton'
 import { logout } from '@/utils/auth'
 import useUser from '@/hooks/user'
 import { memo } from 'react'
-import { HomeOutline, SearchOutline, BellOutline, UserCircleOutline, CogOutline, HomeSolid, SearchSolid, BellSolid, UserCircleSolid, CogSolid, MoonSolid, SunSolid } from '../Icon'
+import { HomeOutline, SearchOutline, BellOutline, UserCircleOutline, CogOutline, HomeSolid, SearchSolid, BellSolid, UserCircleSolid, CogSolid } from '../Icon'
 import ClientOnly from '../ClientOnly'
 import { ThemeToggle } from '@/components/Global/ThemeManager'
 
@@ -18,7 +18,7 @@ const SideNav = ({ isOpen, onClose }) => {
 		<div className="fixed inset-0 flex z-40 pointer-events-none">
 			<Transition show={isOpen} enter="transition-opacity ease-linear duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity ease-linear duration-300" leaveFrom="opacity-100" leaveTo="opacity-0">
 				<div className="fixed inset-0 pointer-events-auto">
-					<div className="absolute inset-0 bg-gray-600 dark:bg-gray-500 opacity-75" onClick={onClose} />
+					<button className="absolute inset-0 bg-gray-600 dark:bg-gray-500 opacity-75 focus:outline-none" onClick={onClose} />
 				</div>
 			</Transition>
 			<Transition show={isOpen} enter="transition ease-in-out duration-300 transform" enterFrom="-translate-x-full" enterTo="translate-x-0" leave="transition ease-in-out duration-300 transform" leaveFrom="translate-x-0" leaveTo="-translate-x-full">
@@ -113,6 +113,7 @@ const NavLink = ({ children, href, as, onClick, ...props }) => {
 
 	return (
 		<Link href={href} as={as} {...props}>
+			{/* eslint-disable-next-line  */}
 			<a onClick={onClick} className={`${router.asPath === (as ?? href) ? 'text-gray-900 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 focus:bg-gray-200' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus:text-gray-900 focus:bg-gray-100'} group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md focus:outline-none transition ease-in-out duration-150`}>
 				{children(router.asPath === (as ?? href))}
 			</a>

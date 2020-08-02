@@ -71,14 +71,14 @@ export const ThemeBubble = () => {
 	const { isDark, toggleTheme } = useTheme()
 
 	return (
-		<div className="fixed bottom-0 right-0 px-8 py-8 -mb-4 -mr-4 rounded-full bg-indigo-300 dark:bg-indigo-800 cursor-pointer" onClick={toggleTheme}>
+		<button className="fixed bottom-0 right-0 px-8 py-8 -mb-4 -mr-4 rounded-full bg-indigo-300 dark:bg-indigo-800 cursor-pointer" onClick={toggleTheme}>
 			<span className={`${isDark ? 'opacity-0 ease-out duration-100' : 'opacity-100 ease-in duration-200'} pb-3 pr-2 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
 				<SunSolid className="h-6 w-6 text-indigo-800" />
 			</span>
 			<span className={`${isDark ? 'opacity-100 ease-in duration-200' : 'opacity-0 ease-out duration-100'} pb-3 pr-1 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}>
 				<MoonSolid className="h-6 w-6 text-indigo-300" />
 			</span>
-		</div>
+		</button>
 	)
 }
 

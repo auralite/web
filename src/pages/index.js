@@ -4,9 +4,6 @@ import ConfirmationModal from '../components/Marketing/ConfirmationModal'
 import { withGuest } from '../middleware/auth'
 import { useBaseLayout } from '@/components/Global/BaseLayout'
 import useMeta from '@/hooks/meta'
-import useTheme from '@/hooks/theme'
-import { SunSolid, MoonSolid } from '@/components/App/Icon'
-import dynamic from 'next/dynamic'
 import ClientOnly from '@/components/App/ClientOnly'
 import { ThemeBubble } from '@/components/Global/ThemeManager'
 
@@ -244,7 +241,7 @@ const Landing = () => {
 											<span role="img" aria-label="wave">
 												👋
 											</span>{' '}
-											Hi! I'm Miguel Piedrafita, an 18-year-old maker. You can learn more about me{' '}
+											Hi! I'm Miguel Piedrafita, an 18-year-old maker. You can learn more about me {/*eslint-disable-next-line react/jsx-no-target-blank */}
 											<a className="text-indigo-200 dark:text-indigo-800 font-bold underline" href="https://miguelpiedrafita.com" target="_blank" rel="noopener">
 												on my website
 											</a>{' '}

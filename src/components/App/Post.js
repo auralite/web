@@ -109,6 +109,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 												<ChevronDownOutline className="ml-2 w-4 h-4" />
 											</button>
 											<Transition show={optionsOpen} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
+												{/* eslint-disable-next-line */}
 												<div onClick={(event) => event.stopPropagation()} className="origin-top-right absolute right-0 mt-2 w-56 z-20 rounded-md shadow-lg">
 													<div ref={optionsRef} className="rounded-md bg-white shadow-xs">
 														<div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">

@@ -1,6 +1,5 @@
 import { default as NextHead } from 'next/head'
 import { useRouter } from 'next/router'
-import { authCheck } from '@/middleware/auth'
 
 const Head = ({ children }) => {
 	const router = useRouter()
