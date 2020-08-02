@@ -43,7 +43,7 @@ const MyApp = ({ Component, pageProps, router, ...serverProps }) => {
 			router.events.off('routeChangeComplete', progressEnd)
 			router.events.off('routeChangeError', progressEnd)
 		}
-	})
+	}, [])
 
 	if (pageProps?.isError) return <Error statusCode={pageProps.statusCode} />
 
