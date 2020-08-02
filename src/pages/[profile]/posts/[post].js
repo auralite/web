@@ -7,20 +7,30 @@ import Post from '../../../components/App/Post'
 import { useEffect, useRef, useLayoutEffect } from 'react'
 import useAlert from '@/hooks/alert'
 import { authCheck } from '@/middleware/auth'
+import useSWR from 'swr'
 
-const PostPage = ({ postId, post, handle }) => {
+const PostPage = ({ postId, post: initialData }) => {
 	const router = useRouter()
 	const postRef = useRef(null)
 	const { createAlert } = useAlert()
+	const { data: post, mutate } = useSWR(`/posts/${postId}`, () => Client.post({ postId }), { initialData })
 
 	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite`, post?.content, `/api/meta/post?postId=${postId}`)
 
-	const newPost = () => {
-		createAlert({ title: 'Reply Posted', body: 'Your reply has been posted. Changes might take a few seconds to propagate.' })
+	const newPost = (newPost) => {
+		mutate((post) => {
+			post.replies.push(newPost)
+
+			return post
+		})
 	}
 
-	const updateReplyList = () => {
-		createAlert({ title: 'Post Deleted', body: 'Your post has been deleted. Changes might take a few seconds to propagate.' })
+	const onReplyDelete = (deletedPost) => {
+		mutate((post) => {
+			post.replies.filter((reply) => reply.id !== deletedPost.id)
+
+			return post
+		})
 	}
 
 	const scrollToReply = () => {
@@ -53,7 +63,7 @@ const PostPage = ({ postId, post, handle }) => {
 					</div>
 					<div className="min-h-screen">
 						{authCheck && <Compose replyTo={post} onPost={newPost} />}
-						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{post ? post.replies.map((reply, key) => <Post key={reply.id} post={reply} showReply={false} onDelete={updateReplyList} withBorder={key + 1 !== post.replies.length} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}</div>
+						<div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow mb-4">{post ? post.replies.map((reply, key) => <Post key={reply.id} post={reply} showReply={false} onDelete={onReplyDelete} withBorder={key + 1 !== post.replies.length} />) : [...Array(3).keys()].map((key) => <Post key={key} />)}</div>
 					</div>
 				</div>
 			</div>

@@ -20,15 +20,21 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 
 		setOptionsOpen(false)
 	})
+
 	const { user } = useUser(post && showOptions)
 
-	const [observerRef, inView] = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
+	var inView = [null]
 
-	useEffect(() => {
-		if (!shouldTrack || !inView || !post) return
+	if (!isParent) {
+		// I'd love to destructure this, but I need it to be a single variable so that the scope is kept outside the conditional. Better code is welcome.
+		inView = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
 
-		Client.markPostRead({ postId: post.id })
-	}, [inView])
+		useEffect(() => {
+			if (!shouldTrack || !inView[1] || !post) return
+
+			Client.markPostRead({ postId: post.id })
+		}, [inView[1]])
+	}
 
 	const Wrapper = shouldLink ? Link : 'div'
 	const ChildWrapper = shouldLink ? 'div' : Fragment
@@ -50,10 +56,30 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 	const parentClasses = `px-4 ${isParent ? '' : `border-b border-gray-200 dark:border-gray-800 ${withBorder ? '' : 'sm:border-b-0'}`} ${post?.parent ? 'pt-1' : 'pt-5'} pb-5 w-full group`
 
 	return (
-		<div ref={isParent ? null : observerRef}>
+		<div ref={isParent ? null : inView[0]}>
 			{!isSkeleton && post?.parent && showParent && <Post post={post?.parent} isParent={true} withBorder={false} />}
-			<Wrapper {...(shouldLink ? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: false } : { className: parentClasses, ref })}>
-				<ChildWrapper {...(shouldLink ? { className: parentClasses + ' cursor-pointer', ref } : {})}>
+			<Wrapper
+				{...(shouldLink
+					? { href: '/[profile]/posts/[post]', as: `/${post?.author_handle}/posts/${post?.id}`, scroll: false }
+					: {
+							className: parentClasses,
+							ref: (element) => {
+								if (ref) ref.current = element
+								if (!isParent) inView[0].current = element
+							},
+					  })}
+			>
+				<ChildWrapper
+					{...(shouldLink
+						? {
+								className: parentClasses + ' cursor-pointer',
+								ref: (element) => {
+									if (ref) ref.current = element
+									if (!isParent) inView[0].current = element
+								},
+						  }
+						: {})}
+				>
 					<>
 						{meta && <div className="mb-2 mt-2">{meta}</div>}
 						<div className="flex items-stretch">
