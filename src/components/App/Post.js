@@ -27,7 +27,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 
 	if (shouldTrack && !isParent) {
 		// I'd love to destructure this, but I need it to be a single variable so that the scope is kept outside the conditional. Better code is welcome.
-		inView = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
+		inView = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-50px 0px' })
 
 		useEffect(() => {
 			if (!shouldTrack || !inView[1] || !post) return
