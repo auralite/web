@@ -5,14 +5,14 @@ import useMeta from '../../../hooks/meta'
 import Compose from '../../../components/App/Compose'
 import Post from '../../../components/App/Post'
 import { useEffect, useRef, useLayoutEffect } from 'react'
-import useAlert from '@/hooks/alert'
 import { authCheck } from '@/middleware/auth'
 import useSWR from 'swr'
+import { isSSR } from '@/components/App/ClientOnly'
 
 const PostPage = ({ postId, post: initialData }) => {
 	const router = useRouter()
 	const postRef = useRef(null)
-	const { createAlert } = useAlert()
+	const onServer = isSSR()
 	const { data: post, mutate } = useSWR(`/posts/${postId}`, () => Client.post({ postId }), { initialData })
 
 	const setMeta = useMeta(post && `${post.author.name} (@${post.author_handle}) on Auralite`, post?.content, `/api/meta/post?postId=${postId}`)
@@ -49,7 +49,9 @@ const PostPage = ({ postId, post: initialData }) => {
 		}
 	}, [])
 
-	useLayoutEffect(() => {
+	const call = onServer ? useEffect : useLayoutEffect
+
+	call(() => {
 		scrollToReply()
 	}, [postRef])
 

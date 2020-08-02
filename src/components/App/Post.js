@@ -25,7 +25,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 
 	var inView = [null]
 
-	if (!isParent) {
+	if (shouldTrack && !isParent) {
 		// I'd love to destructure this, but I need it to be a single variable so that the scope is kept outside the conditional. Better code is welcome.
 		inView = useInView({ threshold: 1, triggerOnce: true, rootMargin: '-100px 0px' })
 
@@ -65,7 +65,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 							className: parentClasses,
 							ref: (element) => {
 								if (ref) ref.current = element
-								if (!isParent) inView[0].current = element
+								if (shouldTrack && !isParent) inView[0].current = element
 							},
 					  })}
 			>
@@ -75,7 +75,7 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 								className: parentClasses + ' cursor-pointer',
 								ref: (element) => {
 									if (ref) ref.current = element
-									if (!isParent) inView[0].current = element
+									if (shouldTrack && !isParent) inView[0].current = element
 								},
 						  }
 						: {})}

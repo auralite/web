@@ -1,7 +1,7 @@
 const { useState, useEffect } = require('react')
 
 const ClientOnly = ({ children }) => {
-	if (!isSSR()) return null
+	if (isSSR()) return null
 
 	return children
 }
@@ -13,7 +13,7 @@ export const isSSR = () => {
 		setHasMounted(true)
 	}, [])
 
-	return hasMounted
+	return !hasMounted
 }
 
 export default ClientOnly
