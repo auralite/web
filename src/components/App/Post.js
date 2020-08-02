@@ -34,6 +34,8 @@ const Post = forwardRef(({ post, shouldLink = true, isParent = false, showParent
 
 			Client.markPostRead({ postId: post.id })
 		}, [inView[1]])
+
+		console.log({ inView: inView[1], ref: inView[0].current, post: post?.content })
 	}
 
 	const Wrapper = shouldLink ? Link : 'div'
