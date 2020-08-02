@@ -3,16 +3,12 @@ import Link from 'next/link'
 import { authCheck } from '@/middleware/auth'
 import Logo from '@/components/Global/Logo'
 import Avatar from '../Avatar'
-import { useState, memo, useRef } from 'react'
+import { useState, memo } from 'react'
 import { logout } from '@/utils/auth'
 import useClickOutside from '@/hooks/click-outside'
 import Transition from '@/components/Global/Transition'
 import useUser from '@/hooks/user'
-import { SunSolid, MoonSolid } from '../Icon'
 import useTheme from '@/hooks/theme'
-import dynamic from 'next/dynamic'
-import Swipe from 'react-easy-swipe'
-import { createPortal } from 'react-dom'
 
 const TopNav = ({ title, openSideNav }) => {
 	const router = useRouter()
@@ -42,12 +38,14 @@ const TopNav = ({ title, openSideNav }) => {
 							</Link>
 							{title && <p className="sm:hidden ml-2 text-gray-800 dark:text-gray-100 font-semibold text-xl">{title}</p>}
 						</div>
-						<div className="hidden sm:-my-px sm:ml-6 sm:flex space-x-8">
-							<NavItem href="/home" label="Home" />
-							<NavItem href="/search" label="Search" />
-							<NavItem href="/notifications" label="Notifications" />
-							<NavItem href="/settings" label="Settings" />
-						</div>
+						{authCheck && (
+							<div className="hidden sm:-my-px sm:ml-6 sm:flex space-x-8">
+								<NavItem href="/home" label="Home" />
+								<NavItem href="/search" label="Search" />
+								<NavItem href="/notifications" label="Notifications" />
+								<NavItem href="/settings" label="Settings" />
+							</div>
+						)}
 					</div>
 					{authCheck ? (
 						<div className="pb-4">
