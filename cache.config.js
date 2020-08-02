@@ -92,7 +92,7 @@ module.exports = [
 		},
 	},
 	{
-		urlPattern: /^https:\/\/images\.auralite\.io\/.*/i,
+		urlPattern: /^https:\/\/ik\.imagekit\.io\/.*/i,
 		handler: 'StaleWhileRevalidate',
 		method: 'GET',
 		options: {
