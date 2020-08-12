@@ -21,10 +21,13 @@
     "axios": "^0.19.2",
     "chrome-aws-lambda": "^5.2.0",
     "date-fns": "^2.15.0",
+    "fast-glob": "^3.2.4",
     "fathom-client": "^3.0.0",
+    "gray-matter": "^4.0.2",
     "js-cookie": "^2.2.1",
     "next": "9.5.1",
     "next-cookies": "^2.0.3",
+    "next-mdx-remote": "^0.6.0",
     "next-pwa": "^3.1.1",
     "nprogress": "^0.2.0",
     "pipeline-js": "^1.0.2",
@@ -52,7 +55,6 @@
     "eslint-plugin-react": "^7.20.5",
     "file-loader": "^6.0.0",
     "postcss-selector-parser": "^6.0.2",
-    "prettier": "^2.0.5",
-    "simple-functional-loader": "^1.2.1"
+    "prettier": "^2.0.5"
   }
 }

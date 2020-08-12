@@ -1,12 +1,16 @@
-import { useRouter } from 'next/router'
-import EarlyAccessForm from './EarlyAccessForm'
-import { MDXProvider } from '@mdx-js/react'
-import { YouTube } from './Video'
+import renderToString from 'next-mdx-remote/render-to-string'
+import hydrate from 'next-mdx-remote/hydrate'
+import fs from 'fs'
+import matter from 'gray-matter'
+import glob from 'fast-glob'
+import { YouTube } from '@/components/Marketing/Video'
+import { ThemeBubble } from '@/components/Global/ThemeManager'
+import EarlyAccessForm from '@/components/Marketing/EarlyAccessForm'
 import Link from 'next/link'
-import Logo from '../Global/Logo'
+import Logo from '@/components/Global/Logo'
+import Head from 'next/head'
 import useMeta from '@/hooks/meta'
-import Head from '@/components/Global/Head'
-import { ThemeBubble } from '../Global/ThemeManager'
+import ClientOnly from '@/components/App/ClientOnly'
 
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/heading-has-content */
@@ -22,8 +26,8 @@ const mdxComponents = {
 /* eslint-enable jsx-a11y/heading-has-content */
 /* eslint-enable jsx-a11y/anchor-has-content */
 
-const BlogLayout = ({ meta, children }) => {
-	const router = useRouter()
+const BlogPost = ({ mdxSource, frontMatter: meta, slug }) => {
+	const content = hydrate(mdxSource, mdxComponents)
 	const setMeta = useMeta(
 		meta.title,
 		meta.description,
@@ -51,7 +55,7 @@ const BlogLayout = ({ meta, children }) => {
 					url: 'https://auralite.io/',
 					mainEntityOfPage: {
 						'@type': 'WebPage',
-						'@id': `https://auralite.io${router.pathname}`,
+						'@id': `https://auralite.io/blog/${slug}`,
 					},
 					datePublished: meta.date,
 					image: ['https://auralite.io' + (meta.image ?? '/img/card.jpg')],
@@ -135,17 +139,63 @@ const BlogLayout = ({ meta, children }) => {
 							)}
 							<h2 className="block text-center text-gray-900 dark:text-gray-200 text-4xl sm:text-5xl font-display font-bold tracking-tighter leading-tight mb-10 z-10 relative">{meta.title}</h2>
 
-							<div className="z-10 relative prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-dark">
-								<MDXProvider components={mdxComponents}>{children}</MDXProvider>
-							</div>
+							<div className="z-10 relative prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-dark">{content}</div>
 						</div>
 					</div>
 					<EarlyAccessForm />
 				</div>
 			</div>
-			<ThemeBubble />
+			<ClientOnly>
+				<ThemeBubble />
+			</ClientOnly>
 		</>
 	)
 }
 
-export default BlogLayout
+const contentGlob = 'src/articles/*.mdx'
+
+export async function getStaticPaths() {
+	const files = glob.sync(contentGlob)
+
+	const paths = files.map((file) => {
+		const split = file.split('/')
+		const filename = split[split.length - 1]
+		const slug = filename.replace('.mdx', '')
+
+		return { params: { slug } }
+	})
+
+	return {
+		paths,
+		fallback: false,
+	}
+}
+
+export async function getStaticProps({ params: { slug } }) {
+	const files = glob.sync(contentGlob)
+
+	const fullPath = files.filter((item) => {
+		const split = item.split('/')
+		const filename = split[split.length - 1]
+		return filename.replace('.mdx', '') === slug
+	})[0]
+
+	const mdxSource = fs.readFileSync(fullPath)
+	const { content, data } = matter(mdxSource)
+
+	if (!fullPath) {
+		console.warn('No MDX file found for slug')
+	}
+
+	const mdx = await renderToString(content, mdxComponents, null, data)
+
+	return {
+		props: {
+			mdxSource: mdx,
+			frontMatter: data,
+			slug,
+		},
+	}
+}
+
+export default BlogPost
