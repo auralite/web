@@ -13,6 +13,8 @@ module.exports = withPWA(
 		},
 		experimental: {
 			modern: true,
+			optimizeFonts: true,
+			optimizeImages: true,
 		},
 		poweredByHeader: false,
 		pwa: {
