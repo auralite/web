@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.16",
-    "@next/mdx": "^9.5.1",
+    "@next/mdx": "^9.5.2",
     "@sentry/browser": "5.20.1",
     "@sentry/node": "^5.20.1",
     "@sentry/webpack-plugin": "^1.12.0",
