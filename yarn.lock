@@ -2079,16 +2079,7 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@mdx-js/loader@^1.6.16":
-  version "1.6.16"
-  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.16.tgz#5a9c3b0ab41885cd2df85bcf360644ca63e44e88"
-  integrity sha512-jYIAav17lXmEvweO6bzbsqY9mRTm49UeXXSZPAB81uCX8j91Pgi50Z0NnEN777yQEgGm2Z5PMtnJdxGFQIAjJQ==
-  dependencies:
-    "@mdx-js/mdx" "1.6.16"
-    "@mdx-js/react" "1.6.16"
-    loader-utils "2.0.0"
-
-"@mdx-js/mdx@1.6.16", "@mdx-js/mdx@^1.6.8":
+"@mdx-js/mdx@^1.6.8":
   version "1.6.16"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-1.6.16.tgz#f01af0140539c1ce043d246259d8becd2153b2bb"
   integrity sha512-jnYyJ0aCafCIehn3GjYcibIapaLBgs3YkoenNQBPcPFyyuUty7B3B07OE+pMllhJ6YkWeP/R5Ax19x0nqTzgJw==
@@ -2113,7 +2104,7 @@
     unist-builder "2.0.3"
     unist-util-visit "2.0.3"
 
-"@mdx-js/react@1.6.16", "@mdx-js/react@^1.6.8":
+"@mdx-js/react@^1.6.8":
   version "1.6.16"
   resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.6.16.tgz#538eb14473194d0b3c54020cb230e426174315cd"
   integrity sha512-+FhuSVOPo7+4fZaRwWuCSRUcZkJOkZu0rfAbBKvoCg1LWb1Td8Vzi0DTLORdSvgWNbU6+EL40HIgwTOs00x2Jw==
@@ -2122,11 +2113,6 @@
   version "1.6.16"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.16.tgz#07a7342f6b61ea1ecbfb31e6e23bf7a8c79b9b57"
   integrity sha512-SFtLGIGZummuyMDPRL5KdmpgI8U19Ble28UjEWihPjGxF1Lgj8aDjLWY8KiaUy9eqb9CKiVCqEIrK9jbnANfkw==
-
-"@next/mdx@^9.5.2":
-  version "9.5.2"
-  resolved "https://registry.yarnpkg.com/@next/mdx/-/mdx-9.5.2.tgz#71d28fa3a43270a681a75eabaef8486811e378d0"
-  integrity sha512-KJLi1cNrrX0q++e0VIWRDmwnMA2NdG5CKp09YZY1tDn+7wC6Xs4bEScoXIiFThfB4uXSrzrvHUEijDKCoMTabA==
 
 "@next/react-dev-overlay@9.5.2":
   version "9.5.2"
@@ -8190,7 +8176,7 @@ webpack-sources@2.0.0-beta.8:
     source-list-map "^2.0.1"
     source-map "~0.6.1"
 
-webpack@4.44.1, webpack@^5.0.0-beta.22:
+webpack@4.44.1, webpack@^5.0.0-beta.25:
   version "5.0.0-beta.25"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.25.tgz#97960e086efaed5f8693ea783cc3c56843693acb"
   integrity sha512-9K1ItxusJbkLEZtt+0oP2pOTrGEKpnZoOJYKDzpOVBla/rcpJsUP0ttnzhOC4ZWTQJ6HnwuwNamMxKRcQpVQPw==
