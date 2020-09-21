@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@sentry/browser": "5.20.1",
-    "@sentry/node": "^5.20.1",
+    "@sentry/node": "^5.24.2",
     "@sentry/webpack-plugin": "^1.12.0",
     "@stripe/stripe-js": "^1.8.0",
     "@tailwindcss/typography": "^0.2.0",
