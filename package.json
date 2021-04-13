@@ -18,7 +18,7 @@
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "axios": "^0.19.2",
     "chrome-aws-lambda": "^5.2.0",
-    "date-fns": "^2.15.0",
+    "date-fns": "^2.20.2",
     "fast-glob": "^3.2.4",
     "fathom-client": "^3.0.0",
     "gray-matter": "^4.0.2",
