@@ -6641,10 +6641,10 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-easy-swipe@^0.0.18:
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.18.tgz#3f52a05dbe3f8817bb8db94e743f6d966bbe89aa"
-  integrity sha512-IddCZANbT0qVbGFEihfWOkZb/rFpeA3VV87SNOOqPzmSZ93G0nDSyHD28zuGhYJilwEP33MqYv/dwo+zaZha3Q==
+react-easy-swipe@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.22.tgz#480c32855cc4fc0629ea2e76604f67f7b7aeb38d"
+  integrity sha512-7dJXnHVmfqyPb+Gzf4GTTuPoqDz2jLW7huRq6gcZKeg2QxamC3zWJOucMyWunPoPgqDScwIM2wwf4WvFA2bayw==
   dependencies:
     prop-types "^15.5.8"
 
