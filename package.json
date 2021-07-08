@@ -40,7 +40,7 @@
     "react-portal": "^4.2.1",
     "react-string-replace": "^0.4.4",
     "react-transition-group": "^4.4.1",
-    "sass": "^1.26.10",
+    "sass": "^1.35.2",
     "swr": "^0.3.0",
     "tailwindcss": "^1.6.2"
   },
