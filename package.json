@@ -23,7 +23,7 @@
     "fathom-client": "^3.0.0",
     "gray-matter": "^4.0.2",
     "js-cookie": "^2.2.1",
-    "next": "9.5.2",
+    "next": "11.1.0",
     "next-cookies": "^2.0.3",
     "next-mdx-remote": "^0.6.0",
     "next-pwa": "^3.1.1",
